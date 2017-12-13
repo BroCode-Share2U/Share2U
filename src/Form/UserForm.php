@@ -56,7 +56,8 @@ class UserForm extends AbstractType
                     new Assert\Length([
                         'max' => 280
                     ])
-                ]
+                ],
+                'required' => false
             ]
         )->add(
             'email',

@@ -32,7 +32,8 @@ class AddressForm extends AbstractType
                     new Assert\Length([
                         'max' => 32
                     ])
-                ]
+                ],
+                'required' => false
             ]
         )->add(
             'zipCode',
