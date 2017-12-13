@@ -71,13 +71,13 @@ class UserForm extends AbstractType
         )->add(
             'gender',
             ChoiceType::class, [
+                'choices' => [
+                    0 => 'male',
+                    1 => 'female',
+                    2 => 'other',
+                    3 => 'unspecified'
+                ],
                 'constraints' => [
-                    'choices' => [
-                        'male' => 0,
-                        'female' => 1,
-                        'other' => 2,
-                        'unspecified' => 3
-                    ],
                     'expanded' => true,
                     'constraints' => new Assert\Choice([0, 1, 2, 3])
                 ]
