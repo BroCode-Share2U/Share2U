@@ -1,3 +1,11 @@
 nbproject/project.properties
 nbproject/project.xml
 nbproject/private/private.properties
+
+vendor/
+
+var/
+
+config/config\.php
+
+\.idea/
