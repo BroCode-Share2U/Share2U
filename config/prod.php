@@ -14,7 +14,8 @@ $app['twig.options'] = array('cache' => __DIR__ . '/../var/cache/twig');
 include 'config.php'; // $dbOption
 $app->register(new DoctrineServiceProvider(), $dbOption);
 
-$app->register(new DoctrineOrmServiceProvider(), [
+$app->register(new DoctrineOrmServiceProvider(),
+    [
         'orm.proxies_dir' => sys_get_temp_dir(),
         'orm.em.options' => [
             'mappings' => [
