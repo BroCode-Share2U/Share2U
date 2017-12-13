@@ -38,7 +38,7 @@ class UserController
         $userForm->handleRequest($request);
 
         return $app['twig']->render('signup.html.twig',[
-            'form' => $userForm->createView()
+            'userForm' => $userForm->createView()
         ]);
     }
 
