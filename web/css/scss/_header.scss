@@ -12,8 +12,11 @@ nav{
   line-height: 5rem;
 
   #headerTitle{
-    font-size: 3rem;
+    font-size: 4rem;
     margin-left: 1rem;
+    color: var(--ColorTitle);
+    text-shadow: 0 0 10px black;
+    font-family: third-rail, Arial;
 
     vertical-align: middle;
   }
