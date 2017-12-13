@@ -2,8 +2,11 @@
 
 namespace Controller;
 
+use Form\UserForm;
+use Model\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+
 
 class UserController
 {
@@ -27,8 +30,16 @@ class UserController
 
     public function signupAction(Request $request, Application $app)
     {
+        $user = new User();
 
-        return $app['twig']->render('signup.html.twig',[]);
+        $formFactory = $app['form.factory'];
+        $userForm = $formFactory->create(UserForm::class, $user, ['standalone' => true]);
+
+        $userForm->handleRequest($request);
+
+        return $app['twig']->render('signup.html.twig',[
+            'form' => $userForm->createView()
+        ]);
     }
 
     public function resetAction(Request $request, Application $app)
