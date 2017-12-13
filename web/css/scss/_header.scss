@@ -1,0 +1,66 @@
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav{
+  padding: 1rem;
+  background-color: var(--ColorGreen);
+  position: relative;
+  height: 5rem;
+  line-height: 5rem;
+
+  #headerTitle{
+    font-size: 4rem;
+    margin-left: 1rem;
+    color: var(--ColorTitle);
+    text-shadow: 0 0 10px black;
+    font-family: third-rail, Arial;
+
+    vertical-align: middle;
+  }
+
+  #headerSearch{
+    margin-left: 1.5rem;
+
+    display: inline-block;
+    vertical-align: middle;
+    #headerSearchInput{
+    }
+
+    #headerSearchBtn{
+
+    }
+  }
+
+  #headerMenuList{
+    color: var(--ColorFont);
+    right: 2rem;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    list-style: none;
+    display: inline-block;
+
+    li:first-child{
+      a{
+        color: var(--ColorBlue);
+
+        border-bottom: none;
+      }
+    }
+    li{
+    display: inline-block;
+      a{
+        color: var(--ColorFont);
+        border-bottom: 1px solid var(--ColorFont);
+        margin: 0 0.3rem;
+        padding: 0 0.4rem;
+
+        text-decoration: none;
+      }
+    }
+  }
+}
