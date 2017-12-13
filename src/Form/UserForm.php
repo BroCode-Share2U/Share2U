@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -49,7 +51,7 @@ class UserForm extends AbstractType
             ]
         )->add(
             'description',
-            TextType::class, [
+            TextareaType::class, [
                 'constraints' => [
                     new Assert\Length([
                         'max' => 280
@@ -58,18 +60,26 @@ class UserForm extends AbstractType
             ]
         )->add(
             'email',
-            TextType::class, [
+            EmailType::class, [
                 'constraints' => [
-                    new Assert\Email()
+                    new Assert\Email(),
+                    new Assert\Length([
+                        'max' => 64
+                    ])
                 ]
             ]
         )->add(
             'gender',
             ChoiceType::class, [
                 'constraints' => [
-                    'choices' => ['male' => 1, 'female' =>2, 'other' => 3],
+                    'choices' => [
+                        'male' => 0,
+                        'female' => 1,
+                        'other' => 2,
+                        'unspecified' => 3
+                    ],
                     'expanded' => true,
-                    'constraints' => new Assert\Choice([1, 2, 3])
+                    'constraints' => new Assert\Choice([0, 1, 2, 3])
                 ]
             ]
         )->add(
@@ -85,7 +95,11 @@ class UserForm extends AbstractType
                     'label' => 'Repeat password'
                 ],
                 'constraints' => [
-                    new Assert\NotBlank()
+                    new Assert\NotBlank(),
+                    new Assert\Length([
+                        'min' => 3,
+                        'max' => 64
+                    ])
                 ]
             ]
         );

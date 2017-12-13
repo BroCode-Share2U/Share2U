@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Form\AddressForm;
 use Form\UserForm;
 use Model\User;
 use Silex\Application;
@@ -34,11 +35,14 @@ class UserController
 
         $formFactory = $app['form.factory'];
         $userForm = $formFactory->create(UserForm::class, $user, ['standalone' => true]);
+        $addressForm = $formFactory->create(AddressForm::class, $user->getAddress());
 
         $userForm->handleRequest($request);
+        $addressForm->handleRequest($request);
 
-        return $app['twig']->render('signup.html.twig',[
-            'userForm' => $userForm->createView()
+        return $app['twig']->render('signup.html.twig', [
+            'userForm' => $userForm->createView(),
+            'addressForm' => $addressForm->createView()
         ]);
     }
 
