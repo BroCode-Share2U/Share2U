@@ -21,19 +21,19 @@ class Comment
     private $text;
     
     /**
-     * @Column(name="address2", type="int", length=5, nullable=false)
+     * @Column(name="rating", type="smallint", length=1, nullable=false)
      */
     private $rating;
      
       /**
      * @Column(name="inserted_at", type="datetime", nullable=false)
      */
-    private $inserted_at;
+    private $insertedAt;
     
       /**
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
-    private $updated_at;
+    private $updatedAt;
     
    
     
@@ -49,15 +49,13 @@ class Comment
         return $this->rating;
     }
 
-    function getInserted_at() {
-        return $this->inserted_at;
+    function getInsertedAt() {
+        return $this->insertedAt;
     }
 
-    function getUpdated_at() {
-        return $this->updated_at;
+    function getUpdatedAt() {
+        return $this->updatedAt;
     }
-
-
 
     function setId($id) {
         $this->id = $id;
@@ -71,11 +69,11 @@ class Comment
         $this->rating = $rating;
     }
 
-    function setInserted_at($inserted_at) {
-        $this->inserted_at = $inserted_at;
+    function setInsertedAt($insertedAt) {
+        $this->insertedAt = $insertedAt;
     }
 
-    function setUpdated_at($updated_at) {
-        $this->updated_at = $updated_at;
+    function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
     }
 }   

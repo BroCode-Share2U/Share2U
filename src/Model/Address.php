@@ -27,9 +27,9 @@ class Address
     
     /**
      * 
-     * @Column(name="zip_code", type="int", length=11, nullable=false)
+     * @Column(name="zip_code", type="string", length=10, nullable=false)
      */
-    private $zip_code;
+    private $zipCode;
     
      /**
      * @Column(name="city", type="string", length=64, nullable=false)
@@ -42,19 +42,24 @@ class Address
     private $country;
     
       /**
-     * @Column(name="lat", type="int", length=11, nullable=false)
+     * @Column(name="lat", type="float", nullable=false)
      */
     private $lat;
+    
+     /**
+     * @Column(name="long", type="float", nullable=false)
+     */
+    private $long;
     
       /**
      * @Column(name="inserted_at", type="datetime", nullable=false)
      */
-    private $inserted_at;
+    private $insertedAt;
     
       /**
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
-    private $updated_at;
+    private $updatedAt;
     
     function getId() {
         return $this->id;
@@ -68,8 +73,8 @@ class Address
         return $this->address2;
     }
 
-    function getZip_code() {
-        return $this->zip_code;
+    function getZipCode() {
+        return $this->zipCode;
     }
 
     function getCity() {
@@ -83,13 +88,17 @@ class Address
     function getLat() {
         return $this->lat;
     }
-
-    function getInserted_at() {
-        return $this->inserted_at;
+    
+    function getLong() {
+        return $this->long;
     }
 
-    function getUpdated_at() {
-        return $this->updated_at;
+    function getInsertedAt() {
+        return $this->insertedAt;
+    }
+
+    function getUpdatedAt() {
+        return $this->updatedAt;
     }
 
     function setId($id) {
@@ -104,8 +113,8 @@ class Address
         $this->address2 = $address2;
     }
 
-    function setZip_code($zip_code) {
-        $this->zip_code = $zip_code;
+    function setZipCode($zipCode) {
+        $this->zipCode = $zipCode;
     }
 
     function setCity($city) {
@@ -119,13 +128,18 @@ class Address
     function setLat($lat) {
         $this->lat = $lat;
     }
-
-    function setInserted_at($inserted_at) {
-        $this->inserted_at = $inserted_at;
+    
+    function setLong($long) {
+        $this->long = $long;
+        return $this;
     }
 
-    function setUpdated_at($updated_at) {
-        $this->updated_at = $updated_at;
+    function setInsertedAt($insertedAt) {
+        $this->insertedAt = $insertedAt;
+    }
+
+    function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
     }
 
 

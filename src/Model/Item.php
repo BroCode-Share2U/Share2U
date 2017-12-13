@@ -23,18 +23,58 @@ class Item
     /**
      * @Column(name="igdb_id", type="int", length=11, nullable=false)
      */
-    private $igdb;
+    private $igdbId;
        
     /**
      * @Column(name="inserted_at", type="datetime", nullable=false)
      */
-    private $inserted_at;
+    private $insertedAt;
     
     /**
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
-    private $updated_at;
+    private $updatedAt;
     
-    
+    function getId() {
+        return $this->id;
+    }
+
+    function getName() {
+        return $this->name;
+    }
+
+    function getIgdbId() {
+        return $this->igdbId;
+    }
+
+    function getInsertedAt() {
+        return $this->insertedAt;
+    }
+
+    function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    function setName($name) {
+        $this->name = $name;
+        return $this;
+    }
+
+    function setIgdbId($igdbId) {
+        $this->igdbId = $igdbId;
+        return $this;
+    }
+
+    function setInsertedAt($insertedAt) {
+        $this->insertedAt = $insertedAt;
+        return $this;
+    }
+
+    function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+
     
 }

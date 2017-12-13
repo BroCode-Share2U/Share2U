@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 $app['twig.path'] = array(__DIR__ . '/../templates');
 $app['twig.options'] = array('cache' => __DIR__ . '/../var/cache/twig');
 
-include 'config.php'; // $dbOption
+include __DIR__.'/config.php'; // $dbOption
 $app->register(new DoctrineServiceProvider(), $dbOption);
 
 $app->register(new DoctrineOrmServiceProvider(),
