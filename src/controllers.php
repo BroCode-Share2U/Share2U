@@ -31,12 +31,12 @@ $app->match('/comment/{loanId}', 'Controller\CommentController::commentAction')
 /* *********************
 * User Controller
 ********************* */
-/* profile */
-$app->get('/profile/{username}', 'Controller\UserController::showAction')
-    ->bind('profile');
 /* profile edit */
 $app->match('/profile/edit', 'Controller\UserController::editAction')
     ->bind('profileEdit');
+/* profile */
+$app->get('/profile/{username}', 'Controller\UserController::showAction')
+    ->bind('profile');
 /* signin */
 $app->get('/signin', 'Controller\UserController::signinAction')
     ->bind('signin');
@@ -46,23 +46,23 @@ $app->match('/signup', 'Controller\UserController::signupAction')
 /* reset */
 $app->match('/reset', 'Controller\UserController::resetAction')
     ->bind('reset');
-/* delete */
-$app->delete('/admin/user/{userId}', 'Controller\UserController::deleteAction')
-    ->bind('deleteUser');
 /* admin panel */
 $app->get('/admin/user', 'Controller\UserController::adminPanelAction')
     ->bind('adminPanel');
+/* delete */
+$app->delete('/admin/user/{userId}', 'Controller\UserController::deleteAction')
+    ->bind('deleteUser');
 
 /* *********************
 * Item Controller
 ********************* */
+$app->match('/item/add', 'Controller\ItemController::addAction')
+    ->bind('addItem');
+/* edit item */
 /* item */
 $app->get('/item/{itemId}', 'Controller\ItemController::showAction')
     ->bind('item');
 /* add item */
-$app->match('/item/add', 'Controller\ItemController::addAction')
-    ->bind('addItem');
-/* edit item */
 $app->match('/item/edit/{itemId}', 'Controller\ItemController::editAction')
     ->bind('editItem');
 /* delete item */
@@ -75,9 +75,6 @@ $app->get('/search', 'Controller\ItemController::searchAction')
 /* *********************
 * Loan Controller
 ********************* */
-/* request loan */
-$app->match('/request/{itemId}', 'Controller\LoanController::requestAction')
-    ->bind('requestItem');
 /* accept loan */
 $app->patch('/loan/accept/{loanId}', 'Controller\LoanController::acceptAction')
     ->bind('acceptRequest');
@@ -87,6 +84,9 @@ $app->patch('/loan/reject/{loanId}', 'Controller\LoanController::rejectAction')
 /* close loan */
 $app->patch('/loan/close/{loanId}', 'Controller\LoanController::closeAction')
     ->bind('closeRequest');
+/* request loan */
+$app->match('/request/{itemId}', 'Controller\LoanController::requestAction')
+    ->bind('requestItem');
 
 /* *********************
 * Error route
