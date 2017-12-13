@@ -1,7 +1,32 @@
 {% extends "layout.html.twig" %}
 
-{% block title '' %}
+{% block title 'Sign up' %}
 
 {% block content %}
-    signup
+    {{ form_start(userForm) }}
+    <div>
+    {#{{ form_errors(form) }}#}
+
+    {{ form_row(userForm.firstname) }}
+    {{ form_row(userForm.lastname) }}
+    {{ form_row(userForm.username) }}
+    {{ form_row(userForm.email) }}
+    {{ form_row(userForm.gender) }}
+    {{ form_row(userForm.password) }}
+    </div>
+
+    <div>
+    {{ form_row(addressForm.address1) }}
+    {{ form_row(addressForm.address2) }}
+    {{ form_row(addressForm.city) }}
+    {{ form_row(addressForm.country) }}
+    {{ form_row(addressForm.zipCode) }}
+
+    {{ form_row(userForm.description) }}
+    </div>
+
+    {{ form_row(userForm.submit, { 'label': 'Submit me' }) }}
+
+    {{ form_end(userForm) }}
+
 {% endblock %}
