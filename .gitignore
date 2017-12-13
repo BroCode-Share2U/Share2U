@@ -8,4 +8,4 @@ var/
 
 config/config\.php
 \.idea/
-/nbproject/private/
+nbproject
