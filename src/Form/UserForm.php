@@ -78,8 +78,7 @@ class UserForm extends AbstractType
                     3 => 'unspecified'
                 ],
                 'constraints' => [
-                    'expanded' => true,
-                    'constraints' => new Assert\Choice([0, 1, 2, 3])
+                    new Assert\Choice([0, 1, 2, 3])
                 ]
             ]
         )->add(
