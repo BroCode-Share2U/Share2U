@@ -11,52 +11,6 @@
       width: 49%;
       display: flex;
       flex-wrap: wrap;
-      .inputBox{
-        margin: 0.1rem 0;
-        position: relative;
-        height: 3rem;
-        :focus{
-          border: 1px solid #309280;
-          box-shadow: 0 0 20px rgba(#309280,0.25);
-          outline: none;
-          color: black;
-        }
-
-        input{
-          margin: 0.5rem 0.2rem;
-          height: 2rem;
-          border: 1px solid grey;
-
-          border-radius: 50px;
-        }
-        label{
-          top: -0.1rem;
-          left: 0.8rem;
-          background-color: var(--ColorFont);
-          font-size: 0.9rem;
-          color: grey;
-
-          position: absolute;
-        }
-        .inputBox:focus label{
-          color: white;
-        }
-        input, select,textarea{
-          margin: 0.5rem 0.2rem;
-          padding: 0.5rem 1rem;
-          font-size: 1.2rem;
-          height: 1.2rem;
-          border: 1px solid grey;
-
-          border-radius: 50px;
-        }
-        textarea{
-          border-radius: 15px;
-          height: 5rem;
-
-          font-family: Roboto,sans-serif;
-        }
-      }
     }
     #submitArea{
       margin: 2rem 0;
@@ -117,19 +71,25 @@
       width: 31%;
       #user_form_gender{
         font-size: 1.05rem;
-        height: 2.4rem;
-        padding: 0.5rem;
+        padding: 0 0.5rem;
 
         width: 100%;
+        height: 2.3rem;
       }
     }
     .userFormPassword{
+      label{
+        display: none;
+      }
       width: 100%;
       div{
         width: 100%;
         position: relative;
         input{
           width: 100%;
+        }
+        label{
+        display: inline;
         }
       }
     }
