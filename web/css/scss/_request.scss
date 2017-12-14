@@ -3,10 +3,22 @@
   padding: 0;
   margin: 10rem auto;
   position: relative;
+  label{
+    display: none;
+  }
 
   #loan_form{
       margin: 0 auto;
     div{
+      width: 30rem;
+      margin: 0 auto;
+      position: relative;
+      label{
+        display: inline;
+      }
+      textarea{
+        width: 100%;
+      }
     }
   }
   .requestText{
