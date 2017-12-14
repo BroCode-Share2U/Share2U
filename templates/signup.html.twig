@@ -5,7 +5,7 @@
 {% block content %}
     <div id="signupForm">
         {{ form_start(userForm) }}
-        {{ form_errors(userForm) }}
+
         <div>
             {#{{ form_errors(form) }}#}
             <div class="inputBox userFormFirstname">
@@ -63,6 +63,10 @@
         <div id="submitArea">
             {{ form_row(userForm.submit, { 'label': 'Submit' }) }}
         </div>
+
+        {{ form_errors(userForm) }}
+
+        {{ form_errors(addressForm) }}
 
         {{ form_end(userForm) }}
     </div>

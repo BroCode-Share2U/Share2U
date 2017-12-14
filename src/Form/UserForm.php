@@ -73,8 +73,9 @@ class UserForm extends AbstractType
                     new Assert\Regex([
                         'pattern' => '/^[A-Za-z0-9_-].*$/'
                     ]),
-                    $usernameExistsCallback
-                ]
+                    $usernameExistsCallback,
+                ],
+                'error_bubbling' => true
             ]
         )->add(
             'description',
@@ -94,8 +95,9 @@ class UserForm extends AbstractType
                     new Assert\Length([
                         'max' => 64
                     ]),
-                    $emailCallback,
-                ]
+                    $emailCallback
+                ],
+                'error_bubbling' => true
             ]
         )->add(
             'gender',
