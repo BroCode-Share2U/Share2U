@@ -3,5 +3,9 @@
 {% block title '' %}
 
 {% block content %}
-    request
+    <h2>Send Request</h2>
+    <h3>you want send a request for : {{ item.name }}</h3>
+
+    {{ form(requestForm) }}
+
 {% endblock %}
