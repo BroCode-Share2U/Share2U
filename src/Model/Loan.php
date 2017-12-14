@@ -44,6 +44,18 @@ class Loan
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+
+    /**
+     * @ManyToOne(targetEntity="Item")
+     * @JoinColumn(name="item_id", referencedColumnName="id")
+     */
+    private $item;
+
+    /**
+     * @ManyToOne(targetEntity="User")
+     * @JoinColumn(name="borrower_id", referencedColumnName="id")
+     */
+    private $borrower;
     
     const STATUS_REQUESTED = 0;
     const STATUS_IN_PROGRESS = 1;
@@ -79,6 +91,24 @@ class Loan
         return $this->updatedAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getItem()
+    {
+        return $this->item;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBorrower()
+    {
+        return $this->borrower;
+    }
+
+
+
     function setStatus($status) {
         $this->status = $status;
         return $this;
@@ -109,5 +139,20 @@ class Loan
         return $this;
     }
 
+    /**
+     * @param mixed $item
+     */
+    public function setItem($item)
+    {
+        $this->item = $item;
+    }
+
+    /**
+     * @param mixed $borrower
+     */
+    public function setBorrower($borrower)
+    {
+        $this->borrower = $borrower;
+    }
 
 }

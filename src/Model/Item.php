@@ -34,7 +34,7 @@ class Item
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-    
+
     function getId() {
         return $this->id;
     }
