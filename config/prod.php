@@ -77,3 +77,5 @@ $app->register(new \Silex\Provider\TranslationServiceProvider(),
         'translator.domains ' => [],
     ]
 );
+
+$app->register(new Silex\Provider\SwiftmailerServiceProvider(), $swiftMaillerConfig);

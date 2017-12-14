@@ -4,7 +4,7 @@ namespace Model;
 
 /**
  * @Entity()
- * @Table(item="user")
+ * @Table(name="item")
  */
 class Item
 {    
@@ -21,7 +21,7 @@ class Item
     private $name;
     
     /**
-     * @Column(name="igdb_id", type="int", length=11, nullable=false)
+     * @Column(name="igdb_id", type="integer", length=11, nullable=false)
      */
     private $igdbId;
        
@@ -34,7 +34,13 @@ class Item
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-    
+
+    /**
+     * @ManyToOne(targetEntity="User")
+     * @JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    private $owner;
+
     function getId() {
         return $this->id;
     }
@@ -53,6 +59,11 @@ class Item
 
     function getUpdatedAt() {
         return $this->updatedAt;
+    }
+
+    public function getOwner()
+    {
+        return $this->owner;
     }
 
     function setName($name) {
@@ -75,6 +86,9 @@ class Item
         return $this;
     }
 
+    public function setOwner($owner): void
+    {
+        $this->owner = $owner;
+    }
 
-    
 }

@@ -9,3 +9,16 @@ $dbOption = [
         'password' => ''
     ]
 ];
+
+$swiftMaillerConfig =
+    [
+        'swiftmailer.options' =>
+            [
+                'host' => '',
+                'port' => 465,
+                'username' => '',
+                'password' => '',
+                'encryption' => 'ssl',
+                'auth_mode' => 'login'
+            ]
+    ];
