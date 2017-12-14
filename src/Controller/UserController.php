@@ -35,11 +35,10 @@ class UserController
     {
         $user = new User();
         $address = new Address();
-        $user->setAddress($address);
 
         $formFactory = $app['form.factory'];
         $userForm = $formFactory->create(UserForm::class, $user, ['standalone' => true]);
-        $addressForm = $formFactory->create(AddressForm::class, $user->getAddress());
+        $addressForm = $formFactory->create(AddressForm::class, $address);
 
         $userForm->handleRequest($request);
         $addressForm->handleRequest($request);
@@ -48,15 +47,17 @@ class UserController
             $entityManager = $app['orm.em'];
 
             $user->setRole(User::ROLE_USER);
+            $user->setAddress($address);
 
             // Encrypt password
 //            $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
 //            $password = $encoder->encodePassword($user->getPassword(), null);
 //            $user->setPassword($password);
-
-            var_dump($user); die;
-//            $entityManager->persist($user);
-//            $entityManager->flush();
+//
+//            var_dump($address); die;
+            $entityManager->persist($address);
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             return $app->redirect($app['url_generator']->generate('signin'));
         }

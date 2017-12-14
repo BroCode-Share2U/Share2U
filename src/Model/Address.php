@@ -42,22 +42,22 @@ class Address
     private $country;
     
       /**
-     * @Column(name="lat", type="float", nullable=false)
+     * @Column(name="latitude", type="float", nullable=true)
      */
-    private $lat;
+    private $latitude;
     
      /**
-     * @Column(name="long", type="float", nullable=false)
+     * @Column(name="longitude", type="float", nullable=true)
      */
-    private $long;
+    private $longitude;
     
       /**
-     * @Column(name="inserted_at", type="datetime", nullable=false)
+     * @Column(name="inserted_at", type="datetime", nullable=true)
      */
     private $insertedAt;
     
       /**
-     * @Column(name="updated_at", type="datetime", nullable=false)
+     * @Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
     
@@ -85,12 +85,12 @@ class Address
         return $this->country;
     }
 
-    function getLat() {
-        return $this->lat;
+    function getLatitude() {
+        return $this->latitude;
     }
     
-    function getLong() {
-        return $this->long;
+    function getLongitude() {
+        return $this->longitude;
     }
 
     function getInsertedAt() {
@@ -125,12 +125,12 @@ class Address
         $this->country = $country;
     }
 
-    function setLat($lat) {
-        $this->lat = $lat;
+    function setLatitude($latitude) {
+        $this->latitude = $latitude;
     }
     
-    function setLong($long) {
-        $this->long = $long;
+    function setLongitude($longitude) {
+        $this->longitude = $longitude;
         return $this;
     }
 
