@@ -1,12 +1,10 @@
 footer{
   background-color: var(--ColorGreen);
   height: 6rem;
-  line-height: 2rem;
+  line-height: 4rem;
   padding: 1rem;
 
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+  position: relative;
   #footerMain{
     height: 100%;
 
@@ -35,7 +33,7 @@ footer{
   }
   #footerMenuList{
     right: 2rem;
-    line-height: 4rem;
+    line-height: 6rem;
 
     list-style: none;
     padding: 0;
