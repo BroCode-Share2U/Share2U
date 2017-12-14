@@ -131,3 +131,18 @@ nav{
     vertical-align: middle;
   }
 }
+
+.h2Text{
+  font-size: 2rem;
+  text-align: center;
+  span{
+    color: var(--ColorBlue);
+  }
+}
+.h3Text{
+  font-size: 1.5rem;
+  text-align: center;
+  span{
+    color: var(--ColorBlue);
+  }
+}
