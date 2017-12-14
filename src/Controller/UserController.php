@@ -85,4 +85,8 @@ class UserController
 
         return $app['twig']->render('adminPanel.html.twig',[]);
     }
+
+    private function userExists($user) {
+
+    }
 }
