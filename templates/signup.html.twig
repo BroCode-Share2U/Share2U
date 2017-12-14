@@ -3,30 +3,68 @@
 {% block title 'Sign up' %}
 
 {% block content %}
-    {{ form_start(userForm) }}
-    <div>
-    {#{{ form_errors(form) }}#}
+    <div id="signupForm">
+        {{ form_start(userForm) }}
+        {{ form_errors(userForm) }}
+        <div>
+            {#{{ form_errors(form) }}#}
+            <div class="inputBox userFormFirstname">
+                {{ form_label(userForm.firstname) }}
+                {{ form_widget(userForm.firstname) }}
+            </div>
+            <div class="inputBox userFormLastname">
+                {{ form_label(userForm.lastname) }}
+                {{ form_widget(userForm.lastname) }}
+            </div>
+            <div class="inputBox userFormEmail">
+                {{ form_label(userForm.email) }}
+                {{ form_widget(userForm.email) }}
+            </div>
+            <div class="inputBox userFormUsername">
+                {{ form_label(userForm.username) }}
+                {{ form_widget(userForm.username) }}
+            </div>
+            <div class="inputBox userFormGender">
+                {{ form_label(userForm.gender) }}
+                {{ form_widget(userForm.gender) }}
+            </div>
+            <div class="inputBox userFormPassword">
+                {{ form_label(userForm.password) }}
+                {{ form_widget(userForm.password) }}
+            </div>
+        </div>
 
-    {{ form_row(userForm.firstname) }}
-    {{ form_row(userForm.lastname) }}
-    {{ form_row(userForm.username) }}
-    {{ form_row(userForm.email) }}
-    {{ form_row(userForm.gender) }}
-    {{ form_row(userForm.password) }}
+        <div>
+            <div class="inputBox userFormAddress1">
+                {{ form_label(addressForm.address1) }}
+                {{ form_widget(addressForm.address1) }}
+            </div>
+            <div class="inputBox userFormAddress2">
+                {{ form_label(addressForm.address2) }}
+                {{ form_widget(addressForm.address2) }}
+            </div>
+            <div class="inputBox userFormCity">
+                {{ form_label(addressForm.city) }}
+                {{ form_widget(addressForm.city) }}
+            </div>
+            <div class="inputBox userFormZipCode">
+                {{ form_label(addressForm.zipCode) }}
+                {{ form_widget(addressForm.zipCode) }}
+            </div>
+            <div class="inputBox userFormCountry">
+                {{ form_label(addressForm.country) }}
+                {{ form_widget(addressForm.country) }}
+            </div>
+            <div class="inputBox userFormDescription">
+                {{ form_label(userForm.description) }}
+                {{ form_widget(userForm.description) }}
+            </div>
+        </div>
+        <div id="submitArea">
+            {{ form_row(userForm.submit, { 'label': 'Submit' }) }}
+        </div>
+
+        {{ form_end(userForm) }}
     </div>
-
-    <div>
-    {{ form_row(addressForm.address1) }}
-    {{ form_row(addressForm.address2) }}
-    {{ form_row(addressForm.city) }}
-    {{ form_row(addressForm.country) }}
-    {{ form_row(addressForm.zipCode) }}
-
-    {{ form_row(userForm.description) }}
-    </div>
-
-    {{ form_row(userForm.submit, { 'label': 'Submit me' }) }}
-
-    {{ form_end(userForm) }}
 
 {% endblock %}
