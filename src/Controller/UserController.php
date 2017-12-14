@@ -5,6 +5,7 @@ namespace Controller;
 use Form\AddressForm;
 use Form\UserForm;
 use Model\Address;
+use Model\Repository\UserRepository;
 use Model\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,16 +36,19 @@ class UserController
     {
         $user = new User();
         $address = new Address();
+        $entityManager = $app['orm.em'];
 
         $formFactory = $app['form.factory'];
-        $userForm = $formFactory->create(UserForm::class, $user, ['standalone' => true]);
+        $userForm = $formFactory->create(UserForm::class, $user, [
+            'standalone' => true,
+            'user_repository' => $entityManager->getRepository(User::class)
+        ]);
         $addressForm = $formFactory->create(AddressForm::class, $address);
 
         $userForm->handleRequest($request);
         $addressForm->handleRequest($request);
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-            $entityManager = $app['orm.em'];
 
             $user->setRole(User::ROLE_USER);
             $user->setAddress($address);
@@ -53,7 +57,7 @@ class UserController
 //            $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
 //            $password = $encoder->encodePassword($user->getPassword(), null);
 //            $user->setPassword($password);
-//
+
 //            var_dump($address); die;
             $entityManager->persist($address);
             $entityManager->persist($user);
@@ -84,9 +88,5 @@ class UserController
     {
 
         return $app['twig']->render('adminPanel.html.twig',[]);
-    }
-
-    private function userExists($user) {
-
     }
 }
