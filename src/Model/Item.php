@@ -4,7 +4,7 @@ namespace Model;
 
 /**
  * @Entity()
- * @Table(item="user")
+ * @Table(name="item")
  */
 class Item
 {    
@@ -21,7 +21,7 @@ class Item
     private $name;
     
     /**
-     * @Column(name="igdb_id", type="int", length=11, nullable=false)
+     * @Column(name="igdb_id", type="integer", length=11, nullable=false)
      */
     private $igdbId;
        

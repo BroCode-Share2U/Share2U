@@ -3,5 +3,13 @@
 {% block title '' %}
 
 {% block content %}
-    request
+    <h2>Send Request</h2>
+    <h3>you want send a request for : {{ item.name }}</h3>
+    <form action="">
+        <label for="requestMessage">Your Message</label>
+        <textarea id="requestMessage" name="requestMessage" cols="30" rows="10" placeholder="Your message">
+
+        </textarea>
+        <button type="submit">Send Request</button>
+    </form>
 {% endblock %}
