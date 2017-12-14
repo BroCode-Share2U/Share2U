@@ -90,123 +90,124 @@ class User
     const ROLE_USER = 0;
     const ROLE_ADMIN = 1;
 
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getFirstname() {
+    public function getFirstname() {
         return $this->firstname;
     }
 
-    function getLastname() {
+    public function getLastname() {
         return $this->lastname;
     }
 
-    function getUsername() {
+    public function getUsername() {
         return $this->username;
     }
 
-    function getDescription() {
+    public function getDescription() {
         return $this->description;
     }
 
-    function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    function getGender() {
+    public function getGender() {
         return $this->gender;
     }
 
-    function getPassword() {
+    public function getPassword() {
         return $this->password;
     }
 
-    function getAvatarPath() {
+    public function getAvatarPath() {
         return $this->avatarPath;
     }
 
-    function getToken() {
+    public function getToken() {
         return $this->token;
     }
 
-    function getRole() {
+    public function getRole() {
         return $this->role;
     }
 
-    function getInsertedAt() {
+    public function getInsertedAt() {
         return $this->insertedAt;
     }
 
-    function getUpdatedAt() {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
-    function getAddress() {
+    public function getAddress() {
         return $this->address;
     }
 
-    function setFirstname($firstname) {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
         return $this;
     }
 
-    function setLastname($lastname) {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
         return $this;
     }
 
-    function setUsername($username) {
+    public function setUsername($username) {
         $this->username = $username;
         return $this;
     }
 
-    function setDescription($description) {
+    public function setDescription($description) {
         $this->description = $description;
         return $this;
     }
 
-    function setEmail($email) {
+    public function setEmail($email) {
         $this->email = $email;
         return $this;
     }
 
-    function setGender($gender) {
+    public function setGender($gender) {
         $this->gender = $gender;
         return $this;
     }
 
-    function setPassword($password) {
+    public function setPassword($password) {
         $this->password = $password;
         return $this;
     }
 
-    function setAvatarPath($avatarPath) {
+    public function setAvatarPath($avatarPath) {
         $this->avatarPath = $avatarPath;
         return $this;
     }
 
-    function setToken($token) {
+    public function setToken($token) {
         $this->token = $token;
         return $this;
     }
 
-    function setRole($role) {
+    public function setRole($role) {
         $this->role = $role;
         return $this;
     }
 
-    function setInsertedAt($insertedAt) {
+    public function setInsertedAt($insertedAt) {
         $this->insertedAt = $insertedAt;
         return $this;
     }
 
-    function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
-    function setAddress($address) {
+    public function setAddress($address) {
         $this->address = $address;
         return $this;
     }

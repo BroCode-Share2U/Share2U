@@ -35,6 +35,12 @@ class Item
      */
     private $updatedAt;
 
+    /**
+     * @ManyToOne(targetEntity="User")
+     * @JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    private $owner;
+
     function getId() {
         return $this->id;
     }
@@ -53,6 +59,11 @@ class Item
 
     function getUpdatedAt() {
         return $this->updatedAt;
+    }
+
+    public function getOwner()
+    {
+        return $this->owner;
     }
 
     function setName($name) {
@@ -75,6 +86,9 @@ class Item
         return $this;
     }
 
+    public function setOwner($owner): void
+    {
+        $this->owner = $owner;
+    }
 
-    
 }
