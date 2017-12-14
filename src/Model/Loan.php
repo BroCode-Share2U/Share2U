@@ -4,13 +4,13 @@ namespace Model;
 
 /**
  * @Entity()
- * @Table(Loan="user")
+ * @Table(name="loan")
  */
 class Loan
 {
     /**
      * @Id()
-     * @GeneratedValue()
+     * @GeneratedValue(strategy="UUID")
      * @Column(name="id", type="guid", nullable=false)
      */
     protected $id;

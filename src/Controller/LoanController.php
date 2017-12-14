@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Model\Loan;
 
-class LoanController
+class LoanController extends Controller
 {
     public function requestAction(Request $request, Application $app, $itemId)
     {
@@ -31,20 +31,24 @@ class LoanController
         // Find the item with the param in url
         // TODO check if the object exist
         $item = $entityManager->getRepository(Item::class)->find($itemId);
+        if ($item === null){
+            return $app->redirect($app['url_generator']->generate('dashboard'));
+        }
 
         // Set the item in the loan
         $loan->setItem($item);
+        // Set the status
+        $loan->setStatus(Loan::STATUS_REQUESTED);
         // Set the borrower
         // TODO get the user signin
         $loan->setBorrower($entityManager->getRepository(User::class)->find('663b739a-e0d2-11e7-b6f9-00163e763728'));
 
         // Persist the loan and send the eamil to the owner
         if ($loanForm->isSubmitted() && $loanForm->isValid()) {
-            //TODO persist the loan
-
+            $entityManager->persist($loan);
+            $entityManager->flush();
             // Send email request
             $this->sendRequestMessage($app, $loan);
-
             // Redidect to the dashboard
             return $app->redirect($app['url_generator']->generate('dashboard'));
         }
@@ -78,30 +82,17 @@ class LoanController
 
         $message = new \Swift_Message();
             $message->setSubject('[Share2U] Request loan')
-                    ->setFrom([$borrowerEmail])
-                    ->setTo([$ownerEmail])
-                    ->setBody($loan->getRequestMessage()); //TODO Create a beautifull message
-
+                ->setFrom([$borrowerEmail])
+                ->setTo([$ownerEmail])
+                ->setBody($app['twig']->render('mail/requestMail.html.twig',
+                    [
+                        'message' => $loan->getRequestMessage(),
+                        'borrower' => $loan->getBorrower()->getLastname(),
+                        'borrowerEmail' => $borrowerEmail
+                    ]),
+                    'text/html'
+                );
             $app['mailer']->send($message);
     }
-
-    /**
-     * @param Application $app
-     * @return EntityManager
-     */
-    public function getEntityManager(Application $app)
-    {
-        return $app['orm.em'];
-    }
-
-    /**
-     * @param Application $app
-     * @return FormFactory
-     */
-    public function getFormFactory(Application $app)
-    {
-        return $app['form.factory'];
-    }
-
 
 }
