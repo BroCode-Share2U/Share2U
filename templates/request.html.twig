@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    <div id="requestForm">
+        <div class="h3Text">
+            <h3>You want to send a request for :<br/><span>{{ item.name }}</span></h3>
+        </div>
+
+        {{ form_start(requestForm) }}
+        <div class="inputBox requestForm">
+            {{ form_label(requestForm) }}
+            {{ form_widget(requestForm) }}
+        </div>
+        {{ form_end(requestForm) }}
+    </div>
+
+{% endblock %}

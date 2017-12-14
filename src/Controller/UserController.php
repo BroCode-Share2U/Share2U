@@ -93,11 +93,7 @@ class UserController
     {
 
 
-        return $app['twig']->render('reset.html.twig',
-            [
-
-            ]
-        );
+        return $app['twig']->render('reset.html.twig',[]);
     }
 
     public function deleteAction(Request $request, Application $app, $userId)

@@ -38,7 +38,7 @@ nav{
     }
 
     #headerSearchBtn{
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.3rem;
       background: rgba(0,0,0,0.2);
       border: 1px solid var(--ColorGrey);
       box-shadow: 0 0 20px var(--ColorLightGrey);
@@ -129,5 +129,20 @@ nav{
     height: 2rem;
     border-radius: 50px;
     vertical-align: middle;
+  }
+}
+
+.h2Text{
+  font-size: 2rem;
+  text-align: center;
+  span{
+    color: var(--ColorBlue);
+  }
+}
+.h3Text{
+  font-size: 1.5rem;
+  text-align: center;
+  span{
+    color: var(--ColorBlue);
   }
 }

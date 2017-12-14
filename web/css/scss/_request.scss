@@ -1,18 +1,43 @@
 #requestForm{
   width: 30rem;
   padding: 0;
-  margin: 10rem auto;
+  margin: 7rem auto;
   position: relative;
+
+  label{
+    display: none;
+  }
 
   #loan_form{
       margin: 0 auto;
     div{
-    }
-  }
-  .requestText{
-    text-align: center;
-    span{
-      color: var(--ColorBlue);
+      width: 30rem;
+      margin: 0 auto;
+      position: relative;
+
+      button{
+        width: 4rem;
+        height: 4rem;
+        background: radial-gradient(var(--ColorFont),var(--ColorGrey));
+        color: var(--ColorFont);
+        text-shadow: 0 0 10px black;
+
+        box-shadow: 0 0 20px rgba(#309280,0.25);
+        border: 1px solid grey;
+        text-transform: uppercase;
+        font-weight: bold;
+
+        display: block;
+        margin: 0 auto;
+        border-radius: 50px;
+      }
+      label{
+        display: inline;
+      }
+      textarea{
+        width: 100%;
+        height: 8.5rem;
+      }
     }
   }
 }

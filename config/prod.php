@@ -36,7 +36,7 @@ $app->register(
             'firewall_admin' => [                       // Firewall name
                 'pattern' => '^/user',                 // Firewall scope
                 'form' => [
-                    'login_path' => '/signin',
+                    'signin_path' => '/signin',
                     'check_path' => '/user/signin_check',
                     'failure_path' => '/signin'
                 ],
