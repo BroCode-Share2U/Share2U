@@ -1,4 +1,6 @@
 body{
+  font-family: Roboto, sans-serif;
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,6 +12,10 @@ nav{
   position: relative;
   height: 5rem;
   line-height: 5rem;
+  h1{
+    display: inline-block;
+    margin: 0;
+  }
 
   #headerTitle{
     font-size: 4rem;
