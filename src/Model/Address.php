@@ -14,9 +14,9 @@ class Address
      * @Column(name="id", type="guid", nullable=false)
      */
     protected $id;
-    
+
     /**
-     * @Column(name="address1", type="string", length=255, nullable=false)
+     * @Column(name="address1", type="string", length=255, nullable=false)     *
      */
     private $address1;
     
