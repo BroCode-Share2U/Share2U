@@ -1,9 +1,11 @@
+*{
+  box-sizing: border-box;
+}
 body{
   font-family: Roboto, sans-serif;
 
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 nav{
@@ -11,7 +13,7 @@ nav{
   background-color: var(--ColorGreen);
   position: relative;
   height: 5rem;
-  line-height: 5rem;
+  line-height: 3rem;
   h1{
     display: inline-block;
     margin: 0;
@@ -68,5 +70,61 @@ nav{
         text-decoration: none;
       }
     }
+  }
+}
+
+
+.inputBox{
+  margin: 0.1rem 0;
+  padding: 0 0.3rem;
+  position: relative;
+  height: 3rem;
+  :focus{
+    border: 1px solid #309280;
+    box-shadow: 0 0 20px rgba(#309280,0.25);
+    outline: none;
+    color: black;
+  }
+
+  input{
+    margin: 0.5rem 0;
+    height: 2rem;
+    border: 1px solid grey;
+
+    border-radius: 50px;
+  }
+  label{
+    top: -0.1rem;
+    left: 0.8rem;
+    background-color: var(--ColorFont);
+    font-size: 0.9rem;
+    color: grey;
+
+    position: absolute;
+  }
+  .inputBox:focus label{
+    color: white;
+  }
+  input, select,textarea{
+    margin: 0.5rem 0;
+    padding: 1.1rem 1rem;
+    font-size: 1.2rem;
+    border: 1px solid grey;
+
+    border-radius: 50px;
+  }
+  textarea{
+    border-radius: 15px;
+    height: 5.6rem;
+    resize: none;
+
+
+    font-family: Roboto,sans-serif;
+  }
+  button{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50px;
+    vertical-align: middle;
   }
 }
