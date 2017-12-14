@@ -13,7 +13,7 @@ nav{
   background-color: var(--ColorGreen);
   position: relative;
   height: 5rem;
-  line-height: 5rem;
+  line-height: 3rem;
   h1{
     display: inline-block;
     margin: 0;
@@ -120,5 +120,11 @@ nav{
 
 
     font-family: Roboto,sans-serif;
+  }
+  button{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50px;
+    vertical-align: middle;
   }
 }

@@ -19,7 +19,7 @@
       div{
         margin: 0 auto;
         :focus{
-          border: 1px solid #309280;
+          border: 1px solid var(--ColorFocus);
           box-shadow: 0 0 20px rgba(#309280,0.5);
           outline: none;
         }
@@ -27,8 +27,8 @@
         button{
           width: 4rem;
           height: 4rem;
-          background: radial-gradient(white,grey);
-          color: white;
+          background: radial-gradient(var(--ColorFont),var(--ColorGrey));
+          color: var(--ColorFont);
           text-shadow: 0 0 10px black;
 
           box-shadow: 0 0 20px rgba(#309280,0.25);
@@ -127,6 +127,7 @@
       width: 100%;
       textarea{
         width: 100%;
+        padding: 0.6rem 1rem;
       }
     }
   }
