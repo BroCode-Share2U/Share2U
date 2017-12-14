@@ -10,6 +10,7 @@ use Model\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class UserController
@@ -28,8 +29,23 @@ class UserController
 
     public function signinAction(Request $request, Application $app)
     {
+        $user = null;
+        $token = $app['security.token_storage']->getToken();
 
-        return $app['twig']->render('signin.html.twig',[]);
+        if($token != null){
+            $user = $token->getUser();
+        }
+
+        $entityManager = $app['orm.em'];
+        $repository = $entityManager->getRepository(User::class);
+        return $app['twig']->render('signin.html.twig',
+            [
+            'users' => $repository->findAll(),
+            'authenticated' => $user,
+            'error' => $app['security.last_error']($request),
+            'last_username' => $app['session']->get('_security.last_username')
+            ]
+        );
     }
 
     public function signupAction(Request $request, Application $app)
@@ -75,6 +91,7 @@ class UserController
 
     public function resetAction(Request $request, Application $app)
     {
+
 
         return $app['twig']->render('reset.html.twig',[]);
     }

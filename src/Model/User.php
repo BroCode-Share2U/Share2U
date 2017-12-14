@@ -2,11 +2,13 @@
 
 namespace Model;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * @Entity(repositoryClass="Model\Repository\UserRepository")
  * @Table(name="user")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @Id()
@@ -81,6 +83,8 @@ class User
      * @JoinColumn(name="address_id", referencedColumnName="id")
      */
     private $address;
+
+    private $roles = [];
     
     const GENDER_MALE = 0;
     const GENDER_FEMALE = 1;
@@ -213,5 +217,64 @@ class User
     }
 
 
-    
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+        /*
+        $this->roles = [];
+        foreach ($roles as $role){
+            $this->addRole($role);
+        }
+        return $this;*/
+    }
+    /*
+    function addRole(Role $role)
+    {
+        if (in_array($role, $this->roles)){
+            return $this;
+        }
+        $this->roles[] = $role;
+        return $this;
+    } */
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+
 }

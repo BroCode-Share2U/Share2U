@@ -29,24 +29,25 @@ $app->register(new DoctrineOrmServiceProvider(),
     ]
 );
 
-/*$app->register(
+$app->register(
     new SecurityServiceProvider(),
     [
         'security.firewalls' => [
             'firewall_admin' => [                       // Firewall name
-                'pattern' => '^/admin',                 // Firewall scope
+                'pattern' => '^/user',                 // Firewall scope
                 'form' => [
-                    'login_path' => '/login',
-                    'check_path' => '/admin/login_check'
+                    'signin_path' => '/signin',
+                    'check_path' => '/user/signin_check',
+                    'failure_path' => '/signin'
                 ],
                 'users' => function() use ($app){
-                    $repository = $app['orm.em']->getRepository(Models\UsersModel::class);
+                    $repository = $app['orm.em']->getRepository(Model\User::class);
                     return new \Provider\DBUserProvider($repository);
                 },
                 'logout' => [
                     'logout_path' => '/logout',
                     'invalidate_session' => true,
-                    'target_url' => '/admin'
+                    'target_url' => '/user'
                 ]
             ]
         ],
@@ -56,11 +57,8 @@ $app->register(new DoctrineOrmServiceProvider(),
         'security.default_encoder' => function () {
             return new PlaintextPasswordEncoder();
         },
-        'security.access_rules' => [
-            ['^/admin', 'ROLE_USER']
-        ]
     ]
-);*/
+);
 
 $app->register(new \Silex\Provider\SessionServiceProvider());
 

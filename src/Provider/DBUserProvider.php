@@ -1,6 +1,7 @@
 <?php
 
 namespace Provider;
+
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -93,8 +94,4 @@ class DBUserProvider implements UserProviderInterface
     {
         return $class === User::class;
     }
-
-
-
-
 }
