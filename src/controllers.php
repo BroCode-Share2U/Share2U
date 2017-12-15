@@ -75,18 +75,22 @@ $app->get('/search', 'Controller\ItemController::searchAction')
 /* *********************
 * Loan Controller
 ********************* */
-/* accept loan */
+/* request loan - borrower action, creates loan object */
+$app->match('/loan/request/{itemId}', 'Controller\LoanController::requestAction')
+    ->bind('requestItem');
+/* accept loan - owner action */
 $app->patch('/loan/accept/{loanId}', 'Controller\LoanController::acceptAction')
     ->bind('acceptRequest');
-/* reject loan */
+/* reject loan  - owner action */
 $app->patch('/loan/reject/{loanId}', 'Controller\LoanController::rejectAction')
     ->bind('rejectRequest');
-/* close loan */
+/* close loan  - owner action */
 $app->patch('/loan/close/{loanId}', 'Controller\LoanController::closeAction')
-    ->bind('closeRequest');
-/* request loan */
-$app->match('/request/{itemId}', 'Controller\LoanController::requestAction')
-    ->bind('requestItem');
+    ->bind('closeLoan');
+/* close loan  - borrower action, borrower cancels their request, should not possible after loan is accepted */
+$app->patch('/loan/cancel/{loanId}', 'Controller\LoanController::cancelAction')
+    ->bind('cancelRequest');
+
 
 /* *********************
 * Error route
