@@ -92,7 +92,31 @@
   }
 }
 
+//PICTURES
+.pictureBox{
+  width: 15rem;
+  height: 15rem;
+  border: 2px solid var(--ColorLightGrey);
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+  display: inline-block;
 
+  overflow: hidden;
+  border-radius: 100%;
+  position: relative;
+
+  img{
+    transform:scale(1.2);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    margin: auto auto;
+    border: 6px solid transparent;
+    border-radius: 100%;
+  }
+}
+
+
+//TEXT
 .h1Text{
   font-size: 5rem;
   font-family: third-rail;
