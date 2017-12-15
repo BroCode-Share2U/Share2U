@@ -33,7 +33,8 @@ $app->register(
     new SecurityServiceProvider(),
     [
         'security.firewalls' => [
-            'firewall_admin' => [                       // Firewall name
+            'firewall_admin' => [   // Firewall name
+                'anonymous' => true,
                 'pattern' => '^/user',                 // Firewall scope
                 'form' => [
                     'login_path' => '/signin',

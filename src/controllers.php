@@ -39,8 +39,10 @@ $app->get('/profile/{username}', 'Controller\UserController::showAction')
     ->bind('profile');
 /* signin */
 $app->get('/signin', 'Controller\UserController::signinAction')
+
     ->bind('signin');
 /* signup */
+
 $app->match('/signup', 'Controller\UserController::signupAction')
     ->bind('signup');
 /* reset */

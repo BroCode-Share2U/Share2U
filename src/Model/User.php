@@ -65,7 +65,7 @@ class User implements UserInterface
     /**
      * @Column(name="role", type="smallint", length=1, nullable=false)
      */
-    private $role;    
+    private $roles =  ['ROLE_USER'];
     
     /**
      * @Column(name="inserted_at", type="datetime", nullable=false)
@@ -84,7 +84,8 @@ class User implements UserInterface
      */
     private $address;
 
-    private $roles = [];
+
+
     
     const GENDER_MALE = 0;
     const GENDER_FEMALE = 1;
@@ -135,10 +136,10 @@ class User implements UserInterface
         return $this->token;
     }
 
-    public function getRole() {
+  /*  public function getRole() {
         return $this->role;
     }
-
+*/
     public function getInsertedAt() {
         return $this->insertedAt;
     }
@@ -195,12 +196,12 @@ class User implements UserInterface
         $this->token = $token;
         return $this;
     }
-
+/*
     public function setRole($role) {
         $this->role = $role;
         return $this;
     }
-
+*/
     public function setInsertedAt($insertedAt) {
         $this->insertedAt = $insertedAt;
         return $this;
@@ -215,7 +216,6 @@ class User implements UserInterface
         $this->address = $address;
         return $this;
     }
-
 
     /**
      * Returns the roles granted to the user.
@@ -235,15 +235,22 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
-        /*
-        $this->roles = [];
+     /*   $roles = [];
+        foreach ($this->roles as $role){
+            $roles[] = $role->getrole();
+        }*/
+        return ! $this->roles ? [] : explode(',', $this->roles);
+    }
+
+    public function setRoles($roles)
+    {
+   /*     $this->roles = [];
         foreach ($roles as $role){
             $this->addRole($role);
-        }
-        return $this;*/
+        }*/
+        return $this;
     }
-    /*
+
     function addRole(Role $role)
     {
         if (in_array($role, $this->roles)){
@@ -251,7 +258,7 @@ class User implements UserInterface
         }
         $this->roles[] = $role;
         return $this;
-    } */
+    }
 
     /**
      * Returns the salt that was originally used to encode the password.
@@ -273,7 +280,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        return;
     }
 
 

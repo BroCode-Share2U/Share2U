@@ -1,7 +1,10 @@
 {% extends "layout.html.twig" %}
 
-{% block title '' %}
-
 {% block content %}
-    homepage
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+         {{ user.getUsername() }}
+        <a href="{{ path('reset') }}">Logout</a>
+    {% else %}
+        <a href="{{ path('signin') }}">Login</a>
+    {% endif %}
 {% endblock %}

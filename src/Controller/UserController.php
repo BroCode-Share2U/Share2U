@@ -26,26 +26,33 @@ class UserController
 
         return $app['twig']->render('profileEdit.html.twig',[]);
     }
-
-    public function signinAction(Request $request, Application $app)
-    {
+    public function homepageAction( Request $request, Application $app){
         $user = null;
         $token = $app['security.token_storage']->getToken();
+        if($token === null){
 
-        if($token != null){
-            $user = $token->getUser();
         }
-
+        var_dump($token);
         $entityManager = $app['orm.em'];
         $repository = $entityManager->getRepository(User::class);
-        return $app['twig']->render('signin.html.twig',
+        return $app['twig']->render(
+            'homepage.html.twig',
             [
-            'users' => $repository->findAll(),
-            'authenticated' => $user,
-            'error' => $app['security.last_error']($request),
-            'last_username' => $app['session']->get('_security.last_username')
+                'users' => $repository->findAll(),
+                'authenticated' => $user,
+                'user' => $token->getUser()
+/*                'last_username' => $app['session']->get('_security.last_username')*/
             ]
         );
+    }
+    public function signinAction(Request $request, Application $app)
+    {
+         return $app['twig']->render('signin.html.twig',
+            [
+            'error'  => $app['security.last_error']($request),
+             'last_username' => $app['session']->get('_security.last_username'),
+            ]
+         );
     }
 
     public function signupAction(Request $request, Application $app)
