@@ -12,9 +12,9 @@
 <!--HEADER-->
     <header>
         <nav>
-            <h1 id="headerTitle">Share2U</h1>
+            <a href="{{ path('homepage') }}"><h1 id="headerTitle">Share2U</h1></a>
             <div id="headerSearch">
-                <form action="" class="inputBox">
+                <form action="search" method="GET" class="inputBox">
                     <input id="headerSearchInput" type="text" placeholder="search here">
                     <button id="headerSearchBtn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
