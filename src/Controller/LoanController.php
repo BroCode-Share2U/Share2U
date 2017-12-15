@@ -2,14 +2,14 @@
 
 namespace Controller;
 
-use Form\LoanForm;
 use Model\Item;
 use Model\User;
-use Silex\Application;
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
 use Model\Loan;
+use Silex\Application;
+use Form\LoanForm;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LoanController extends Controller
 {
@@ -32,16 +32,23 @@ class LoanController extends Controller
         // TODO check if the object exist
         $item = $entityManager->getRepository(Item::class)->find($itemId);
         if ($item === null){
-            return $app->redirect($app['url_generator']->generate('dashboard'));
+            throw new NotFoundHttpException('item not found');
         }
-
         // Set the item in the loan
         $loan->setItem($item);
         // Set the status
         $loan->setStatus(Loan::STATUS_REQUESTED);
+
         // Set the borrower
-        // TODO get the user signin
-        $loan->setBorrower($entityManager->getRepository(User::class)->find('663b739a-e0d2-11e7-b6f9-00163e763728'));
+        // TODO get the user
+        $borrower = $entityManager->getRepository(User::class)->find('663b739a-e0d2-11e7-b6f9-00163e763728');
+        /*$token = $app['security.token_storage']->getToken();        // Get current authentication token
+        if ($token === null) {
+            throw new AccessDeniedHttpException('User not found');
+        }
+        $borrower = $token->getUser();*/                              // Get user from token
+
+        $loan->setBorrower($borrower);
 
         // Persist the loan and send the eamil to the owner
         if ($loanForm->isSubmitted() && $loanForm->isValid()) {
