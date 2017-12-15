@@ -55,7 +55,8 @@
     
     a{
       font-size: 0.8rem;
-      color: var(--ColorBlue);
+      color: var(--ColorFont);
+      text-shadow: 0 0 5px var(--ColorBlue);
 
       text-decoration: none;
       position: absolute;

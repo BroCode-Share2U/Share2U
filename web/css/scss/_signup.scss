@@ -1,7 +1,12 @@
 #signupForm{
-  margin: 7rem 0;
+  margin: 7rem auto;
+  background-color: transparent;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  width: 70rem;
+
   form{
-    width: 60rem;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
