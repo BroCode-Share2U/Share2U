@@ -98,7 +98,7 @@ class UserController
 
     public function resetAction(Request $request, Application $app)
     {
-
+        $request =
 
         return $app['twig']->render('reset.html.twig',
             [
