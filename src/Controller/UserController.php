@@ -18,13 +18,12 @@ class UserController
     public function showAction(Request $request, Application $app, $username)
     {
 
-        return $app['twig']->render('profile.html.twig',[]);
+        return $app['twig']->render('user.html.twig',[]);
     }
 
     public function editAction(Request $request, Application $app)
     {
-
-        return $app['twig']->render('profileEdit.html.twig',[]);
+        return $app['twig']->render('profile.html.twig',[]);
     }
 
     public function signinAction(Request $request, Application $app)

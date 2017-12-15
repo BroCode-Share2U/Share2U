@@ -32,11 +32,11 @@ $app->match('/comment/{loanId}', 'Controller\CommentController::commentAction')
 * User Controller
 ********************* */
 /* profile edit */
-$app->match('/profile/edit', 'Controller\UserController::editAction')
-    ->bind('profileEdit');
-/* profile */
-$app->get('/profile/{username}', 'Controller\UserController::showAction')
+$app->match('/profile', 'Controller\UserController::editAction')
     ->bind('profile');
+/* profile */
+$app->get('/user/{username}', 'Controller\UserController::showAction')
+    ->bind('user');
 /* signin */
 $app->get('/signin', 'Controller\UserController::signinAction')
     ->bind('signin');
