@@ -3,5 +3,21 @@
 {% block title '' %}
 
 {% block content %}
-    dashboard
+
+    {{ dump(user) }}
+    <br>
+    {{ dump(items) }}
+    <br>
+    {{ dump(requestsIn) }}
+    <br>
+    {{ dump(requestsOut) }}
+    <br>
+    {{ dump(loansIn) }}
+    <br>
+    {{ dump(loansOut) }}
+    <br>
+    {{ dump(closedLoansIn) }}
+    <br>
+    {{ dump(closedLoansOut) }}
+
 {% endblock %}

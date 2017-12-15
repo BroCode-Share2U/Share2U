@@ -94,6 +94,22 @@ class User implements UserInterface
     const ROLE_USER = 0;
     const ROLE_ADMIN = 1;
 
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'username' => $this->username,
+            'description' => $this->description,
+            'email' => $this->email,
+            'gender' => $this->gender,
+            'insertedAt' => $this->insertedAt,
+            'updatedAt' => $this->updatedAt,
+            'address' => $this->address->toArray()
+        ];
+    }
+
     public function getId() {
         return $this->id;
     }

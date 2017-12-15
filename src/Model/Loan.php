@@ -3,7 +3,7 @@
 namespace Model;
 
 /**
- * @Entity()
+ * @Entity(repositoryClass="Model\Repository\LoanRepository")
  * @Table(name="loan")
  */
 class Loan
@@ -62,6 +62,21 @@ class Loan
     const STATUS_DENIED = 2;
     const STATUS_CANCELLED = 3;
     const STATUS_CLOSED = 4;
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'status' => $this->status,
+            'requestMessage' => $this->requestMessage,
+            'requestedAt' => $this->requestedAt,
+            'confirmedAt' => $this->confirmedAt,
+            'closedAt' => $this->closedAt,
+            'updatedAt' => $this->updatedAt,
+            'item' => $this->item->toArray(),
+            'borrower' => $this->borrower->toArray()
+        ];
+    }
     
     function getId() {
         return $this->id;

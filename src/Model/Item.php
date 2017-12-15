@@ -41,6 +41,18 @@ class Item
      */
     private $owner;
 
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'owner' => $this->owner->toArray(),
+            'igdbId' => $this->igdbId,
+            'insertedAt' => $this->insertedAt,
+            'updatedAt' => $this->updatedAt,
+        ];
+    }
+
     function getId() {
         return $this->id;
     }
