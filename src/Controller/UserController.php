@@ -71,9 +71,9 @@ class UserController
             $user->setAddress($address);
 
             // Encrypt password
-//            $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
-//            $password = $encoder->encodePassword($user->getPassword(), null);
-//            $user->setPassword($password);
+            $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
+            $password = $encoder->encodePassword($user->getPassword(), null);
+            $user->setPassword($password);
 
             $entityManager->persist($address);
             $entityManager->persist($user);
