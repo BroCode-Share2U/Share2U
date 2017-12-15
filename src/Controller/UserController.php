@@ -13,11 +13,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
-class UserController
+class UserController extends Controller
 {
     public function showAction(Request $request, Application $app, $username)
     {
-
         return $app['twig']->render('user.html.twig',[]);
     }
 
@@ -28,32 +27,33 @@ class UserController
 
     public function signinAction(Request $request, Application $app)
     {
-        $user = null;
+//        var_dump($app['session'])->; die;
+        $user = new User();
         $token = $app['security.token_storage']->getToken();
+        var_dump($token);
 
-        if($token != null){
+        if ($token != null) {
             $user = $token->getUser();
         }
 
-        $entityManager = $app['orm.em'];
+        $entityManager = $this->getEntityManager($app);
         $repository = $entityManager->getRepository(User::class);
-        return $app['twig']->render('signin.html.twig',
-            [
-            'users' => $repository->findAll(),
+        return $app['twig']->render('signin.html.twig', [
+//            'user' => $repository->findBy([""]),
             'authenticated' => $user,
             'error' => $app['security.last_error']($request),
-            'last_username' => $app['session']->get('_security.last_username')
-            ]
-        );
+            'last_username' => $app['session']->get('_security.last_username'),
+            'username' => $user->getUsername()
+        ]);
     }
 
     public function signupAction(Request $request, Application $app)
     {
         $user = new User();
         $address = new Address();
-        $entityManager = $app['orm.em'];
+        $entityManager = $this->getEntityManager($app);
+        $formFactory = $this->getFormFactory($app);
 
-        $formFactory = $app['form.factory'];
         $userForm = $formFactory->create(UserForm::class, $user, [
             'standalone' => true,
             'user_repository' => $entityManager->getRepository(User::class)
@@ -84,7 +84,8 @@ class UserController
         else {
             return $app['twig']->render('signup.html.twig', [
                 'userForm' => $userForm->createView(),
-                'addressForm' => $addressForm->createView()
+                'addressForm' => $addressForm->createView(),
+                'username' => $user->getUsername()
             ]);
         }
     }

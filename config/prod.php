@@ -4,6 +4,7 @@ use Silex\Provider\DoctrineServiceProvider;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use \Model\User;
 
 
 // configure your app for the production environment
@@ -40,7 +41,7 @@ $app->register(
                     'check_path' => '/user/signin_check',
                     'failure_path' => '/signin'
                 ],
-                'users' => function() use ($app){
+                'users' => function() use ($app) {
                     $repository = $app['orm.em']->getRepository(Model\User::class);
                     return new \Provider\DBUserProvider($repository);
                 },
@@ -52,15 +53,13 @@ $app->register(
             ]
         ],
         'security.role_hierarchy' => [                  // Role hierarchy definition
-            'ROLE_ADMIN' => ['ROLE_USER']               // Role admin is upper than role user
+            User::ROLE_ADMIN => [User::ROLE_USER]               // Role admin is upper than role user
+//            'ROLE_ADMIN' => ['ROLE_USER']               // Role admin is upper than role user
         ],
-        'security.default_encoder' => function () {
-            return new PlaintextPasswordEncoder();
-        },
     ]
 );
 
-$app->register(new \Silex\Provider\SessionServiceProvider());
+//$app->register(new \Silex\Provider\SessionServiceProvider());
 
 $app->register(new \Silex\Provider\ValidatorServiceProvider());
 
@@ -77,3 +76,7 @@ $app->register(new \Silex\Provider\TranslationServiceProvider(),
 );
 
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), $swiftMaillerConfig);
+
+$app->before(function ($request) use ($app) {
+//    $app['session']->start();
+});

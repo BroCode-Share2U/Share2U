@@ -44,7 +44,7 @@ class DBUserProvider implements UserProviderInterface
      * UsernameNotFoundException
      *
      * @param string $username The username of the user to load
-     *
+
      * @return UserInterface
      * @throws UsernameNotFoundException
      */
