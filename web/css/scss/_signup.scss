@@ -1,5 +1,5 @@
 #signupForm{
-  margin: 7rem auto;
+  margin: 4rem auto;
   background-color: transparent;
   border-radius: 50px;
   padding: 1rem 2rem;
@@ -23,26 +23,9 @@
 
       div{
         margin: 0 auto;
-        :focus{
-          border: 1px solid var(--ColorFocus);
-          box-shadow: 0 0 20px rgba(#309280,0.5);
-          outline: none;
-        }
 
         button{
-          width: 4rem;
-          height: 4rem;
-          background: radial-gradient(var(--ColorFont),var(--ColorGrey));
-          color: var(--ColorFont);
-          text-shadow: 0 0 10px black;
-
-          box-shadow: 0 0 20px rgba(#309280,0.25);
-          border: 1px solid grey;
-          text-transform: uppercase;
-          font-weight: bold;
-
           margin: 2rem auto;
-          border-radius: 50px;
         }
       }
     }

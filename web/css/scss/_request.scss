@@ -10,27 +10,17 @@
 
   #loan_form{
       margin: 0 auto;
+
     div{
       width: 30rem;
       margin: 0 auto;
       position: relative;
 
       button{
-        width: 4rem;
-        height: 4rem;
-        background: radial-gradient(var(--ColorFont),var(--ColorGrey));
-        color: var(--ColorFont);
-        text-shadow: 0 0 10px black;
-
-        box-shadow: 0 0 20px rgba(#309280,0.25);
-        border: 1px solid grey;
-        text-transform: uppercase;
-        font-weight: bold;
-
         display: block;
         margin: 0 auto;
-        border-radius: 50px;
       }
+
       label{
         display: inline;
       }

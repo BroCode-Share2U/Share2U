@@ -3,10 +3,12 @@
 }
 body{
   font-family: Roboto, sans-serif;
+  height: 100vh;
 
   background-image: url("https://static.pexels.com/photos/572897/pexels-photo-572897.jpeg");
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 
   margin: 0;
   padding: 0;
@@ -14,7 +16,7 @@ body{
 
 nav{
   padding: 1rem;
-  background-color: rgba(0,0,0,0.6);
+  background: linear-gradient(rgba(0,0,0,0.3), transparent);
   position: relative;
   height: 5rem;
   line-height: 3rem;
@@ -77,110 +79,5 @@ nav{
         text-decoration: none;
       }
     }
-  }
-}
-
-
-.inputBox{
-  margin: 0.1rem 0;
-  padding: 0 0.3rem;
-  position: relative;
-  height: 3rem;
-  :focus{
-    border: 1px solid #309280;
-    box-shadow: inset 0 0 20px rgba(#309280,0.3);
-    outline: none;
-    color: black;
-  }
-
-  input{
-    margin: 0.5rem 0;
-    height: 2rem;
-    border: 1px solid grey;
-
-    border-radius: 50px;
-  }
-  label{
-    top: -0.1rem;
-    left: 0.8rem;
-    background: linear-gradient(0deg, grey, transparent 80%);
-    border-radius: 50%;
-    padding: 0 0.4rem;
-    text-shadow: 0 0.1rem 0.2rem black;
-    font-size: 0.9rem;
-    color: white;
-
-    position: absolute;
-  }
-  .inputBox:focus label{
-    color: white;
-  }
-  input, select,textarea{
-    margin: 0.5rem 0;
-    padding: 1.1rem 1rem;
-    font-size: 1.2rem;
-    border: 1px solid grey;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-
-    border-radius: 50px;
-  }
-  textarea{
-    border-radius: 15px;
-    height: 5.6rem;
-    resize: none;
-
-
-    font-family: Roboto,sans-serif;
-  }
-  button{
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50px;
-    vertical-align: middle;
-  }
-}
-
-.h2Text{
-  font-size: 2rem;
-  text-align: center;
-  h2{
-    color: var(--ColorFont);
-    text-shadow: 0 0 10px black;
-    text-transform: uppercase;
-  }
-  span{
-    color: var(--ColorBlue);
-  }
-}
-.h3Text{
-  font-size: 1.5rem;
-  text-align: center;
-  color: var(--ColorFont);
-
-  span{
-    color: var(--ColorFont);
-    text-shadow: 0 0 10px var(--ColorGreen);
-  }
-}
-.h4Text{
-  color: var(--ColorFont);
-  font-size: 1.1rem;
-  text-align: center;
-  span{
-    color: var(--ColorBlue);
-  }
-  a{
-    text-decoration: none;
-    font-size: 1.2rem;
-    color: var(--ColorFont);
-    text-shadow: 0 0 5px var(--ColorBlue);
-  }
-}
-
-.errorText{
-  font-size: 1.1rem;
-  text-align: center;
-  span{
-    color: var(--ColorRed);
   }
 }

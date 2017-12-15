@@ -26,16 +26,16 @@
 
                 <div class="inputBox">
                     <label for="inputEmail">Username</label>
-                    <input name="_username" type="text" id="inputEmail" placeholder="Email" required value="{{ last_username }}">
+                    <input name="_username" type="text" id="inputEmail" placeholder="..." required value="{{ last_username }}">
                 </div>
 
                 <div class="inputBox">
                     <label for="inputPassword">Password</label>
-                    <input name="_password" type="password" id="inputPassword" required placeholder="Password">
+                    <input name="_password" type="password" id="inputPassword" required placeholder="...">
                 </div>
 
-                <div class="inputBox signinFormSubmit">
-                    <button type="submit">Sign in</button>
+                <div class="inputBox buttonBox signinFormSubmit">
+                    <button type="submit"><i class="fas fa-sign-in-alt"></i></button>
                     <a style="margin-left: 10px;" href="{{ path('reset') }}">Forgot your password?</a>
                 </div>
             </form>
