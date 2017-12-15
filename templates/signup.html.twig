@@ -1,4 +1,4 @@
-{% extends "layout.html.twig" %}
+{% extends "layoutUnlogged.html.twig" %}
 
 {% block title 'Sign up' %}
 
@@ -7,8 +7,12 @@
         <div class="h2Text">
             <h2>Register</h2>
         </div>
-        {{ form_start(userForm) }}
 
+        <div class="h4Text" id="signupFormRedirectSignin">
+            Already have an account? <a href="{{ path('signin') }}">Sign in now</a>
+        </div>
+
+        {{ form_start(userForm) }}
 
         <div>
             {#{{ form_errors(form) }}#}

@@ -1,4 +1,4 @@
-{% extends "layout.html.twig" %}
+{% extends "layoutUnlogged.html.twig" %}
 
 {% block title %}Sign in{% endblock %}
 
@@ -36,7 +36,7 @@
 
                 <div class="inputBox buttonBox signinFormSubmit">
                     <button type="submit"><i class="fas fa-sign-in-alt"></i></button>
-                    <a style="margin-left: 10px;" href="{{ path('reset') }}">Forgot your password?</a>
+                    <a  href="{{ path('reset') }}">Forgot your password?</a>
                 </div>
             </form>
         </div>

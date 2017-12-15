@@ -1,7 +1,18 @@
-{% extends "layout.html.twig" %}
+{% extends "layoutHomepageUnlogged.html.twig" %}
 
 {% block title '' %}
 
 {% block content %}
-    homepage
+    <div id="homepageFirstSection">
+        <div class="h1Text">
+            <h1>Share2U</h1>
+        </div>
+        <div id="homepageButtons" class="buttonBox">
+            <a  href="{{ path('signup') }}">Register</a>
+            <a  href="{{ path('signin') }}">Sign In</a>
+        </div>
+    </div>
+    <div id="homepageSecondSection">
+
+    </div>
 {% endblock %}
