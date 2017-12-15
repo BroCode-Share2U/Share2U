@@ -53,7 +53,7 @@ class DBUserProvider implements UserProviderInterface
         $user = $this->repository->findOneByUsername($username);
 
         if (!$user) {
-            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist', $username));
         }
 
         return $user;
@@ -73,7 +73,7 @@ class DBUserProvider implements UserProviderInterface
     public function refreshUser(UserInterface $user)
     {
         if (!$this->supportsClass(get_class($user))) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported', get_class($user)));
         }
 
         $user = $this->loadUserByUsername($user->getUsername());

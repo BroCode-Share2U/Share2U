@@ -27,7 +27,7 @@ class UserForm extends AbstractType
             function ($value, ExecutionContextInterface $context, $payload) {
                 if ($payload->emailExists($value)) {
                     $context
-                    ->buildViolation('This email is already taken.')
+                    ->buildViolation('This email is already taken')
                     ->atPath('email')
                     ->addViolation();
                 }
@@ -39,7 +39,7 @@ class UserForm extends AbstractType
             function ($value, ExecutionContextInterface $context, $payload) {
                 if ($payload->usernameExists($value)) {
                     $context
-                        ->buildViolation('This username is already taken.')
+                        ->buildViolation('This username is already taken')
                         ->atPath('username')
                         ->addViolation();
                 }
