@@ -1,7 +1,21 @@
-{% extends "layout.html.twig" %}
-
-{% block title '' %}
 
 {% block content %}
-    reset
+<div id="resetForm">
+    {{ form_start() }}
+
+    <div>
+        {#{{ form_errors(form) }}#}
+        <div class="inputBox userFormFirstname">
+            {{ form_label(userForm.firstname) }}
+            {{ form_widget(userForm.firstname) }}
+        </div>
+        <div id="submitArea">
+            {{ form_row(userForm.submit, { 'label': 'Submit' }) }}
+        </div>
+
+        {{ form_errors(userForm) }}
+
+        {{ form_end(userForm) }}
+    </div>
+
 {% endblock %}
