@@ -9,10 +9,10 @@
         </div>
 
         {{ form_start(requestForm) }}
-        <div class="inputBox buttonBox requestForm">
+        <div class="inputBox requestForm">
             {{ form_label(requestForm) }}
             {{ form_widget(requestForm) }}
-            <div id="loan_form">
+            <div id="loan_form" class="buttonBox">
                 <div>
                     <button type="{{ type|default('submit') }}">
                         <i class="fas fa-paper-plane"></i>
