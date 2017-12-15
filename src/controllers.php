@@ -17,6 +17,9 @@ $app->get('/', 'Controller\DefaultController::homepageAction')
 /* support */
 $app->get('/support', 'Controller\DefaultController::supportAction')
     ->bind('support');
+/* about */
+$app->get('/about', 'Controller\DefaultController::aboutAction')
+    ->bind('about');
 /* dashboard */
 $app->get('/dashboard', 'Controller\DefaultController::dashboardAction')
     ->bind('dashboard');

@@ -1,18 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet" type="text/css" />
+<!--HEAD-->
+{{ include('head.html') }}
 
-    <title>{% block title '' %} - Share2U</title>
-</head>
 <body>
 <!--HEADER-->
 <header>
     <nav>
-        <a href="{{ path('homepage') }}"><h1 id="headerTitle" class="h1Text">Share2U</h1></a>
+        <a href="{{ path('homepage') }}"><h1 id="headerTitle" class="h1Text">Share<span style="margin: 0.7rem;" class="h1TextLetter">2</span>U</h1></a>
         <ul id="headerMenuList">
             <li><a class="headerMenuUnlogged" href="{{ path('homepage') }}">Home</a></li>
         </ul>
@@ -24,21 +17,6 @@
 </main>
 
 <!--FOOTER-->
-<footer>
-    <div id="footerMain">
-        <span id="footerCopyright">©2017 Share2U | BroCode</span>
-        <ul id="footerSocialList">
-            <li><a href=""><i class="fab fa-twitter"></i></a></li>
-            <li><a href=""><i class="fab fa-linkedin-in"></i></a></li>
-            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href=""><i class="fab fa-youtube"></i></a></li>
-            <li><a href=""><i class="fab fa-instagram"></i></a></li>
-        </ul>
-    </div>
-    <ul id="footerMenuList">
-        <li><a href="">Support</a></li>
-        <li><a href="">About</a></li>
-    </ul>
-</footer>
+{{ include('footer.html') }}
 </body>
 </html>

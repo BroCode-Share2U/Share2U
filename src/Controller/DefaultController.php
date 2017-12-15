@@ -13,6 +13,12 @@ class DefaultController
         return $app['twig']->render('homepage.html.twig',[]);
     }
 
+    public function aboutAction(Request $request, Application $app)
+    {
+
+        return $app['twig']->render('about.html.twig',[]);
+    }
+
     public function supportAction(Request $request, Application $app)
     {
 

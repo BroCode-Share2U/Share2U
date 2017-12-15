@@ -37,14 +37,22 @@ nav{
 
     display: inline-block;
     vertical-align: middle;
+    div{
+      display: inline-block;
+    }
     #headerSearchInput{
+      padding: 0 1rem;
     }
 
     #headerSearchBtn{
-      margin-bottom: 0.3rem;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid var(--ColorGrey);
-      box-shadow: 0 0 20px var(--ColorLightGrey);
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      box-shadow: none;
+
+      i{
+      font-size: 1.3rem;
+      }
     }
   }
 
