@@ -17,4 +17,9 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
     return $twig;
 });
 
+// Add user to twig globals
+$app->before(function () use ($app) {
+    $app['twig']->addGlobal('user', \Controller\Controller::getAuthorizedUserAsArray($app));
+});
+
 return $app;

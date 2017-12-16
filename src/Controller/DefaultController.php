@@ -13,9 +13,7 @@ class DefaultController extends Controller
 {
     public function homepageAction(Request $request, Application $app)
     {
-        return $app['twig']->render('homepage.html.twig',[
-            'user'=> $this->getAuthorizedUserAsArray($app)
-        ]);
+        return $app['twig']->render('homepage.html.twig',[]);
     }
 
     public function aboutAction(Request $request, Application $app)
@@ -46,7 +44,7 @@ class DefaultController extends Controller
         $userRate = $commentRepo->getRatingUser($user);
         // Get user's items
         $items = [];
-        foreach ($itemRepo->findByOwner($user) as $item){
+        foreach ($itemRepo->findByOwner($user) as $item) {
             $items[] = $item->toArray();
         }
 
@@ -66,7 +64,6 @@ class DefaultController extends Controller
 
         return $app['twig']->render('dashboard.html.twig',
             [
-                'user'=> $this->getAuthorizedUserAsArray($app),
                 'avgRating' => $userRate,
                 'items' => $items,
                 'requestsIn' => $requestsIn,

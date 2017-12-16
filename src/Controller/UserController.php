@@ -55,16 +55,16 @@ class UserController extends Controller
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
 
-            // set parameters that aren't set by form->handleRequest()
+            // Set parameters that aren't set by form->handleRequest()
             $user->setRole(User::ROLE_USER);
             $user->setInsertedAt(new \DateTime());
             $user->setAddress($address);
-
             // Encrypt password
             $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
             $password = $encoder->encodePassword($user->getPassword(), null);
             $user->setPassword($password);
 
+            // Persist the user and address
             $entityManager->persist($address);
             $entityManager->persist($user);
             $entityManager->flush();

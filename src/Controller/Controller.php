@@ -14,7 +14,7 @@ abstract class Controller
      * @param Application $app
      * @return EntityManager
      */
-    public function getEntityManager(Application $app)
+    public static function getEntityManager(Application $app)
     {
         return $app['orm.em'];
     }
@@ -23,7 +23,7 @@ abstract class Controller
      * @param Application $app
      * @return FormFactory
      */
-    public function getFormFactory(Application $app)
+    public static function getFormFactory(Application $app)
     {
         return $app['form.factory'];
     }
@@ -32,7 +32,7 @@ abstract class Controller
      * @param Application $app
      * @return null|User
      */
-    public function getAuthorizedUser($app)
+    public static function getAuthorizedUser($app)
     {
         // Get current authentication token
         $token = $app['security.token_storage']->getToken();
@@ -50,10 +50,10 @@ abstract class Controller
      * @param Application $app
      * @return null|array
      */
-    public function getAuthorizedUserAsArray($app)
+    public static function getAuthorizedUserAsArray($app)
     {
         // Get current authentication token
-        $user = $this->getAuthorizedUser($app);
+        $user = self::getAuthorizedUser($app);
 
         return $user ? $user->toArray() : null;
     }
