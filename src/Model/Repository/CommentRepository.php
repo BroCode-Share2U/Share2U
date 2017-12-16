@@ -12,7 +12,7 @@ class CommentRepository extends EntityRepository
      * @param User $user
      * @return string
      */
-    public function getRatingUser(User $user)
+    public function getAverageRating(User $user)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select(['avg(c.rating) as avgRating',])

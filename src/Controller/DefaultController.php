@@ -23,13 +23,12 @@ class DefaultController extends Controller
 
     public function supportAction(Request $request, Application $app)
     {
-
         return $app['twig']->render('support.html.twig',[]);
     }
 
     public function dashboardAction(Request $request, Application $app)
     {
-        // Get serivces and repository
+        // Get services and repository
         $entityManager = $this->getEntityManager($app);
         $userRepo = $entityManager->getRepository(User::class);
         $itemRepo = $entityManager->getRepository(Item::class);
@@ -39,30 +38,30 @@ class DefaultController extends Controller
         // Get the user
         $user = $this->getAuthorizedUser($app);
         // Get rating
-        $userRate = $commentRepo->getRatingUser($user);
+        $averageRating = $commentRepo->getAverageRating($user);
         // Get user's items
         $items = [];
         foreach ($itemRepo->findByOwner($user) as $item) {
             $items[] = $item->toArray();
         }
 
-        // Get Request In
-        $requestsIn = $loanRepo->getLoanIn($user, Loan::STATUS_REQUESTED);
-        // Get Request Out
-        $requestsOut = $loanRepo->getLoanOut($user, Loan::STATUS_REQUESTED);
+        // Get requests in
+        $requestsIn = $loanRepo->getLoansIn($user, Loan::STATUS_REQUESTED);
+        // Get requests out
+        $requestsOut = $loanRepo->getLoansOut($user, Loan::STATUS_REQUESTED);
 
-        // Get Loan In
-        $loansIn = $loanRepo->getLoanIn($user, Loan::STATUS_IN_PROGRESS);
-        // Get Loan Out
-        $loansOut = $loanRepo->getLoanOut($user, Loan::STATUS_IN_PROGRESS);
+        // Get loans in
+        $loansIn = $loanRepo->getLoansIn($user, Loan::STATUS_IN_PROGRESS);
+        // Get loans out
+        $loansOut = $loanRepo->getLoansOut($user, Loan::STATUS_IN_PROGRESS);
 
-        $closedLoansIn = $loanRepo->getLoanIn($user, Loan::STATUS_CLOSED);
-        $closedLoansOut = $loanRepo->getLoanOut($user, Loan::STATUS_CLOSED);
+        $closedLoansIn = $loanRepo->getLoansIn($user, Loan::STATUS_CLOSED);
+        $closedLoansOut = $loanRepo->getLoansOut($user, Loan::STATUS_CLOSED);
 
 
         return $app['twig']->render('dashboard.html.twig',
             [
-                'avgRating' => $userRate,
+                'averageRating' => $averageRating,
                 'items' => $items,
                 'requestsIn' => $requestsIn,
                 'requestsOut' => $requestsOut,

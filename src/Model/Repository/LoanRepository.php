@@ -13,7 +13,7 @@ class LoanRepository extends EntityRepository
      * @param $status
      * @return array
      */
-    public function getLoanIn(User $user, $status)
+    public function getLoansIn(User $user, $status)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select(
@@ -50,7 +50,7 @@ class LoanRepository extends EntityRepository
      * @param $status
      * @return array
      */
-    public function getLoanOut(User $user, $status)
+    public function getLoansOut(User $user, $status)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select(
