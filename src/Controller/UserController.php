@@ -57,7 +57,9 @@ class UserController extends Controller
 
             // Set parameters that aren't set by form->handleRequest()
             $user->setRole(User::ROLE_USER);
-            $user->setInsertedAt(new \DateTime());
+            $now = new \DateTime();
+            $user->setInsertedAt($now);
+            $user->setUpdatedAt($now);
             $user->setAddress($address);
             // Encrypt password
             $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
