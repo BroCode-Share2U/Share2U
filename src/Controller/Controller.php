@@ -34,9 +34,6 @@ abstract class Controller
      */
     public function getUserAuth($app)
     {
-        // Delete after resolve the auth problem
-        return $this->getEntityManager($app)->getRepository(User::class)->find('909f6844-e0c5-11e7-b6f9-00163e743728');
-
         // Get current authentication token
         $token = $app['security.token_storage']->getToken();
         if ($token === null) {
