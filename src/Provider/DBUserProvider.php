@@ -76,8 +76,7 @@ class DBUserProvider implements UserProviderInterface
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported', get_class($user)));
         }
 
-        $user = $this->loadUserByUsername($user->getUsername());
-        return $user;
+        return $this->loadUserByUsername($user->getUsername());
     }
 
     /**

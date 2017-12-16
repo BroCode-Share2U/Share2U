@@ -32,31 +32,42 @@ $app->register(new DoctrineOrmServiceProvider(),
 $app->register(
     new SecurityServiceProvider(),
     [
-        'security.firewalls' => [
-            'firewall_admin' => [                       // Firewall name
-                'pattern' => '^/user',                 // Firewall scope
-                'form' => [
-                    'signin_path' => '/signin',
+        'security.firewalls' => array(
+            'login_path' => array(
+                'pattern' => '^/signin$',
+                'anonymous' => true
+            ),
+            'default' => array(
+                'pattern' => '^/.*$',
+                'anonymous' => true,
+                'form' => array(
+                    'login_path' => '/signin',
                     'check_path' => '/user/signin_check',
-                    'failure_path' => '/signin'
-                ],
+                ),
+                'logout' => array(
+                    'logout_path' => '/logout',
+                    'invalidate_session' => true,
+                    'target_url' => '/'
+                ),
                 'users' => function() use ($app){
                     $repository = $app['orm.em']->getRepository(Model\User::class);
                     return new \Provider\DBUserProvider($repository);
                 },
-                'logout' => [
-                    'logout_path' => '/logout',
-                    'invalidate_session' => true,
-                    'target_url' => '/user'
-                ]
-            ]
-        ],
+            )
+        ),
+        'security.access_rules' => array(
+            array('^/signin', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/signup', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/about', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/support', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/.+$', 'ROLE_USER')
+        ),
         'security.role_hierarchy' => [                  // Role hierarchy definition
             'ROLE_ADMIN' => ['ROLE_USER']               // Role admin is upper than role user
         ],
         'security.default_encoder' => function () {
             return new PlaintextPasswordEncoder();
-        },
+        }
     ]
 );
 
