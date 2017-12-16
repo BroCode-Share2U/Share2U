@@ -78,7 +78,6 @@ nav{
       color: var(--ColorTitle);
       text-shadow: 0 0 5px var(--ColorGreen);
 
-      text-transform: capitalize;
       border-bottom: none;
 
       &:hover{
@@ -122,5 +121,8 @@ nav{
 
 //layoutUnlogged
 #headerMenuUnlogged{
-  color: var(--ColorFont);
+  color: var(--ColorFont) !important;
+  &:hover{
+    color: var(--ColorTitleShadow1) !important;
+  }
 }

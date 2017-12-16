@@ -5,7 +5,6 @@
 {% block content %}
 
     <div id="dashBoardUserProfile">
-        <div class="h2Text"><h2>Dashboard</h2></div>
 
         <div id="dashBoardProfilePicture">
             <div class="pictureBox">
@@ -22,21 +21,26 @@
                 </div>
             </div>
         </div>
-
-            <div>{{ user.firstname }}</div>
-            <div>{{ user.lastname }}</div>
-            <div>{{ user.username }}</div>
-            <div>{{ user.description }}</div>
-            <div>{{ user.email }}</div>
-            <div>
+        <div id="dashBoardProfileInformation">
+            <div id="dashboardGender">
                 {% if user.gender ==0 %}
-                    Male
+                    <i class="fas fa-mars" style="color:dodgerblue"></i>
+                {% elseif user.gender ==1 %}
+                    <i class="fas fa-venus" style="color:hotpink"></i>
+                {% elseif user.gender ==2 %}
+                    <i class="fas fa-transgender" style="color:lawngreen"></i>
                 {% else %}
-                    Female
+                    <i class="fas fa-genderless" style="color:orangered"></i>
                 {% endif %}
             </div>
-            <div>{{ user.insertedAt|date("m/d/Y") }}</div>
-            <div>{{ user.updatedAt|date('m-d-Y H:i:s') }}</div>
+            <div id="dashboardUsername">{{ user.username }}<br/></div>
+            <div id="dashboardFirstname">{{ user.firstname }}</div>
+            <div id="dashboardLastname">{{ user.lastname }}</div>
+            <div id="dashboardDescription">"{{ user.description }}"</div>
+            <div id="dashboardEmail"><i class="fas fa-envelope"></i> {{ user.email }}</div>
+            <div id="dashboardInsertedDate"><span>Member since </span>{{ user.insertedAt|date("m/d/Y") }}</div>
+            <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y H:i:s') }}</div>
+        </div>
     </div>
 
     <div id="dashBoardMenu" style="width:130px">

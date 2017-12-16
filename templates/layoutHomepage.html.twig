@@ -11,7 +11,7 @@
             {% endif %}
             <li><a id="headerMenuUnlogged" href="{{ path('homepage') }}">Home</a></li>
             {% if user is not null %}
-                <li><a href="dashboard">Dashboard</a></li>
+                <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
                 <li><a id="headerMenuLogout" href="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
             {% else %}
             {% endif %}
