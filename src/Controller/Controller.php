@@ -30,17 +30,40 @@ abstract class Controller
 
     /**
      * @param Application $app
-     * @return User
+     * @return null|User
      */
     public function getUserAuth($app)
     {
         // Get current authentication token
         $token = $app['security.token_storage']->getToken();
-        if ($token === null) {
-            throw new AccessDeniedHttpException('User not found');
+
+        if ($token !== null) {
+            $user = $token->getUser(); // Get user from token
         }
-        // Get user from token
-        return $token->getUser();
+
+        if ($user === 'anon.'){
+            return null;
+        }
+        return $user;
+    }
+
+    /**
+     * @param Application $app
+     * @return null|array
+     */
+    public function getUserAuthArray($app)
+    {
+        // Get current authentication token
+        $token = $app['security.token_storage']->getToken();
+
+        if ($token !== null) {
+            $user = $token->getUser(); // Get user from token
+        }
+
+        if ($user === 'anon.'){
+            return null;
+        }
+        return $user->toArray();
     }
 
 }

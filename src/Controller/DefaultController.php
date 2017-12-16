@@ -63,7 +63,7 @@ class DefaultController extends Controller
 
         return $app['twig']->render('dashboard.html.twig',
             [
-                'user'=> $user->toArray(),
+                'user'=> $this->getUserAuthArray($app),
                 'avgRating' => $userRate,
                 'items' => $items,
                 'requestsIn' => $requestsIn,
