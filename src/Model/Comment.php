@@ -1,13 +1,17 @@
 <?php
 
 namespace Model;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * @Entity()
+ * @Entity(repositoryClass="Model\Repository\CommentRepository")
  * @Table(name="comment")
  */
 class Comment
 {
+    /*---------------------
+            Param
+    -------------------- */
       /**
      * @Id()
      * @GeneratedValue()
@@ -19,9 +23,9 @@ class Comment
      * @Column(name="text", type="text", nullable=false)
      */
     private $text;
-    
+
     /**
-     * @Column(name="rating", type="smallint", length=1, nullable=false)
+     * @Column(name="rating", type="integer", nullable=false)
      */
     private $rating;
      
@@ -34,46 +38,166 @@ class Comment
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-    
-   
-    
-    function getId() {
+
+    /**
+     * @ManyToOne(targetEntity="Loan")
+     * @JoinColumn(name="loan_id", referencedColumnName="id")
+     */
+    private $loan;
+
+    /**
+     * @ManyToOne(targetEntity="User")
+     * @JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+
+    /**
+     * @ManyToOne(targetEntity="User")
+     * @JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /*---------------------
+            Getter
+    -------------------- */
+    /**
+     * @return string
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    function getText() {
+    /**
+     * @return string
+     */
+    public function getText()
+    {
         return $this->text;
     }
 
-    function getRating() {
+    /**
+     * @return integer
+     */
+    public function getRating()
+    {
         return $this->rating;
     }
 
-    function getInsertedAt() {
+    /**
+     * @return DateTime
+     */
+    public function getInsertedAt()
+    {
         return $this->insertedAt;
     }
 
-    function getUpdatedAt() {
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    /**
+     * @return Loan
+     */
+    public function getLoan()
+    {
+        return $this->loan;
     }
 
-    function setText($text) {
+    /**
+     * @return User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+
+
+    /*---------------------
+            Setter
+    -------------------- */
+    /**
+     * @param string $text
+     * @return Comment
+     */
+    public function setText($text)
+    {
         $this->text = $text;
+        return $this;
     }
 
-    function setRating($rating) {
+    /**
+     * @param integer $rating
+     * @return Comment
+     */
+    public function setRating($rating)
+    {
         $this->rating = $rating;
+        return $this;
     }
 
-    function setInsertedAt($insertedAt) {
+    /**
+     * @param DateTime $insertedAt
+     * @return Comment
+     */
+    public function setInsertedAt($insertedAt)
+    {
         $this->insertedAt = $insertedAt;
+        return $this;
     }
 
-    function setUpdatedAt($updatedAt) {
+    /**
+     * @param DateTime $updatedAt
+     * @return Comment
+     */
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
+        return $this;
     }
-}   
+
+    /**
+     * @param Loan $loan
+     * @return Comment
+     */
+    public function setLoan($loan)
+    {
+        $this->loan = $loan;
+        return $this;
+    }
+
+    /**
+     * @param User $author
+     * @return Comment
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return Comment
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
+}

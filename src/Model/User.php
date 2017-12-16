@@ -86,13 +86,13 @@ class User implements UserInterface
 
     private $roles = [];
     
-    const GENDER_MALE = 0;
-    const GENDER_FEMALE = 1;
-    const GENDER_OTHER = 2;
-    const GENDER_UNSPECIFIED = 3;
+    public const GENDER_MALE = 0;
+    public const GENDER_FEMALE = 1;
+    public const GENDER_OTHER = 2;
+    public const GENDER_UNSPECIFIED = 3;
     
-    const ROLE_USER = 0;
-    const ROLE_ADMIN = 1;
+    public const ROLE_USER = 0;
+    public const ROLE_ADMIN = 1;
 
     public function toArray()
     {

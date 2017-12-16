@@ -3,36 +3,79 @@
 namespace Model\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Model\Item;
 use Model\Loan;
 use Model\User;
 
 class LoanRepository extends EntityRepository
 {
-    public function getLoanIn($user, $status)
+    /**
+     * @param User $user
+     * @param $status
+     * @return array
+     */
+    public function getLoanIn(User $user, $status)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $queryBuilder->select(['l.id', 'l.status', 'i.name'])
+        $queryBuilder->select(
+                [
+                    'l.id as idLoan',
+                    'l.status',
+                    'l.requestMessage',
+                    'l.requestedAt',
+                    'l.confirmedAt',
+                    'l.closedAt',
+                    'i.id AS idItem',
+                    'i.name',
+                    'i.igdbId',
+                    'u.firstname AS firstnameBorrower',
+                    'u.lastname AS lastnameBorrower',
+                    'u.username AS usernameBorrower',
+                    'u.id AS idBorrower',
+                ]
+        )
             ->from(Loan::class, 'l')
             ->innerJoin('l.item','i')
+            ->innerJoin('l.borrower', 'u')
             ->where('i.owner = :owner')
                 ->setParameter('owner', $user)
-           ->andWhere('l.status = :status')
+            ->andWhere('l.status = :status')
                 ->setParameter('status', $status)
         ;
 
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getLoanOut($user, $status)
+    /**
+     * @param User $user
+     * @param $status
+     * @return array
+     */
+    public function getLoanOut(User $user, $status)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $queryBuilder->select(['l.id', 'l.status', 'i.name'])
+        $queryBuilder->select(
+            [
+                'l.id as idLoan',
+                'l.status',
+                'l.requestMessage',
+                'l.requestedAt',
+                'l.confirmedAt',
+                'l.closedAt',
+                'i.id AS idItem',
+                'i.name',
+                'i.igdbId',
+                'u.firstname AS firstnameOwner',
+                'u.lastname AS lastnameOwner',
+                'u.username AS usernameOwner',
+                'u.id AS idOwner'
+            ]
+        )
             ->from(Loan::class, 'l')
             ->innerJoin('l.item','i')
+            ->innerJoin('i.owner', 'u')
             ->where('l.borrower = :borrower')
                 ->setParameter('borrower', $user)
-           ->andWhere('l.status = :status')
+            ->andWhere('l.status = :status')
                 ->setParameter('status', $status)
         ;
 

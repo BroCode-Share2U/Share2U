@@ -72,8 +72,8 @@ class Address
             'country' => $this->country,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'insertedAt' => $this->insertedAt,
-            'updatedAt' => $this->updatedAt
+            /*'insertedAt' => $this->insertedAt,
+            'updatedAt' => $this->updatedAt*/
         ];
     }
     
