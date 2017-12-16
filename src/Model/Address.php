@@ -60,6 +60,22 @@ class Address
      * @Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'address1' => $this->address1,
+            'address2' => $this->address2,
+            'zipCode' => $this->zipCode,
+            'city' => $this->city,
+            'country' => $this->country,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            /*'insertedAt' => $this->insertedAt,
+            'updatedAt' => $this->updatedAt*/
+        ];
+    }
     
     function getId() {
         return $this->id;

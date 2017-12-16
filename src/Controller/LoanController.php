@@ -29,7 +29,6 @@ class LoanController extends Controller
         $loanForm->handleRequest($request);
 
         // Find the item with the param in url
-        // TODO check if the object exist
         $item = $entityManager->getRepository(Item::class)->find($itemId);
         if ($item === null){
             throw new NotFoundHttpException('item not found');
@@ -40,14 +39,7 @@ class LoanController extends Controller
         $loan->setStatus(Loan::STATUS_REQUESTED);
 
         // Set the borrower
-        // TODO get the user
-        $borrower = $entityManager->getRepository(User::class)->find('663b739a-e0d2-11e7-b6f9-00163e763728');
-        /*$token = $app['security.token_storage']->getToken();        // Get current authentication token
-        if ($token === null) {
-            throw new AccessDeniedHttpException('User not found');
-        }
-        $borrower = $token->getUser();*/                              // Get user from token
-
+        $borrower = $this->getUserAuth($app);
         $loan->setBorrower($borrower);
 
         // Persist the loan and send the eamil to the owner
