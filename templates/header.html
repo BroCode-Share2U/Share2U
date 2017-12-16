@@ -10,10 +10,16 @@
             </form>
         </div>
         <ul id="headerMenuList">
-            <li><a href="profile">Your username</a></li>
+            {% if user is not null %}
+                <li><a href="profile">{{user.username}}</a></li>
+                {% else %}
+            {% endif %}
             <li><a href="{{ path('homepage') }}">Home</a></li>
-            <li><a href="dashboard">Dashboard</a></li>
-            <li><a href="logout">Logout</a></li>
+            {% if user is not null %}
+                <li><a href="dashboard">Dashboard</a></li>
+                <li><a href="logout">Logout</a></li>
+            {% else %}
+            {% endif %}
         </ul>
     </nav>
 </header>
