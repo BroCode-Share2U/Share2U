@@ -43,6 +43,7 @@ class DefaultController extends Controller
         // Get rating
         $userRate = $commentRepo->getRatingUser($user);
         // Get user's items
+        $items = [];
         foreach ($itemRepo->findByOwner($user) as $item){
             $items[] = $item->toArray();
         }
