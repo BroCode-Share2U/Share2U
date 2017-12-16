@@ -18,9 +18,7 @@ class DefaultController extends Controller
 
     public function aboutAction(Request $request, Application $app)
     {
-        return $app['twig']->render('about.html.twig',[
-            'user'=> $this->getAuthorizedUserAsArray($app)
-        ]);
+        return $app['twig']->render('about.html.twig',[]);
     }
 
     public function supportAction(Request $request, Application $app)
