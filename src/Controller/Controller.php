@@ -32,7 +32,7 @@ abstract class Controller
      * @param Application $app
      * @return null|User
      */
-    public function getUserAuth($app)
+    public function getAuthorizedUser($app)
     {
         // Get current authentication token
         $token = $app['security.token_storage']->getToken();
@@ -50,10 +50,10 @@ abstract class Controller
      * @param Application $app
      * @return null|array
      */
-    public function getUserAuthArray($app)
+    public function getAuthorizedUserAsArray($app)
     {
         // Get current authentication token
-        $user = $this->getUserAuth($app);
+        $user = $this->getAuthorizedUser($app);
 
         return $user ? $user->toArray() : null;
     }

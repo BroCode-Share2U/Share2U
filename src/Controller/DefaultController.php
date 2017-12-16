@@ -14,7 +14,7 @@ class DefaultController extends Controller
     public function homepageAction(Request $request, Application $app)
     {
         return $app['twig']->render('homepage.html.twig',[
-            'user'=> $this->getUserAuthArray($app)
+            'user'=> $this->getAuthorizedUserAsArray($app)
         ]);
     }
 
@@ -40,7 +40,7 @@ class DefaultController extends Controller
         $commentRepo = $entityManager->getRepository(Comment::class);
 
         // Get the user
-        $user = $this->getUserAuth($app);
+        $user = $this->getAuthorizedUser($app);
         // Get rating
         $userRate = $commentRepo->getRatingUser($user);
         // Get user's items
@@ -65,7 +65,7 @@ class DefaultController extends Controller
 
         return $app['twig']->render('dashboard.html.twig',
             [
-                'user'=> $this->getUserAuthArray($app),
+                'user'=> $this->getAuthorizedUserAsArray($app),
                 'avgRating' => $userRate,
                 'items' => $items,
                 'requestsIn' => $requestsIn,

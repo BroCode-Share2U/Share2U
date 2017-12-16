@@ -39,7 +39,7 @@ class LoanController extends Controller
         $loan->setStatus(Loan::STATUS_REQUESTED);
 
         // Set the borrower
-        $borrower = $this->getUserAuth($app);
+        $borrower = $this->getAuthorizedUser($app);
         $loan->setBorrower($borrower);
 
         // Persist the loan and send the eamil to the owner
