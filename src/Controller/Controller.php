@@ -39,12 +39,11 @@ abstract class Controller
 
         if ($token !== null) {
             $user = $token->getUser(); // Get user from token
+            if ($user !== 'anon.') {
+                return $user;
+            }
         }
-
-        if ($user === 'anon.'){
-            return null;
-        }
-        return $user;
+        return null;
     }
 
     /**
@@ -54,16 +53,9 @@ abstract class Controller
     public function getUserAuthArray($app)
     {
         // Get current authentication token
-        $token = $app['security.token_storage']->getToken();
+        $user = $this->getUserAuth($app);
 
-        if ($token !== null) {
-            $user = $token->getUser(); // Get user from token
-        }
-
-        if ($user === 'anon.'){
-            return null;
-        }
-        return $user->toArray();
+        return $user ? $user->toArray() : null;
     }
 
 }

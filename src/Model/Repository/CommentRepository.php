@@ -24,5 +24,4 @@ class CommentRepository extends EntityRepository
         $result = $queryBuilder->getQuery()->getResult();
         return $result[0]['avgRating'];
     }
-
 }
