@@ -1,0 +1,56 @@
+#dashBoardUserProfile{
+  width: 60rem;
+  margin: 7rem auto;
+
+  #dashBoardProfilePicture{
+    position: relative;
+    text-align: center;
+    .pictureBox{
+      z-index: -1;
+    }
+  }
+  #dashBoardProfileRank{
+    position: absolute;
+    bottom: -2.5rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+}
+.dashBoardMenuTab{
+
+}
+
+.stars{
+  display: inline-block;
+  position: relative;
+  font-size: 3rem;
+
+  text-shadow: 0 0 10px var(--ColorTitleShadow2);
+
+  &:before{
+    color: var(--ColorLightGrey);
+    content: '\2606\2606\2606\2606\2606';
+  }
+}
+
+.rank{
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  &:after{
+    content: '\2605\2605\2605\2605\2605';
+    color: var(--ColorTitle);
+  }
+}
+
+.score{
+  font-size: 50%;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
