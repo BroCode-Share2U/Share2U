@@ -65,6 +65,7 @@ nav{
   #headerMenuList{
     color: var(--ColorFont);
     right: 2rem;
+    font-size: 1.2rem;
 
     position: absolute;
     top: 0;
@@ -72,22 +73,47 @@ nav{
     list-style: none;
     display: inline-block;
 
-    li:first-child{
-      a{
-        color: var(--ColorBlue);
+    #headerMenuUsername{
+      font-size: 1.6rem;
+      color: var(--ColorTitle);
+      text-shadow: 0 0 5px var(--ColorGreen);
 
-        border-bottom: none;
+      text-transform: capitalize;
+      border-bottom: none;
+
+      &:hover{
+        color: var(--ColorTitleShadow1);
+        text-shadow: 0 0 5px var(--ColorFocus);
+      }
+    }
+    #headerMenuLogout{
+      border-bottom: none;
+
+      &:hover{
+        color: var(--ColorRed2);
+        text-shadow: 0 0 5px black;
+      }
+    }
+
+    li:last-child{
+      a{
+        color: var(--ColorRed);
       }
     }
     li{
     display: inline-block;
       a{
         color: var(--ColorFont);
-        border-bottom: 1px solid var(--ColorFont);
         margin: 0 0.3rem;
         padding: 0 0.4rem;
 
         text-decoration: none;
+
+        &:hover{
+          color: var(--ColorTitleShadow1);
+          text-shadow: 0 0 5px var(--ColorFocus);
+        }
+
       }
     }
   }
@@ -95,6 +121,6 @@ nav{
 
 
 //layoutUnlogged
-.headerMenuUnlogged{
-  color: var(--ColorFont) !important;
+#headerMenuUnlogged{
+  color: var(--ColorFont);
 }
