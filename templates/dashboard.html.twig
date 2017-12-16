@@ -69,7 +69,7 @@
 
     <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
         <div>
-            <h2>Request In</h2>
+            <h2>Requests in</h2>
             {% for loan in requestsIn %}
                 <div id="item" style="border: 1px solid red; margin-bottom: 3px">
                     <div>{{ loan.idLoan }}</div>
@@ -82,7 +82,7 @@
             {% endfor %}
         </div>
         <div>
-            <h2>Request Out</h2>
+            <h2>Requests out</h2>
             {% for loan in requestsOut %}
                 <div id="item" style="border: 1px solid blue; margin-bottom: 3px">
                     <div>{{ loan.idLoan }}</div>
@@ -99,7 +99,7 @@
 
     <div id="dashBoardMenuTab3" class="dashBoardMenuTab" style="display:none">
         <div>
-            <h2>loan In</h2>
+            <h2>Loans In</h2>
             {% for loan in loansIn %}
                 <div id="item" style="border: 1px solid red; margin-bottom: 3px">
                     <div>{{ loan.idLoan }}</div>
@@ -113,7 +113,7 @@
             {#{{ dump(loansIn) }}#}
         </div>
         <div>
-            <h2>loan Out</h2>
+            <h2>Loans out</h2>
             {% for loan in loansOut %}
                 <div id="item" style="border: 1px solid blue; margin-bottom: 3px">
                     <div>{{ loan.idLoan }}</div>
@@ -130,7 +130,7 @@
 
     <div id="dashBoardMenuTab4" class="dashBoardMenuTab" style="display:none">
         <div>
-            <h2>Closed Loan In</h2>
+            <h2>Closed loans in</h2>
             {% for loan in closedLoansIn %}
                 <div id="item" style="border: 1px solid red; margin-bottom: 3px">
                     <div>{{ loan.idLoan }}</div>
@@ -144,7 +144,7 @@
             {#{{ dump(closedLoansIn) }}#}
         </div>
         <div>
-            <h2>Closed Loan Out</h2>
+            <h2>Closed loans out</h2>
             {% for loan in closedLoansOut %}
                 <div id="item" style="border: 1px solid blue; margin-bottom: 3px">
                     <div>{{ loan.idLoan }}</div>
