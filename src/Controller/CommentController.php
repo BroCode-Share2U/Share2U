@@ -5,7 +5,7 @@ namespace Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class CommentController
+class CommentController extends Controller
 {
     public function commentAction(Request $request, Application $app, $loanId)
     {

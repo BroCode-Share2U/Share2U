@@ -5,7 +5,7 @@ namespace Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class ItemController
+class ItemController extends Controller
 {
     public function showAction(Request $request, Application $app, $itemId)
     {

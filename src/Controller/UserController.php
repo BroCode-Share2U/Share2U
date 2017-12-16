@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
-class UserController
+class UserController extends Controller
 {
     public function showAction(Request $request, Application $app, $username)
     {
@@ -28,21 +28,11 @@ class UserController
 
     public function signinAction(Request $request, Application $app)
     {
-        $user = null;
-        $token = $app['security.token_storage']->getToken();
 
-        if($token != null){
-            $user = $token->getUser();
-        }
-
-        $entityManager = $app['orm.em'];
-        $repository = $entityManager->getRepository(User::class);
         return $app['twig']->render('signin.html.twig',
             [
-            'users' => $repository->findAll(),
-            'authenticated' => $user,
-            'error' => $app['security.last_error']($request),
-            'last_username' => $app['session']->get('_security.last_username')
+                'error'         => $app['security.last_error']($request),
+                'last_username' => $app['session']->get('_security.last_username'),
             ]
         );
     }
