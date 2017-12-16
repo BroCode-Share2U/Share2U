@@ -64,10 +64,7 @@ $app->register(
         ),
         'security.role_hierarchy' => [                  // Role hierarchy definition
             'ROLE_ADMIN' => ['ROLE_USER']               // Role admin is upper than role user
-        ],
-        'security.default_encoder' => function () {
-            return new PlaintextPasswordEncoder();
-        }
+        ]
     ]
 );
 
