@@ -121,6 +121,7 @@
 .cardBox{
   border: 1px solid var(--ColorFont);
   border-radius: 30px;
+  background: rgba(0,0,0,0.2);
 
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
   position: relative;
@@ -172,7 +173,7 @@
       text-decoration: none;
       color: var(--ColorFont) !important;
       &:hover{
-        color: var(--ColorTitleShadow2);
+        color: var(--ColorTitleShadow2) !important;
       }
     }
 

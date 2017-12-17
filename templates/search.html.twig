@@ -3,5 +3,30 @@
 {% block title '' %}
 
 {% block content %}
-    search
+    <div id="searchResultMain">
+        <div class="h2Text"><h2>Results for: <span>blablabla</span> </h2></div>
+        <div class="searchResults">
+            {% for item in items %}
+                <div class="cardBox">
+                    <div class="insideCardBox1">
+                        <div class="pictureBox">
+                            <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                        </div>
+                    </div>
+                    <div class="insideCardBox2">
+                        {#<div>{{ item.id }}</div>#}
+                        <h4>{{ item.name }}</h4>
+                        {#<div>{{ item.owner.id }}</div>#}
+                        <div>{{ item.igdbId }}</div>
+                        <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href="" id="userLinkCardBox">{{ item.owner.username }}</a></div>
+                        <div class="buttonBox">
+                            <button>More</button>
+                            <button>Request</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
 {% endblock %}

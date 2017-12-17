@@ -5,6 +5,12 @@ namespace Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
+//ADDED FOR TEST//////////
+use Model\User;
+use Model\Item;
+////////////////////////////////
+
+
 class ItemController extends Controller
 {
     public function showAction(Request $request, Application $app, $itemId)
@@ -28,7 +34,24 @@ class ItemController extends Controller
     public function searchAction(Request $request, Application $app)
     {
 
-        return $app['twig']->render('search.html.twig',[]);
+        //ADDED FOR TEST/////////////////////////////////////////////////////////////////////
+        $entityManager = $this->getEntityManager($app);
+        $userRepo = $entityManager->getRepository(User::class);
+        $itemRepo = $entityManager->getRepository(Item::class);
+
+        // Get the user
+        $user = $this->getAuthorizedUser($app);
+
+        $items = [];
+        foreach ($itemRepo->findByOwner($user) as $item) {
+            $items[] = $item->toArray();
+        }
+
+        return $app['twig']->render('search.html.twig',[
+            'items' => $items
+        ]);
+
+        //////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public function deleteAction(Request $request, Application $app, $itemId)

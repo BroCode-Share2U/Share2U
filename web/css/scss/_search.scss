@@ -1,0 +1,20 @@
+#searchResultMain{
+  max-width: 50rem;
+  margin: 0 auto;
+
+  .searchResults{
+    padding: 1rem 0;
+    border-left: 2px solid white;
+    box-shadow: -2.5px 0 0 rgba(0,0,0,0.3);
+  }
+
+  .cardBox{
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+
+    margin: 1rem 0;
+  }
+}
