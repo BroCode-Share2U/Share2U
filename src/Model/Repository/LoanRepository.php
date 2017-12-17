@@ -82,4 +82,21 @@ class LoanRepository extends EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    /**
+     * @param Loan $loan
+     * @param $status
+     * @return array
+     */
+    public function patchLoanStatus(Loan $loan, $status)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder->update(Loan::class, 'l')
+            ->set('l.status', ':status')
+                ->setParameter('status', $status)
+            ->where('l = :loan')
+                ->setParameter('loan', $loan)
+        ;
+
+        return $queryBuilder->getQuery()->execute();
+    }
 }
