@@ -43,121 +43,199 @@
         </div>
     </div>
 
-    <div id="dashBoardMenu" style="width:130px">
-        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button>
-    </div>
 
-    <div id="dashBoardMenuTab1" class="dashBoardMenuTab">
-        <div id="items">
-            <h2>Items</h2>
-            {% for item in items %}
-                <div id="item" style="border: 1px solid fuchsia; margin-bottom: 3px">
-                    <div>{{ item.id }}</div>
-                    <div>{{ item.name }}</div>
-                    <div>{{ item.owner.lastname }}</div>
-                    <div>{{ item.owner.firstname }}</div>
-                    <div>{{ item.owner.id }}</div>
-                    <div>{{ item.igdbId }}</div>
-                    <div>{{ item.insertedAt|date("m/d/Y") }}</div>
-                </div>
-            {% endfor %}
+<div id="dashBoardTabSection">
+        <div id="dashBoardMenu">
+            <button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button>
+            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button>
+            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button>
+            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button>
         </div>
-    </div>
 
-    <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
-        <div>
-            <h2>Requests in</h2>
-            {% for loan in requestsIn %}
-                <div id="item" style="border: 1px solid red; margin-bottom: 3px">
-                    <div>{{ loan.idLoan }}</div>
-                    <div>{{ loan.status }}</div>
-                    <div>{{ loan.requestMessage }}</div>
-                    <div>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                    <div>{{ loan.name }}</div>
-                    <div>{{ loan.firstnameBorrower }}</div>
-                </div>
-            {% endfor %}
+        <div id="dashBoardMenuTab1" class="dashBoardMenuTab">
+            <div>
+                <h2>Owned Items</h2>
+                {% for item in items %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            {#<div>{{ item.id }}</div>#}
+                            <h4>{{ item.name }}</h4>
+                            <div>{{ item.owner.firstname }} {{ item.owner.lastname }}</div>
+                            {#<div>{{ item.owner.id }}</div>#}
+                            <div>{{ item.igdbId }}</div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Update</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        <div>
-            <h2>Requests out</h2>
-            {% for loan in requestsOut %}
-                <div id="item" style="border: 1px solid blue; margin-bottom: 3px">
-                    <div>{{ loan.idLoan }}</div>
-                    <div>{{ loan.status }}</div>
-                    <div>{{ loan.requestMessage }}</div>
-                    <div>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                    <div>{{ loan.name }}</div>
-                    <div>{{ loan.firstnameOwner }}</div>
-                </div>
-            {% endfor %}
-            {#{{ dump(requestsOut) }}#}
-        </div>
-    </div>
 
-    <div id="dashBoardMenuTab3" class="dashBoardMenuTab" style="display:none">
-        <div>
-            <h2>Loans In</h2>
-            {% for loan in loansIn %}
-                <div id="item" style="border: 1px solid red; margin-bottom: 3px">
-                    <div>{{ loan.idLoan }}</div>
-                    <div>{{ loan.status }}</div>
-                    <div>{{ loan.requestMessage }}</div>
-                    <div>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                    <div>{{ loan.name }}</div>
-                    <div>{{ loan.firstnameBorrower }}</div>
-                </div>
-            {% endfor %}
-            {#{{ dump(loansIn) }}#}
+        <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
+            <div>
+                <h2>Requests in</h2>
+                {% for loan in requestsIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4><a href="" id="userLinkCardBox">{{ loan.firstnameBorrower }} </a><span>requested: </span>{{ loan.name }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Accept</button>
+                                <button>Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                <h2>Requests out</h2>
+                {% for loan in requestsOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>{{ loan.name }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m-d-Y H:i:s') }} <span>by </span><a id="userLinkCardBox" href="">{{ loan.firstnameOwner }}</a></div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(requestsOut) }}#}
+            </div>
         </div>
-        <div>
-            <h2>Loans out</h2>
-            {% for loan in loansOut %}
-                <div id="item" style="border: 1px solid blue; margin-bottom: 3px">
-                    <div>{{ loan.idLoan }}</div>
-                    <div>{{ loan.status }}</div>
-                    <div>{{ loan.requestMessage }}</div>
-                    <div>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                    <div>{{ loan.name }}</div>
-                    <div>{{ loan.firstnameOwner }}</div>
-                </div>
-            {% endfor %}
-            {#{{ dump(loansOut) }}#}
-        </div>
-    </div>
 
-    <div id="dashBoardMenuTab4" class="dashBoardMenuTab" style="display:none">
-        <div>
-            <h2>Closed loans in</h2>
-            {% for loan in closedLoansIn %}
-                <div id="item" style="border: 1px solid red; margin-bottom: 3px">
-                    <div>{{ loan.idLoan }}</div>
-                    <div>{{ loan.status }}</div>
-                    <div>{{ loan.requestMessage }}</div>
-                    <div>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                    <div>{{ loan.name }}</div>
-                    <div>{{ loan.firstnameBorrower }}</div>
-                </div>
-            {% endfor %}
-            {#{{ dump(closedLoansIn) }}#}
+        <div id="dashBoardMenuTab3" class="dashBoardMenuTab" style="display:none">
+            <div>
+                <h2>Loans In</h2>
+                {% for loan in loansIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>{{ loan.name }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div>{{ loan.firstnameBorrower }}</div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Comment & Rate</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(loansIn) }}#}
+            </div>
+            <div>
+                <h2>Loans out</h2>
+                {% for loan in loansOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>{{ loan.name }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div>{{ loan.firstnameOwner }}</div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Comment & Rate</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(loansOut) }}#}
+            </div>
         </div>
-        <div>
-            <h2>Closed loans out</h2>
-            {% for loan in closedLoansOut %}
-                <div id="item" style="border: 1px solid blue; margin-bottom: 3px">
-                    <div>{{ loan.idLoan }}</div>
-                    <div>{{ loan.status }}</div>
-                    <div>{{ loan.requestMessage }}</div>
-                    <div>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                    <div>{{ loan.name }}</div>
-                    <div>{{ loan.firstnameOwner }}</div>
-                </div>
-            {% endfor %}
-            {#{{ dump(closedLoansOut) }}#}
+
+        <div id="dashBoardMenuTab4" class="dashBoardMenuTab" style="display:none">
+            <div>
+                <h2>Finished Loans In</h2>
+                {% for loan in closedLoansIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>{{ loan.name }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div>{{ loan.firstnameBorrower }}</div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Update</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(closedLoansIn) }}#}
+            </div>
+            <div>
+                <h2>Finished Loans Out</h2>
+                {% for loan in closedLoansOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>{{ loan.name }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div>{{ loan.firstnameOwner }}</div>
+                            <div class="buttonBox">
+                                <button>More</button>
+                                <button>Update</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(closedLoansOut) }}#}
+            </div>
         </div>
-    </div>
+</div>
 
     <script>
         function openLink(evt, menuTab) {
@@ -168,10 +246,10 @@
             }
             tablinks = document.getElementsByClassName("tablink");
             for (i = 0; i < x.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+                tablinks[i].className = tablinks[i].className.replace(" tablinkActive", "");
             }
             document.getElementById(menuTab).style.display = "block";
-            evt.currentTarget.className += " w3-red";
+            evt.currentTarget.className += " tablinkActive";
         }
 
 

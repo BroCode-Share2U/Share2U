@@ -33,7 +33,7 @@
   }
   input, select,textarea{
     margin: 0.5rem 0;
-    padding: 0.5rem 1rem;
+    padding: 0 1rem;
     font-size: 1.2rem;
     border: 1px solid grey;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -113,6 +113,112 @@
     margin: auto auto;
     border: 6px solid transparent;
     border-radius: 100%;
+  }
+}
+
+
+//CARDS
+.cardBox{
+  border: 1px solid var(--ColorFont);
+  border-radius: 30px;
+
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  .insideCardBox1{
+    width: 25%;
+
+    .pictureBox{
+      margin: 0.5rem;
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+
+  .insideCardBox2{
+    height: 100%;
+    width: 75%;
+    text-align: right;
+    padding: 0 0.5rem;
+    margin: 1rem 0;
+
+    h4{
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: lighter;
+      color: var(--ColorTitle);
+      text-shadow:
+              1px 1px 0 rgba(0,0,0,0.3) ,
+              -1px -1px 0 rgba(0,0,0,0.3) ,
+              1px -1px 0 rgba(0,0,0,0.3) ,
+              -1px 1px 0 rgba(0,0,0,0.3) ,
+
+              2px 2px 5px var(--ColorTitleShadow2) ,
+              -2px 2px 5px var(--ColorTitleShadow2) ,
+              2px -2px 5px var(--ColorTitleShadow2) ,
+              -2px -2px 5px var(--ColorTitleShadow2);
+
+      text-align: center;
+
+      #userLinkCardBox{
+        color: var(--ColorFont);
+        font-size: 1.3rem;
+      }
+    }
+    #userLinkCardBox{
+      text-decoration: none;
+      color: var(--ColorFont) !important;
+      &:hover{
+        color: var(--ColorTitleShadow2);
+      }
+    }
+
+    .bottomPictureCardBox{
+      color: var(--ColorFont);
+      font-size: 0.9rem;
+      text-shadow:
+              1px 1px 0 rgba(0,0,0,0.3) ,
+              -1px -1px 0 rgba(0,0,0,0.3) ,
+              1px -1px 0 rgba(0,0,0,0.3) ,
+              -1px 1px 0 rgba(0,0,0,0.3) ,
+
+              2px 2px 3px rgba(0,0,0,0.2) ,
+              -2px 2px 3px rgba(0,0,0,0.2) ,
+              2px -2px 3px rgba(0,0,0,0.2) ,
+              -2px -2px 3px rgba(0,0,0,0.2);
+
+      position: absolute;
+      bottom: 0;
+      left: 7rem;
+
+      span {
+        font-size: 0.8rem;
+      }
+    }
+
+    .buttonBox{
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
+
+      button{
+        margin: 0 0.2rem;
+        height: 2rem;
+        width: unset;
+        padding: 0 1rem;
+      }
+    }
+    #userLinkCardBox{
+      color: var(--ColorTitle);
+      font-size: 1rem;
+
+      &:hover{
+        color: var(--ColorTitleShadow2);
+      }
+    }
   }
 }
 
