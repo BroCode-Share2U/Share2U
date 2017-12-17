@@ -1,9 +1,14 @@
 *{
   box-sizing: border-box;
 }
+html{
+  max-height: 100vh;
+}
 body{
   font-family: Roboto, sans-serif;
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
+
 
   background-image: url(../img/backgroundShare2U-resized.jpg);
   background-position: center;

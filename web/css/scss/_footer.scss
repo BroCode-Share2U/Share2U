@@ -1,15 +1,18 @@
 footer{
-  :hover{
-    color:var(--ColorRed);
-  }
+  position: absolute;
+
   background: linear-gradient(0deg, rgba(0,0,0,0.5), transparent);
   height: 6rem;
   line-height: 2rem;
   padding: 1rem;
 
-  position: fixed;
   width: 100%;
   bottom: 0;
+
+  :hover{
+    color:var(--ColorRed);
+  }
+
   #footerMain{
     height: 100%;
 
