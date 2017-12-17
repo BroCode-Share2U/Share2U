@@ -61,17 +61,118 @@ class LoanController extends Controller
 
     public function acceptAction(Request $request, Application $app, $loanId)
     {
+        $entityManager = self::getEntityManager($app);
+        $user = self::getAuthorizedUser($app);
+        $loanRepo = $entityManager->getRepository(Loan::class);
+        $loan = $loanRepo->find($loanId);
 
+        if ($loan !== null){
+            $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_REQUESTED;
+            $ownerOk = $loan->getItem()->getOwner() === $user;
+
+            if ($loanStatusOk && $ownerOk ){
+                $loanRepo->patchLoanStatus($loan, Loan::STATUS_IN_PROGRESS);
+                return $app->json(
+                    [
+                        'code' => 1,
+                        'message' => 'status changed'
+                    ]
+                );
+            }
+        }
+        return $app->json(
+            [
+                'code' => 0,
+                'message' => 'Loan or User invalid'
+            ]
+        );
     }
 
     public function rejectAction(Request $request, Application $app, $loanId)
     {
+        $entityManager = self::getEntityManager($app);
+        $user = self::getAuthorizedUser($app);
+        $loanRepo = $entityManager->getRepository(Loan::class);
+        $loan = $loanRepo->find($loanId);
 
+        if ($loan !== null){
+            $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_REQUESTED;
+            $ownerOk = $loan->getItem()->getOwner() === $user;
+
+            if ($loanStatusOk && $ownerOk ){
+                $loanRepo->patchLoanStatus($loan, Loan::STATUS_DENIED);
+                return $app->json(
+                    [
+                        'code' => 1,
+                        'message' => 'status changed'
+                    ]
+                );
+            }
+        }
+        return $app->json(
+            [
+                'code' => 0,
+                'message' => 'Loan or User invalid'
+            ]
+        );
     }
 
     public function closeAction(Request $request, Application $app, $loanId)
     {
+        $entityManager = self::getEntityManager($app);
+        $user = self::getAuthorizedUser($app);
+        $loanRepo = $entityManager->getRepository(Loan::class);
+        $loan = $loanRepo->find($loanId);
 
+        if ($loan !== null){
+            $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_IN_PROGRESS;
+            $ownerOk = $loan->getItem()->getOwner() === $user;
+
+            if ($loanStatusOk && $ownerOk ){
+                $loanRepo->patchLoanStatus($loan, Loan::STATUS_CLOSED);
+                return $app->json(
+                    [
+                        'code' => 1,
+                        'message' => 'status changed'
+                    ]
+                );
+            }
+        }
+        return $app->json(
+            [
+                'code' => 0,
+                'message' => 'Loan or User invalid'
+            ]
+        );
+    }
+
+    public function cancelAction(Request $request, Application $app, $loanId)
+    {
+        $entityManager = self::getEntityManager($app);
+        $user = self::getAuthorizedUser($app);
+        $loanRepo = $entityManager->getRepository(Loan::class);
+        $loan = $loanRepo->find($loanId);
+
+        if ($loan !== null){
+            $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_REQUESTED;
+            $ownerOk = $loan->getBorrower() === $user;
+
+            if ($loanStatusOk && $ownerOk ){
+                $loanRepo->patchLoanStatus($loan, Loan::STATUS_CANCELLED);
+                return $app->json(
+                    [
+                        'code' => 1,
+                        'message' => 'status changed'
+                    ]
+                );
+            }
+        }
+        return $app->json(
+            [
+                'code' => 0,
+                'message' => 'Loan or User invalid'
+            ]
+        );
     }
 
     public function sendRequestMessage(Application $app, Loan $loan)
