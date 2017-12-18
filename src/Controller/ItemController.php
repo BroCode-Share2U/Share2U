@@ -86,6 +86,34 @@ class ItemController extends Controller
 
     public function deleteAction(Request $request, Application $app, $itemId)
     {
-
+        $entityManager = self::getEntityManager($app);
+        $itemRepo = $entityManager->getRepository(Item::class);
+        $item = $itemRepo->find($itemId);
+        $user = self::getAuthorizedUser($app);
+        if ($item !== null){
+            $ownerOk = $item->getOwner() === $user;
+            if ( $ownerOk ){
+                $entityManager->remove($item);
+                $entityManager->flush();
+                return $app->json(
+                    [
+                        'code' => 1,
+                        'message' => 'item delete'
+                    ]
+                );
+            }
+            return $app->json(
+                [
+                    'code' => 0,
+                    'message' => 'bad owner'
+                ]
+            );
+        }
+        return $app->json(
+            [
+                'code' => 0,
+                'message' => 'item not found'
+            ]
+        );
     }
 }
