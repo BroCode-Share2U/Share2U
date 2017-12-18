@@ -33,13 +33,13 @@
 
         <ul id="headerMenuList">
             {% if user is not null %}
-                <li><a id="headerMenuUsername" href="profile">{{user.username}}</a></li>
+                <li><a id="headerMenuUsername" href="{{ path('profile') }}">{{user.username}}</a></li>
             {% else %}
             {% endif %}
             <li><a id="headerHomeLink" href="{{ path('homepage') }}">Home</a></li>
             {% if user is not null %}
                 <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-                <li><a id="headerMenuLogout" href="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+                <li><a id="headerMenuLogout" href="{{ path('logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
             {% else %}
             {% endif %}
         </ul>

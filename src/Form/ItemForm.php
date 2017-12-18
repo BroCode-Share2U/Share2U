@@ -51,6 +51,7 @@ class ItemForm extends AbstractType
                     'Playstation' => 'Playstation',
                     'Nintendo 64' => 'Nintendo 64',
                     'Sega Saturn' => 'Sega Saturn ',
+                    'Other' => 'Other'
                 ],
                 'constraints' => [
                     new Assert\Choice([
@@ -75,6 +76,7 @@ class ItemForm extends AbstractType
                         'Playstation',
                         'Nintendo 64',
                         'Sega Saturn',
+                        'Other'
                     ])
                 ]
             ]
