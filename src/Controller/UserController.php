@@ -18,15 +18,21 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 
 class UserController extends Controller
 {
-    public function showAction(Request $request, Application $app, $username)
-    {
+    public function showUserAction(Request $request, Application $app, $username) {
+        $viewedUser = findUser($username);
 
-        return $app['twig']->render('user.html.twig',[]);
+        return $app['twig']->render('profile.html.twig', [
+            'viewedUser' => $viewedUser
+        ]);
     }
 
-    public function editAction(Request $request, Application $app)
+    public function showProfileAction(Request $request, Application $app) {
+        return $app['twig']->render('profile.html.twig', []);
+    }
+
+    public function editProfileAction(Request $request, Application $app)
     {
-        return $app['twig']->render('profile.html.twig',[]);
+        return $app['twig']->render('profileEdit.html.twig', []);
     }
 
     public function signinAction(Request $request, Application $app)

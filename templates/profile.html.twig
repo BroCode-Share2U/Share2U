@@ -3,5 +3,13 @@
 {% block title '' %}
 
 {% block content %}
-    Your profile
+    {% if viewedUser is defined and viewedUser is not null %}
+        {{ dump(viewedUser) }}
+    {% else %}
+        {{ dump(user) }}
+    {% endif %}
+
+    <form action="{{ path('profile') }}">
+        <input type="button" value="Edit">
+    </form>
 {% endblock %}
