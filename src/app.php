@@ -13,13 +13,12 @@ $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
     // add custom globals, filters, tags, ...
+    $twig->addGlobal('user', \Controller\Controller::getAuthorizedUserAsArray($app));
 
     return $twig;
 });
 
-// Add user to twig globals
-$app->before(function () use ($app) {
-    $app['twig']->addGlobal('user', \Controller\Controller::getAuthorizedUserAsArray($app));
-});
+//$app->before(function () use ($app) {
+//});
 
 return $app;
