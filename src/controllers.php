@@ -46,9 +46,12 @@ $app->get('/signin', 'Controller\UserController::signinAction')
 /* signup */
 $app->match('/signup', 'Controller\UserController::signupAction')
     ->bind('signup');
+/* forgot */
+$app->match('/forgot_password', 'Controller\UserController::forgotPasswordAction')
+    ->bind('forgot_password');
 /* reset */
-$app->match('/reset', 'Controller\UserController::resetAction')
-    ->bind('reset');
+$app->match('/reset', 'Controller\UserController::resetPasswordAction')
+    ->bind('reset_password');
 /* admin panel */
 $app->get('/admin/user', 'Controller\UserController::adminPanelAction')
     ->bind('adminPanel');

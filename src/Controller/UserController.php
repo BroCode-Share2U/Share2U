@@ -81,11 +81,95 @@ class UserController extends Controller
         }
     }
 
-    public function resetAction(Request $request, Application $app)
+    public function forgotPasswordAction(Request $request, Application $app)
     {
+/*        $request = $app['request'];
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Reset password')
+            ->setFrom(array($request->get('email')))
+            ->setTo(array(''))
+            ->setBody($request->get(''));
+
+        $app['mailer']->send($message);
+
+        return $app['twig']->render('pages/contact.twig', array('sent' => true));
+
+    });*/
+        $error = null;
+        if ($request->isMethod('POST')) {
+            $email = $request->request->get('email');
+            $user = $this->User->findOneBy(array('email' => $email));
+            if ($user) {
+                // Initialize and send the password reset request.
+                $user->setTimePasswordResetRequested(time());
+                if (!$user->getConfirmationToken()) {
+                    $user->setConfirmationToken($app['user.tokenGenerator']->generateToken());
+                }
+                $this->userManager->update($user);
+                $app['user.mailer']->sendResetMessage($user);
+                $app['session']->getFlashBag()->set('alert', 'Instructions for resetting your password have been emailed to you.');
+                $app['session']->set('_security.last_username', $email);
+                return $app->redirect($app['url_generator']->generate('user.login'));
+            }
+            $error = 'No user account was found with that email address.';
+
+        } else {
+
+            $email = $request->request->get('email') ?: ($request->query->get('email') ?: $app['session']->get('_security.last_username'));
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
+        }
+
+        return $app['twig']->render($this->getTemplate('forgot-password'), array(
+            'layout_template' => $this->getTemplate('layout'),
+            'email' => $email,
+            'fromAddress' => $app['user.mailer']->getFromAddress(),
+            'error' => $error,
+        ));
 
 
-        return $app['twig']->render('reset.html.twig',[]);
+
+        return $app['twig']->render('reset_password.html.twig',[]);
+    }
+
+    public function resetPasswordAction(Application $app, Request $request, $token)
+    {
+        $tokenExpired = false;
+        $user = $this->userManager->findOneBy(array('confirmationToken' => $token));
+        if (!$user) {
+            $tokenExpired = true;
+        } else if ($user->isPasswordResetRequestExpired($app['user.options']['passwordReset']['tokenTTL'])) {
+            $tokenExpired = true;
+        }
+        if ($tokenExpired) {
+            $app['session']->getFlashBag()->set('alert', 'Sorry, your password reset link has expired.');
+            return $app->redirect($app['url_generator']->generate('user.signin'));
+        }
+        $error = '';
+        if ($request->isMethod('POST')) {
+            // Validate the password
+            $password = $request->request->get('password');
+            if ($password != $request->request->get('confirm_password')) {
+                $error = 'Passwords don\'t match.';
+            } else if ($error = $this->userManager->validatePasswordStrength($user, $password)) {
+                ;
+            } else {
+                // Set the password and log in.
+                $this->userManager->setUserPassword($user, $password);
+                $user->setConfirmationToken(null);
+                $user->setEnabled(true);
+                $this->userManager->update($user);
+                $this->userManager->loginAsUser($user);
+                $app['session']->getFlashBag()->set('alert', 'Your password has been reset and you are now signed in.');
+                return $app->redirect($app['url_generator']->generate('user.homepage', array('id' => $user->getId())));
+            }
+        }
+        return $app['twig']->render($this->getTemplate('reset-password'), array(
+            'layout_template' => $this->getTemplate('layout'),
+            'user' => $user,
+            'token' => $token,
+            'error' => $error,
+        ));
     }
 
     public function deleteAction(Request $request, Application $app, $userId)
