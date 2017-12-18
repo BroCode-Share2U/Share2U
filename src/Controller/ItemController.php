@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 //ADDED FOR TEST//////////
 use Model\User;
 use Model\Item;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 ////////////////////////////////
 
 
@@ -16,8 +18,18 @@ class ItemController extends Controller
 {
     public function showAction(Request $request, Application $app, $itemId)
     {
+        $itemRepo = self::getEntityManager($app)->getRepository(Item::class);
 
-        return $app['twig']->render('item.html.twig',[]);
+        $item = $itemRepo->find($itemId);
+        if ($item === null){
+            throw new NotFoundHttpException('item not found');
+        }
+
+        return $app['twig']->render('item.html.twig',
+            [
+                'item' => $item->toArray()
+            ]
+        );
     }
 
     public function addAction(Request $request, Application $app)
@@ -74,6 +86,34 @@ class ItemController extends Controller
 
     public function deleteAction(Request $request, Application $app, $itemId)
     {
-
+        $entityManager = self::getEntityManager($app);
+        $itemRepo = $entityManager->getRepository(Item::class);
+        $item = $itemRepo->find($itemId);
+        $user = self::getAuthorizedUser($app);
+        if ($item !== null){
+            $ownerOk = $item->getOwner() === $user;
+            if ( $ownerOk ){
+                $entityManager->remove($item);
+                $entityManager->flush();
+                return $app->json(
+                    [
+                        'code' => 1,
+                        'message' => 'item delete'
+                    ]
+                );
+            }
+            return $app->json(
+                [
+                    'code' => 0,
+                    'message' => 'bad owner'
+                ]
+            );
+        }
+        return $app->json(
+            [
+                'code' => 0,
+                'message' => 'item not found'
+            ]
+        );
     }
 }
