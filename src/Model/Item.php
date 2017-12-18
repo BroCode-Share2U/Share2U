@@ -23,7 +23,7 @@ class Item
     /**
      * @Column(name="platform", type="string", length=64, nullable=false)
      */
-    private $plateform;
+    private $platform;
 
     /**
      * @Column(name="summary", type="string", nullable=false)
@@ -66,7 +66,7 @@ class Item
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'plateform' => $this->plateform,
+            'platform' => $this->platform,
             'summary' => $this->summary,
             'cover' => $this->cover,
             'description' => $this->description,
@@ -96,9 +96,9 @@ class Item
     /**
      * @return mixed
      */
-    public function getPlateform()
+    public function getPlatform()
     {
-        return $this->plateform;
+        return $this->platform;
     }
 
     /**
@@ -168,17 +168,17 @@ class Item
     }
 
     /**
-     * @param mixed $plateform
+     * @param mixed $platform
      * @return Item
      */
-    public function setPlateform($plateform)
+    public function setPlatform($platform)
     {
-        $this->plateform = $plateform;
+        $this->platform = $platform;
         return $this;
     }
 
     /**
-     * @param mixed $sumary
+     * @param mixed $summary
      * @return Item
      */
     public function setSummary($summary)
