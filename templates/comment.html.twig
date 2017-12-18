@@ -3,5 +3,12 @@
 {% block title '' %}
 
 {% block content %}
-    comment
+    {% if isBorrower %}
+        <h1>is the borrower</h1>
+    {% elseif isloaner %}
+        <h1>is the loaner</h1>
+    {% endif %}
+    {{ dump(loan) }}
+    {{form(commentForm)}}
+    <div style="height: 200px"></div>
 {% endblock %}
