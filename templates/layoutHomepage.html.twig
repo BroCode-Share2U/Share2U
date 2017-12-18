@@ -1,5 +1,16 @@
 <!--HEAD-->
 {{ include('head.html') }}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <title>{% block title '' %} - Share2U</title>
+</head>
+<body>
 
 <!--HEADER-->
 <header>
@@ -21,6 +32,20 @@
 
 {#RESPONSIVE HEADER#}
 {{ include('headerResponsive.html.twig') }}
+
+{#RESPONSIVE#}
+<style>
+    #headerMenuResponsiveSearch,#headerMenuResponsiveTitle{
+        display: none;
+    }
+    #headerMenuResponsive{
+        height: 4.9rem !important;
+    }
+    #headerMenuResponsive ul{
+        top: 4rem !important;
+    }
+</style>
+{#END OF RESPONSIVE#}
 
 <main>
     {% block content %}
