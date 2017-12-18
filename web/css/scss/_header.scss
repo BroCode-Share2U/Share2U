@@ -8,7 +8,8 @@ body{
   font-family: Roboto, sans-serif;
   position: relative;
   min-height: 100vh;
-
+  max-width: 100%;
+  overflow-x: hidden;
 
   background-image: url(../img/backgroundShare2U-resized.jpg);
   background-position: center;
