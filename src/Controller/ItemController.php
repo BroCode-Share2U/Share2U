@@ -33,25 +33,17 @@ class ItemController extends Controller
 
     public function searchAction(Request $request, Application $app)
     {
-
-        //ADDED FOR TEST/////////////////////////////////////////////////////////////////////
         $entityManager = $this->getEntityManager($app);
-        $userRepo = $entityManager->getRepository(User::class);
         $itemRepo = $entityManager->getRepository(Item::class);
 
         // Get the user
         $user = $this->getAuthorizedUser($app);
+        $searchString = $request->query->get('searchString');
 
-        $items = [];
-        foreach ($itemRepo->findByOwner($user) as $item) {
-            $items[] = $item->toArray();
-        }
-
-        return $app['twig']->render('search.html.twig',[
-            'items' => $items
+        return $app['twig']->render('search.html.twig', [
+            'items' => $itemRepo->searchOthersItems($searchString, $user),
+            'searchString' => $searchString
         ]);
-
-        //////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public function deleteAction(Request $request, Application $app, $itemId)

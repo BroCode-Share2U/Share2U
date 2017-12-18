@@ -3,7 +3,7 @@
 namespace Model;
 
 /**
- * @Entity()
+ * @Entity(repositoryClass="Model\Repository\ItemRepository")
  * @Table(name="item")
  */
 class Item
