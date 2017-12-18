@@ -1,0 +1,28 @@
+{#RESPONSIVE HEADER#}
+<div id="headerMenuResponsiveArea">
+    <div id="headerMenuResponsive" class="headerMenuToggle">
+        <div id="headerMenuResponsiveToggleArea"></div>
+        <ul>
+            {% if user is not null %}
+                <li><a href="profile">{{user.username}}</a></li>
+            {% else %}
+            {% endif %}
+            <li><a href="{{ path('homepage') }}">Home</a></li>
+            {% if user is not null %}
+                <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li><a href="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+            {% else %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="headerMenuResponsiveBars"><i class="fas fa-bars"></i></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.headerMenuResponsiveBars,#headerMenuResponsiveToggleArea').on('click', function() {
+            $('#headerMenuResponsive, .headerMenuResponsiveBars').toggleClass('headerMenuToggle');
+        });
+    });
+</script>
+{#END OF RESPONSIVE HEADER#}

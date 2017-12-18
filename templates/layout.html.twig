@@ -8,14 +8,18 @@
         {% else %}
         {% endif %}
         <a href="{{ path('homepage') }}"><h1 id="headerTitle" class="h1Text">Share<span style="margin: 0.7rem;" class="h1TextLetter">2</span>U</h1></a>
-        <div id="headerSearch">
-            <form action="search" method="GET" class="inputBox">
-                <input id="headerSearchInput" type="text" placeholder="search here">
-                <div class="buttonBox">
-                    <button id="headerSearchBtn" type="submit"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-        </div>
+        {% if user is not null %}
+            <div id="headerSearch">
+                <form action="search" method="GET" class="inputBox">
+                    <input id="headerSearchInput" type="text" placeholder="search here">
+                    <div class="buttonBox">
+                        <button id="headerSearchBtn" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        {% else %}
+        {% endif %}
+
         <ul id="headerMenuList">
             {% if user is not null %}
                 <li><a id="headerMenuUsername" href="profile">{{user.username}}</a></li>
@@ -30,6 +34,9 @@
         </ul>
     </nav>
 </header>
+
+{#RESPONSIVE HEADER#}
+{{ include('headerResponsive.html.twig') }}
 
 <main>
     {% block content %}

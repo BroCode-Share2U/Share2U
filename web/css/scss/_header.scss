@@ -22,6 +22,11 @@ body{
 header{
   padding-top: 5rem;
 }
+
+#headerMenuResponsiveArea{
+  display: none;
+}
+
 nav{
   padding: 1rem;
   background: linear-gradient(rgba(0,0,0,0.5), transparent);
@@ -132,5 +137,119 @@ nav{
   color: var(--ColorFont) !important;
   &:hover{
     color: var(--ColorTitleShadow1) !important;
+  }
+}
+
+
+//RESPONSIVE HEADER
+@media screen and (max-width: 1100px){
+  nav{
+    #headerTitle{
+      font-size: 2.7rem;
+    }
+    #headerSearchInput{
+      height: 2rem;
+      width: 10rem;
+    }
+    #headerMenuList{
+      right: 1rem;
+      li{
+        font-size: 1rem;
+        a{
+          padding: 0;
+        }
+      }
+      #headerMenuUsername{
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px){
+  header{
+    display: none;
+  }
+
+  #headerMenuResponsiveArea{
+    position: relative;
+    top: -1rem;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(0,0,0,0.7);
+
+    z-index: 100000;
+
+    color: var(--ColorFont);
+
+    .headerMenuToggle{
+      #headerMenuResponsiveToggleArea{
+        display: none !important;
+      }
+      ul{
+        display: none !important;
+      }
+      i{
+        text-shadow: 0 0 20px var(--ColorGreen);
+      }
+    }
+
+    #headerMenuResponsive{
+      position: relative;
+      height: 5rem;
+
+      #headerMenuResponsiveToggleArea{
+        position: fixed;
+        background:rgba(0,0,0,0.3);
+        height: 100%;
+        width: 100vw;
+      }
+
+      ul{
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 4rem;
+        width: 50%;
+        li{
+          margin: 0;
+          list-style: none;
+          padding: 0.2rem 0;
+
+
+          a{
+            padding: 1rem 2rem;
+            background-color: rgba(0,0,0,0.5);
+            color: var(--ColorFont);
+            font-size: 1.2rem;
+
+            border: 1px solid lightgrey;
+            border-right: none;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            box-shadow: 0 0 5px black;
+
+            display: block;
+            text-decoration: none;
+
+            &:hover{
+              background: rgba(0,0,0,0.8);
+              border: 1px solid var(--ColorGreen);
+              border-right: none;
+              box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            }
+          }
+        }
+      }
+    }
+
+    .headerMenuResponsiveBars{
+      font-size: 2rem;
+      position: absolute;
+      right: 1.5rem;
+      top: 1.8rem;
+    }
   }
 }
