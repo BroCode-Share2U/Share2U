@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 //ADDED FOR TEST//////////
 use Model\User;
 use Model\Item;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 ////////////////////////////////
 
 
@@ -16,8 +18,18 @@ class ItemController extends Controller
 {
     public function showAction(Request $request, Application $app, $itemId)
     {
+        $itemRepo = self::getEntityManager($app)->getRepository(Item::class);
 
-        return $app['twig']->render('item.html.twig',[]);
+        $item = $itemRepo->find($itemId);
+        if ($item === null){
+            throw new NotFoundHttpException('item not found');
+        }
+
+        return $app['twig']->render('item.html.twig',
+            [
+                'item' => $item->toArray()
+            ]
+        );
     }
 
     public function addAction(Request $request, Application $app)
