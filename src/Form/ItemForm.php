@@ -27,7 +27,7 @@ class ItemForm extends AbstractType
                 ]
             ]
         )->add(
-            'plateform',
+            'platform',
             ChoiceType::class,[
                 'choices' => [
                     'PC' => 'PC',
