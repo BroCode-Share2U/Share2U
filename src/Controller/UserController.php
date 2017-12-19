@@ -161,13 +161,13 @@ class UserController extends Controller
         $user = new User();
         $entityManager = $app['orm.em'];
         $formFactory = $app['form.factory'];
-        $ForgetForm = $formFactory->create(ForgetForm::class, $user, [
+        $forgetForm = $formFactory->create(ForgetForm::class, $user, [
             'standalone' => true,
             'user_repository' => $entityManager->getRepository(User::class)
         ]);
-        $ForgetForm->handleRequest($request);
+        $forgetForm->handleRequest($request);
 
-        if ($ForgetForm->isSubmitted() && $ForgetForm->isValid()) {
+        if ($forgetForm->isSubmitted() && $forgetForm->isValid()) {
             $dbUser = $entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
 
             $length = 32;
@@ -177,23 +177,23 @@ class UserController extends Controller
             $dbUser->setToken($token);
             $entityManager->flush();
 
-            $messagebody = new \Swift_Message();
-            $messagebody->setSubject('Reset password')
+            $messageBody = new \Swift_Message();
+            $messageBody->setSubject('Reset password')
                 ->setFrom('share2u.contact@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody($app['twig']->render('mail/mail.html.twig', [
-                    'message' => $messagebody,
+                    'message' => $messageBody,
                     'token'=> $token
                 ]),
                     'text/html'
                 );
-            $app['mailer']->send($messagebody);
+            $app['mailer']->send($messageBody);
             $app['session']->set('alert',  'Instructions for resetting your password have been emailed to you');
 
             return $app->redirect($app['url_generator']->generate('homepage'));
         } else {
             return $app['twig']->render('forgot_password.html.twig', [
-                'form' => $ForgetForm->createView()
+                'form' => $forgetForm->createView()
             ]);
         }
     }
@@ -206,17 +206,17 @@ class UserController extends Controller
         $user = $entityManager->getRepository(User::class)->findOneByToken($token);
 
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException(
-                'this token is not valid ' );
+            throw new CustomUserMessageAuthenticationException('this token is not valid');
         }
 
-        $ResetForm = $formFactory->create(ResetForm::class, $user, [
-            'standalone' => true
+        $resetForm = $formFactory->create(ResetForm::class, $user, [
+            'standalone' => true,
+            'user_repository' => $entityManager->getRepository(User::class)
         ]);
 
-        $ResetForm->handleRequest($request);
+        $resetForm->handleRequest($request);
 
-        if ($ResetForm->isSubmitted() && $ResetForm->isValid())
+        if ($resetForm->isSubmitted() && $resetForm->isValid())
         {
             $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
             $password = $encoder->encodePassword($user->getPassword(), null);
@@ -227,7 +227,7 @@ class UserController extends Controller
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
         return $app['twig']->render('reset_password.html.twig', [
-            'form' => $ResetForm->createView()
+            'form' => $resetForm->createView()
         ]);
     }
 
@@ -238,7 +238,6 @@ class UserController extends Controller
 
     public function adminPanelAction(Request $request, Application $app)
     {
-
         return $app['twig']->render('adminPanel.html.twig',[]);
     }
 }
