@@ -1,0 +1,79 @@
+.itemProfile{
+  max-width: 70rem !important;
+
+  #dashBoardProfilePicture{
+    top: 4.5rem !important;
+    position: absolute;
+    z-index: 1;
+  }
+
+  #dashboardDescription{
+  font-size: 1.1rem;
+    max-width: 40rem;
+    margin-left: 22rem;
+  }
+  #dashboardFirstname{
+    color: var(--ColorLightGrey);
+    margin-bottom: 4rem;
+    display: block !important;
+  }
+  #dashboardLastname{
+    font-size: 0.9rem !important;
+    color: var(--ColorLightGrey);
+    a{
+      color: var(--ColorGreen);
+      font-size: 1.6rem;
+      text-decoration: none;
+    }
+  }
+  #dashboardInsertedDate{
+    padding-top: 0 !important;
+  }
+  #itemDescriptionArea{
+    background: rgba(0,0,0,0.4);
+    font-size: 1.1rem;
+    border: 2px solid var(--ColorFont);
+    text-shadow: 0 0 5px black;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+
+    padding: 1rem 1rem 2rem 2rem;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border-right: none;
+    margin-right: -1rem;
+    margin-top: 8rem;
+
+    #dashboardFirstname{
+      margin-top: -1rem;
+      margin-bottom: 1rem !important;
+    }
+  }
+
+  #dashBoardProfileInformation{
+    overflow: hidden;
+    width: 90% !important;
+
+    #dashboardUsername{
+      font-size: 3rem !important;
+    }
+    #dashboardDescription{
+      padding-left: 17rem;
+    }
+  }
+}
+
+
+@media screen and (max-width: 770px){
+  #dashboardDescription{
+    max-width: unset;
+    margin-left: 0 !important;
+  }
+
+  .itemProfile {
+    max-width: 70rem !important;
+
+    #dashBoardProfilePicture {
+      top: 1rem !important;
+    }
+  }
+}

@@ -17,8 +17,8 @@
                         {#<div>{{ item.id }}</div>#}
                         <h4>{{ item.name }}</h4>
                         {#<div>{{ item.owner.id }}</div>#}
-                        <div>{{ item.igdbId }}</div>
-                        <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href="" id="userLinkCardBox">{{ item.owner.username }}</a></div>
+                        <div>{{ item.description }}</div>
+                        <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href=""" id="userLinkCardBox">{{ item.owner.username }}</a></div>
                         <div class="buttonBox">
                             <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
                             <a href="{{ path('requestItem', { 'itemId': item.id }) }}"><button>Request</button></a>
@@ -27,6 +27,5 @@
                 </div>
             {% endfor %}
         </div>
-
     </div>
 {% endblock %}
