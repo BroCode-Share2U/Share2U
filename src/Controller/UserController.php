@@ -200,7 +200,6 @@ class UserController extends Controller
 
     public function resetPasswordAction(Application $app, Request $request)
     {
-        $user = new User();
         $entityManager =self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
         $token = $request->query->get('token_');
@@ -212,8 +211,7 @@ class UserController extends Controller
         }
 
         $ResetForm = $formFactory->create(ResetForm::class, $user, [
-            'standalone' => true,
-            'user_repository' => $entityManager->getRepository(User::class)
+            'standalone' => true
         ]);
 
         $ResetForm->handleRequest($request);
