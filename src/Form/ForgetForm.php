@@ -7,36 +7,38 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
  * Description of AddressForm
  */
-class ResetForm extends AbstractType
+class ForgetForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $emailCallback = new Assert\Callback(
+            function ($value, ExecutionContextInterface $context, $payload) {
+                if (!$payload->emailExists($value)) {
+                    $context
+                      ->buildViolation('No user account was found with that email address.')
+                      ->atPath('email')
+                      ->addViolation();
+                }
+            }
+        );
+        $emailCallback->payload = $options['user_repository'];
+
         $builder->add(
-            'password',
-            RepeatedType::class,
-            [
-                'type' => PasswordType::class,
-                'required' => true,
-                'first_options' => [
-                    'label' => 'Password'
-                ],
-                'second_options' => [
-                    'label' => 'Repeat password'
-                ],
+            'email',
+            EmailType::class, [
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    new Assert\Email(),
                     new Assert\Length([
-                        'min' => 3,
                         'max' => 64
-                    ])
+                    ]),
+                    $emailCallback
                 ]
             ]
         );

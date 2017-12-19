@@ -3,14 +3,17 @@
 namespace Controller;
 
 use Form\AddressForm;
+use Form\ForgetForm;
 use Form\UserForm;
 use Model\Address;
+use Form\ResetForm;
 use Model\Repository\UserRepository;
 use Model\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 
 class UserController extends Controller
@@ -83,93 +86,76 @@ class UserController extends Controller
 
     public function forgotPasswordAction(Request $request, Application $app)
     {
-/*        $request = $app['request'];
+        $user = new User();
+        $entityManager = $app['orm.em'];
+        $formFactory = $app['form.factory'];
+        $ForgetForm = $formFactory->create(ForgetForm::class, $user, [
+            'standalone' => true,
+            'user_repository' => $entityManager->getRepository(User::class)
+        ]);
+        $ForgetForm->handleRequest($request);
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Reset password')
-            ->setFrom(array($request->get('email')))
-            ->setTo(array(''))
-            ->setBody($request->get(''));
+        if ($ForgetForm->isSubmitted() && $ForgetForm->isValid()) {
+            $dbUser = $entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
 
-        $app['mailer']->send($message);
+            $length = 32;
+            $token = base64_encode(random_bytes($length));
 
-        return $app['twig']->render('pages/contact.twig', array('sent' => true));
+            $dbUser->setToken($token);
+            $entityManager->flush();
 
-    });*/
-        $error = null;
-        if ($request->isMethod('POST')) {
-            $email = $request->request->get('email');
-            $user = $this->User->findOneBy(array('email' => $email));
-            if ($user) {
-                // Initialize and send the password reset request.
-                $user->setTimePasswordResetRequested(time());
-                if (!$user->getConfirmationToken()) {
-                    $user->setConfirmationToken($app['user.tokenGenerator']->generateToken());
-                }
-                $this->userManager->update($user);
-                $app['user.mailer']->sendResetMessage($user);
-                $app['session']->getFlashBag()->set('alert', 'Instructions for resetting your password have been emailed to you.');
-                $app['session']->set('_security.last_username', $email);
-                return $app->redirect($app['url_generator']->generate('user.login'));
-            }
-            $error = 'No user account was found with that email address.';
+            $messagebody = new \Swift_Message();
+            $messagebody->setSubject('Reset password')
+                ->setFrom('share2u.contact@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody($app['twig']->render('mail/mail.html.twig', [
+                    'message' => $messagebody,
+                    'token'=> $token
+                ]),
+                    'text/html'
+                );
+            $app['mailer']->send($messagebody);
+            $app['session']->set('alert',  'Instructions for resetting your password have been emailed to you');
 
+            return $app->redirect($app['url_generator']->generate('homepage'));
         } else {
-
-            $email = $request->request->get('email') ?: ($request->query->get('email') ?: $app['session']->get('_security.last_username'));
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
+            return $app['twig']->render('forgot_password.html.twig', [
+                'form' => $ForgetForm->createView()
+            ]);
         }
-
-        return $app['twig']->render($this->getTemplate('forgot-password'), array(
-            'layout_template' => $this->getTemplate('layout'),
-            'email' => $email,
-            'fromAddress' => $app['user.mailer']->getFromAddress(),
-            'error' => $error,
-        ));
-
-
-
-        return $app['twig']->render('reset_password.html.twig',[]);
     }
 
-    public function resetPasswordAction(Application $app, Request $request, $token)
+    public function resetPasswordAction(Application $app, Request $request)
     {
-        $tokenExpired = false;
-        $user = $this->userManager->findOneBy(array('confirmationToken' => $token));
+        $user = new User();
+        $entityManager =self::getEntityManager($app);
+        $formFactory = self::getFormFactory($app);
+        $token = $request->query->get('token');
+        $user = $entityManager->getRepository(User::class)->findOneByToken($token);
         if (!$user) {
-            $tokenExpired = true;
-        } else if ($user->isPasswordResetRequestExpired($app['user.options']['passwordReset']['tokenTTL'])) {
-            $tokenExpired = true;
+            throw new CustomUserMessageAuthenticationException(
+                'this token is not valid ' );
         }
-        if ($tokenExpired) {
-            $app['session']->getFlashBag()->set('alert', 'Sorry, your password reset link has expired.');
-            return $app->redirect($app['url_generator']->generate('user.signin'));
+        $ResetForm = $formFactory->create(ResetForm::class, $user, [
+            'standalone' => true,
+            'user_repository' => $entityManager->getRepository(User::class)
+        ]);
+        $ResetForm->handleRequest($request);
+        if ($ResetForm->isSubmitted() && $ResetForm->isValid()) {
+
+                $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
+                $password = $encoder->encodePassword($user->getPassword(), null);
+                $user->setPassword($password);
+                 var_dump($password);
+                $user->setToken(null);
+                 $entityManager->persist($user);
+                 $entityManager->flush();
+                var_dump($token);
+            return $app->redirect($app['url_generator']->generate('homepage'));
         }
-        $error = '';
-        if ($request->isMethod('POST')) {
-            // Validate the password
-            $password = $request->request->get('password');
-            if ($password != $request->request->get('confirm_password')) {
-                $error = 'Passwords don\'t match.';
-            } else if ($error = $this->userManager->validatePasswordStrength($user, $password)) {
-                ;
-            } else {
-                // Set the password and log in.
-                $this->userManager->setUserPassword($user, $password);
-                $user->setConfirmationToken(null);
-                $user->setEnabled(true);
-                $this->userManager->update($user);
-                $this->userManager->loginAsUser($user);
-                $app['session']->getFlashBag()->set('alert', 'Your password has been reset and you are now signed in.');
-                return $app->redirect($app['url_generator']->generate('user.homepage', array('id' => $user->getId())));
-            }
-        }
-        return $app['twig']->render($this->getTemplate('reset-password'), array(
-            'layout_template' => $this->getTemplate('layout'),
-            'user' => $user,
-            'token' => $token,
-            'error' => $error,
-        ));
+        return $app['twig']->render('reset_password.html.twig', [
+            'form' => $ResetForm->createView()
+        ]);
     }
 
     public function deleteAction(Request $request, Application $app, $userId)

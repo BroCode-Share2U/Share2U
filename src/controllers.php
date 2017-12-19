@@ -50,7 +50,7 @@ $app->match('/signup', 'Controller\UserController::signupAction')
 $app->match('/forgot_password', 'Controller\UserController::forgotPasswordAction')
     ->bind('forgot_password');
 /* reset */
-$app->match('/reset', 'Controller\UserController::resetPasswordAction')
+$app->match('/reset_password/', 'Controller\UserController::resetPasswordAction')
     ->bind('reset_password');
 /* admin panel */
 $app->get('/admin/user', 'Controller\UserController::adminPanelAction')
