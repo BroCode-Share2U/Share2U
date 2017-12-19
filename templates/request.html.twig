@@ -7,20 +7,26 @@
         <div class="h3Text">
             <h3>You want to send a request for :<br/><span>{{ item.name }}</span></h3>
         </div>
-
-        {{ form_start(requestForm) }}
-        <div class="inputBox requestForm">
-            {{ form_label(requestForm) }}
-            {{ form_widget(requestForm) }}
-            <div id="loan_form" class="buttonBox">
-                <div>
-                    <button type="{{ type|default('submit') }}">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+        {% if requestForm != null %}
+            {{ form_start(requestForm) }}
+            <div class="inputBox requestForm">
+                {{ form_label(requestForm) }}
+                {{ form_widget(requestForm) }}
+                <div id="loan_form" class="buttonBox">
+                    <div>
+                        <button type="{{ type|default('submit') }}">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
+            {{ form_end(requestForm) }}
+        {% else %}
+        <div class="h3Text">
+            {% if itemInLoan %}<h3>Already in Loan</h3>{% endif %}
+            {% if itemRequested %}<h3>Already Requested</h3>{% endif %}
         </div>
-        {{ form_end(requestForm) }}
+        {% endif %}
     </div>
 
 {% endblock %}

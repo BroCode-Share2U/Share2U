@@ -3,6 +3,7 @@
 namespace Model\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Model\Item;
 use Model\Loan;
 use Model\User;
 
@@ -98,5 +99,37 @@ class LoanRepository extends EntityRepository
         ;
 
         return $queryBuilder->getQuery()->execute();
+    }
+
+    public function itemIsInLoan(Item $item)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder->select('l.id')
+            ->from(Loan::class, 'l')
+            ->innerJoin('l.item','i')
+            ->where('i.id = :itemId')
+                ->setParameter('itemId', $item->getId())
+            ->andWhere('l.status = :status')
+                ->setParameter('status', Loan::STATUS_IN_PROGRESS)
+        ;
+
+        $result = $queryBuilder->getQuery()->getArrayResult();
+        return (count($result) > 0);
+    }
+
+    public function itemIsRequested(Item $item)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder->select('l.id')
+            ->from(Loan::class, 'l')
+            ->innerJoin('l.item','i')
+            ->where('i.id = :itemId')
+                ->setParameter('itemId', $item->getId())
+            ->andWhere('l.status = :status')
+                ->setParameter('status', Loan::STATUS_REQUESTED)
+        ;
+
+        $result = $queryBuilder->getQuery()->getArrayResult();
+        return (count($result) > 0);
     }
 }
