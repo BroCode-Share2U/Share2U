@@ -13,7 +13,7 @@ $dbOption = [
     ]
 ];
 
-$swiftMaillerConfig =
+$swiftMailerConfig =
     [
         'swiftmailer.options' =>
             [

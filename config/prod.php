@@ -86,4 +86,4 @@ $app->register(new \Silex\Provider\TranslationServiceProvider(),
     ]
 );
 
-$app->register(new Silex\Provider\SwiftmailerServiceProvider(), $swiftMaillerConfig);
+$app->register(new Silex\Provider\SwiftmailerServiceProvider(), $swiftMailerConfig);
