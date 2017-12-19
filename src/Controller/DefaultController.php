@@ -33,7 +33,6 @@ class DefaultController extends Controller
     {
         // Get services and repository
         $entityManager = $this->getEntityManager($app);
-        $userRepo = $entityManager->getRepository(User::class);
         $itemRepo = $entityManager->getRepository(Item::class);
         $loanRepo = $entityManager->getRepository(Loan::class);
         $commentRepo = $entityManager->getRepository(Comment::class);
@@ -48,19 +47,25 @@ class DefaultController extends Controller
             $items[] = $item->toArray();
         }
 
-        // Get requests in
+        // Get requests in&out
         $requestsIn = $loanRepo->getLoansIn($user, Loan::STATUS_REQUESTED);
-        // Get requests out
         $requestsOut = $loanRepo->getLoansOut($user, Loan::STATUS_REQUESTED);
 
-        // Get loans in
+        // Get loans in&out
         $loansIn = $loanRepo->getLoansIn($user, Loan::STATUS_IN_PROGRESS);
-        // Get loans out
         $loansOut = $loanRepo->getLoansOut($user, Loan::STATUS_IN_PROGRESS);
 
+        // Get declined request in&out
+        $declineIn = $loanRepo->getLoansIn($user, Loan::STATUS_DECLINED);
+        $declineOut = $loanRepo->getLoansIn($user, Loan::STATUS_DECLINED);
+
+        // Get Cancel loans in&out
+        $cancelIn = $loanRepo->getLoansIn($user, Loan::STATUS_CANCELLED);
+        $cancelOut = $loanRepo->getLoansOut($user, Loan::STATUS_CANCELLED);
+
+        // Get Clodsed loans in&out
         $closedLoansIn = $loanRepo->getLoansIn($user, Loan::STATUS_CLOSED);
         $closedLoansOut = $loanRepo->getLoansOut($user, Loan::STATUS_CLOSED);
-
 
         return $app['twig']->render('dashboard.html.twig',
             [
@@ -70,6 +75,10 @@ class DefaultController extends Controller
                 'requestsOut' => $requestsOut,
                 'loansIn' => $loansIn,
                 'loansOut' => $loansOut,
+                '$declineIn' => $declineIn,
+                '$declineOut' => $declineOut,
+                '$cancelIn' => $cancelIn,
+                '$cancelOut' => $cancelOut,
                 'closedLoansIn' => $closedLoansIn,
                 'closedLoansOut' => $closedLoansOut,
             ]);
