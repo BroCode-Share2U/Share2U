@@ -16,46 +16,58 @@ class LoanController extends Controller
     public function requestAction(Request $request, Application $app, $itemId)
     {
         // Get serivces
-        $entityManager = $this->getEntityManager($app);
-        $formFactory = $this->getFormFactory($app);
-
-        // Create empty user
-        $loan = new Loan();
-
-        // Create the loan form
-        $loanForm = $formFactory->create(LoanForm::class, $loan, ['standalone' => true]);
-
-        //
-        $loanForm->handleRequest($request);
+        $entityManager = self::getEntityManager($app);
+        $formFactory = self::getFormFactory($app);
 
         // Find the item with the param in url
         $item = $entityManager->getRepository(Item::class)->find($itemId);
         if ($item === null){
             throw new NotFoundHttpException('item not found');
         }
-        // Set the item in the loan
-        $loan->setItem($item);
-        // Set the status
-        $loan->setStatus(Loan::STATUS_REQUESTED);
 
-        // Set the borrower
-        $borrower = $this->getAuthorizedUser($app);
-        $loan->setBorrower($borrower);
+        // Item in loan ?
+        $itemInLoan = $entityManager->getRepository(Loan::class)->itemIsInLoan($item);
+        $itemRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
 
-        // Persist the loan and send the eamil to the owner
-        if ($loanForm->isSubmitted() && $loanForm->isValid()) {
-            $entityManager->persist($loan);
-            $entityManager->flush();
-            // Send email request
-            $this->sendRequestMessage($app, $loan);
-            // Redidect to the dashboard
-            return $app->redirect($app['url_generator']->generate('dashboard'));
+        $loanForm = null;
+        if (!$itemInLoan && !$itemRequested){
+
+            // Create empty user
+            $loan = new Loan();
+
+            // Create the loan form
+            $loanForm = $formFactory->create(LoanForm::class, $loan, ['standalone' => true]);
+
+            //
+            $loanForm->handleRequest($request);
+
+            // Set the item in the loan
+            $loan->setItem($item);
+            // Set the status
+            $loan->setStatus(Loan::STATUS_REQUESTED);
+
+            // Set the borrower
+            $borrower = self::getAuthorizedUser($app);
+            $loan->setBorrower($borrower);
+
+            // Persist the loan and send the eamil to the owner
+            if ($loanForm->isSubmitted() && $loanForm->isValid()) {
+                $entityManager->persist($loan);
+                $entityManager->flush();
+                // Send email request
+                $this->sendRequestMessage($app, $loan);
+                // Redidect to the dashboard
+                return $app->redirect($app['url_generator']->generate('dashboard'));
+            }
+            $loanForm = $loanForm->createView();
         }
 
         return $app['twig']->render('request.html.twig',
             [
                 'item' => $item,
-                'requestForm' => $loanForm->createView()
+                'requestForm' => $loanForm,
+                'itemInLoan' => $itemInLoan,
+                'itemRequested' => $itemRequested
             ]);
     }
 
