@@ -14,7 +14,7 @@ class Comment
     -------------------- */
       /**
      * @Id()
-     * @GeneratedValue()
+     * @GeneratedValue(strategy="UUID")
      * @Column(name="id", type="guid", nullable=false)
      */
     protected $id;
