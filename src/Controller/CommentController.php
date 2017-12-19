@@ -18,43 +18,55 @@ class CommentController extends Controller
         $formFactory = self::getFormFactory($app);
         $loanRepo = $entityManager->getRepository(Loan::class);
 
+        // Get user
         $user = self::getAuthorizedUser($app);
 
+        // Create the form comment
         $comment = new Comment();
         $commentForm = $formFactory->create(CommentForm::class, $comment, ['standalone' => true]);
         $commentForm->handleRequest($request);
 
+        // find the loan
         $loan = $loanRepo->find($loanId);
+
+        // get the loaner & borrower
         $borrower = $loan->getborrower();
         $owner = $loan->getItem()->getOwner();
 
-        if ($loan === null || $loan->getStatus() !== Loan::STATUS_CLOSED){
+        // if loan null redirect not found
+        if ($loan === null || $loan->getStatus() !== Loan::STATUS_CLOSED)
+        {
             throw new NotFoundHttpException('loan not found');
         }
 
+        // defined if is the borrower or the loaner
         $isBorrower = $borrower->getId() === $user->getId() ;
         $isLoaner = $owner->getId() === $user->getId() ;
 
-        var_dump($isBorrower);
-        var_dump($isLoaner);
-
-        if (!$isBorrower && !$isLoaner){
+        // if isn't loaner or borrower not found
+        if (!$isBorrower && !$isLoaner)
+        {
             throw new NotFoundHttpException('user invalid');
         }
 
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+        // Form submit and valid
+        if ($commentForm->isSubmitted() && $commentForm->isValid())
+        {
+            // Set the user comment
             if ($isLoaner){
                 $comment->setUser($borrower);
             }
             if ($isBorrower){
                 $comment->setUser($owner);
             }
+            // Set the author
             $comment->setAuthor($user);
             $now = new \DateTime();
             $comment->setInsertedAt($now);
             $comment->setUpdatedAt($now);
             $comment->setLoan($loan);
 
+            // Push on db
             $entityManager->persist($comment);
             $entityManager->flush();
 
