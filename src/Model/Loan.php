@@ -59,7 +59,7 @@ class Loan
     
     const STATUS_REQUESTED = 0;
     const STATUS_IN_PROGRESS = 1;
-    const STATUS_DENIED = 2;
+    const STATUS_DECLINED = 2;
     const STATUS_CANCELLED = 3;
     const STATUS_CLOSED = 4;
 

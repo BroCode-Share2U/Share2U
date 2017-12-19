@@ -85,8 +85,8 @@ $app->match('/loan/request/{itemId}', 'Controller\LoanController::requestAction'
 $app->patch('/loan/accept/{loanId}', 'Controller\LoanController::acceptAction')
     ->bind('acceptRequest');
 /* reject loan  - owner action */
-$app->patch('/loan/reject/{loanId}', 'Controller\LoanController::rejectAction')
-    ->bind('rejectRequest');
+$app->patch('/loan/decline/{loanId}', 'Controller\LoanController::declineAction')
+    ->bind('declineRequest');
 /* close loan  - owner action */
 $app->patch('/loan/close/{loanId}', 'Controller\LoanController::closeAction')
     ->bind('closeLoan');
