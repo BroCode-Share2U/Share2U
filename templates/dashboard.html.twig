@@ -265,26 +265,49 @@
         // loan api action
         $(function () {
 
-            $('.acceptBtn').on('click', function ()
+            $('.acceptBtn').one('click', function ()
             {
                 var idLoan = $(this).data('idLoan');
-                var btn = $(this);
-                btn.html('wait');
+                var acceptBtn = $(this);
+                var declineBtn = $(acceptBtn).parent().find('.declineBtn');
+                var moreBtn = $(acceptBtn).parent().find('a');
                 $.ajax({
                     url: "loan/accept/" + idLoan,
                     method: "PATCH",
                     dataType: "JSON"
                 })
                     .done(function (data) {
-                        console.log(data);
-                        btn.remove();
-                        console.log($(btn).parent());
-                        btn.parent().find('.declineBtn').remove();
+                        moreBtn.fadeOut(350);
+                        $.merge(acceptBtn, declineBtn).fadeOut(300, function () {
+                            $(this).remove();
+                        });
+                        moreBtn.fadeIn(400);
                     })
                     .fail(function (data) {
-                        console.log(data);
-                    });
 
+                    });
+            });
+
+            $('.declineBtn').one('click', function () {
+                var idLoan = $(this).data('idLoan');
+                var declineBtn = $(this);
+                var acceptBtn = $(declineBtn).parent().find('.acceptBtn');
+                var moreBtn = $(declineBtn).parent().find('a');
+                $.ajax({
+                    url: "loan/decline/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        moreBtn.fadeOut(350);
+                        $.merge(acceptBtn, declineBtn).fadeOut(300, function () {
+                            $(this).remove();
+                        });
+                        moreBtn.fadeIn(400);
+                    })
+                    .fail(function (data) {
+
+                    });
             });
         })
 
