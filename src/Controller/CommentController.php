@@ -17,14 +17,10 @@ class CommentController extends Controller
         $entityManager = self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
         $loanRepo = $entityManager->getRepository(Loan::class);
+        $commentRepo =$entityManager->getRepository(Comment::class);
 
         // Get user
         $user = self::getAuthorizedUser($app);
-
-        // Create the form comment
-        $comment = new Comment();
-        $commentForm = $formFactory->create(CommentForm::class, $comment, ['standalone' => true]);
-        $commentForm->handleRequest($request);
 
         // find the loan
         $loan = $loanRepo->find($loanId);
@@ -32,6 +28,27 @@ class CommentController extends Controller
         // get the loaner & borrower
         $borrower = $loan->getborrower();
         $owner = $loan->getItem()->getOwner();
+
+        // Initialisation comment
+        $comment = null;
+
+        // get the comment's loan
+        $comments = $commentRepo->findByLoan($loan);
+        foreach ($comments as $value){
+            // If the user has a comment get this comment
+            if ($value->getAuthor() === $user){
+                $comment = $value;
+            }
+        }
+        // if no comment available initialisation new Comment
+        if ($comment === null )
+        {
+            $comment = new Comment();
+        }
+
+        // Create the form comment
+        $commentForm = $formFactory->create(CommentForm::class, $comment, ['standalone' => true]);
+        $commentForm->handleRequest($request);
 
         // if loan null redirect not found
         if ($loan === null || $loan->getStatus() !== Loan::STATUS_CLOSED)
