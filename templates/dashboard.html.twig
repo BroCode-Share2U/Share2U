@@ -100,8 +100,8 @@
                             <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
-                                <button data-idLoan="{{ loan.idLoan }}" class="acceptBtn">Accept</button>
-                                <button data-idLoan="{{ loan.idLoan }}" class="declineBtn">Decline</button>
+                                <button data-id-loan="{{ loan.idLoan }}" class="acceptBtn">Accept</button>
+                                <button data-id-loan="{{ loan.idLoan }}" class="declineBtn">Decline</button>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                             <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m-d-Y H:i:s') }} <span>by </span><a id="userLinkCardBox" href="">{{ loan.firstnameOwner }}</a></div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
-                                <button data-idLoan="{{ loan.idLoan }}" class="cancelBtn">Cancel</button>
+                                <button data-id-loan="{{ loan.idLoan }}" class="cancelBtn">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                             <div>{{ loan.firstnameBorrower }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
-                                <button data-idLoan="{{ loan.idLoan }}" class="finishBtn">Finish</button>
+                                <button data-id-loan="{{ loan.idLoan }}" class="finishBtn">Finish</button>
                             </div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
 
             $('.acceptBtn').one('click', function ()
             {
-                var idLoan = $(this).data('idLoan');
+                var idLoan = $(this).data('id-loan');
                 var acceptBtn = $(this);
                 var declineBtn = $(acceptBtn).parent().find('.declineBtn');
                 var moreBtn = $(acceptBtn).parent().find('a');
@@ -277,6 +277,7 @@
                     dataType: "JSON"
                 })
                     .done(function (data) {
+                        console.log(data);
                         moreBtn.fadeOut(350);
                         $.merge(acceptBtn, declineBtn).fadeOut(300, function () {
                             $(this).remove();
@@ -289,7 +290,7 @@
             });
 
             $('.declineBtn').one('click', function () {
-                var idLoan = $(this).data('idLoan');
+                var idLoan = $(this).data('id-loan');
                 var declineBtn = $(this);
                 var acceptBtn = $(declineBtn).parent().find('.acceptBtn');
                 var moreBtn = $(declineBtn).parent().find('a');
@@ -311,7 +312,7 @@
             });
 
             $('.finishBtn').one('click', function () {
-                var idLoan = $(this).data('idLoan');
+                var idLoan = $(this).data('id-loan');
                 var finishBtn = $(this);
                 var moreBtn = $(finishBtn).parent().find('a');
                 $.ajax({
