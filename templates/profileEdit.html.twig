@@ -3,14 +3,14 @@
 {% block title 'Edit your profile' %}
 
 {% block content %}
-    <div id="signupForm">
+    <div id="signupForm" class="editSignupForm">
         <div class="h2Text">
             <h2>Edit your details</h2>
         </div>
 
         {{ form_start(editProfileForm) }}
 
-        <div>
+        <div id="editSignupfirstSection">
             {#{{ form_errors(form) }}#}
             <div class="inputBox userFormFirstname">
                 {{ form_label(editProfileForm.firstname) }}
@@ -67,7 +67,7 @@
 
 
     <script>
-        $("#user_form_submit").html("<i class=\"fas fa-check\"></i>");
+        $("#edit_profile_form_submit").html("<i class=\"fas fa-sync-alt\"></i>");
     </script>
 
 {% endblock %}

@@ -3,10 +3,10 @@
 {% block title '' %}
 
 {% block content %}
-    {{ dump(declineIn) }}
+    {#{{ dump(declineIn) }}
     {{ dump(declineOut) }}
     {{ dump(cancelIn) }}
-    {{ dump(cancelOut) }}
+    {{ dump(cancelOut) }}#}
 
     <div id="UserProfile">
 
@@ -48,7 +48,7 @@
             <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y H:i:s') }}</div>
             <div id="" class="buttonBox">
                 <a href="{{ path('editProfile') }}">
-                    <button><i class="fas fa-cog" style="color:dodgerblue"></i></button>
+                    <button class="editProfileButton"><i class="fas fa-cog"></i></button>
                 </a>
             </div>
             <div id="dashBoardAddItemButton" class="buttonBox">

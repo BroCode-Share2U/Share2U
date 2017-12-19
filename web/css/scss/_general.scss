@@ -90,6 +90,11 @@
       text-shadow: 0 0 5px black;
     }
   }
+
+  .editProfileButton{
+    margin: 1rem 0;
+    color: var(--ColorButtonFocus);
+  }
 }
 
 //PICTURES
@@ -145,6 +150,7 @@
     text-align: right;
     padding: 0 0.5rem;
     margin: 1rem 0;
+    color: var(--ColorFont);
 
     h4{
       margin: 0;
@@ -221,14 +227,28 @@
       }
     }
   }
+
+  .commentBox{
+    color: var(--ColorFont);
+    font-size: 1.1rem;
+    font-style: italic;
+
+    padding: 1rem 2rem;
+    width: 100%;
+    text-align: center;
+
+    span{
+    }
+  }
 }
 
 
 
 #UserProfile{
-  width: 60rem;
+  max-width: 60rem;
   margin: 7rem auto;
   position: relative;
+  min-height: 25rem;
 
   #dashBoardProfilePicture{
     position: relative;
@@ -280,9 +300,11 @@
     }
 
     #dashboardDescription{
-      padding: 2rem 0;
+      padding: 1rem 0;
       color: var(--ColorLightGrey);
       font-style: italic;
+      max-height: 10rem;
+      overflow-y: hidden;
     }
 
     #dashboardEmail{

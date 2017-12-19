@@ -3,7 +3,31 @@
 {% block title '' %}
 
 {% block content %}
-    {{ dump(item) }}
-    {{ item.name }}
-    {{ item.owner.username }}
+
+    <div id="UserProfile" class="itemProfile">
+        <div id="dashBoardProfilePicture">
+            <div class="pictureBox">
+                <img src="{{ item.cover }}" alt="game picture">
+
+            </div>
+            <div class="buttonBox">
+                <a id="dashBoardAddItemButton" href="{{ path('requestItem', { 'itemId': item.id }) }}"><button>Request</button></a>
+            </div>
+        </div>
+        <div id="dashBoardProfileInformation" class="dashBoardProfileInformation">
+            <div id="dashboardUsername">{{ item.name }}<br/></div>
+            <div id="dashboardFirstname">{{ item.platform }}<br/></div>
+            <div id="dashboardLastname">owned by <a href="">{{ item.owner.username }}</a></div>
+            <div id="dashboardInsertedDate"><span>since </span>{{ item.owner.insertedAt|date("m/d/Y") }}</div>
+            {% if item.description is not null %}
+                <div id="dashboardDescription">"{{ item.description }}"</div>
+            {% endif %}
+            <div id="itemDescriptionArea">
+                <div id="dashboardFirstname"><br/>Summary<br/></div>
+                <div id="dashboardInsertedDate">{{ item.summary }}</div>
+            </div>
+
+        </div>
+    </div>
+    {#{{ dump(item) }}#}
 {% endblock %}

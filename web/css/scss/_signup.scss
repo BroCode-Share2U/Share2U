@@ -148,7 +148,12 @@
   #signupForm form div{
     width: 100%;
   }
+
+  #editSignupfirstSection{
+    margin-bottom: 0 !important;
+  }
 }
+
 
 @media screen and (max-width: 490px){
   #signupForm{

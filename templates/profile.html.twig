@@ -5,7 +5,6 @@
 {% block content %}
 
     <div id="UserProfile">
-
         <div id="dashBoardProfilePicture">
             <div class="pictureBox">
                 {% if viewedUser.gender ==0 %}
@@ -19,7 +18,7 @@
             <div id="dashBoardProfileRank">
                 <div class="stars">
                     <div class="rank"></div>
-                    {#<div class="score">{{ (averageRating)|number_format(1, '.', ',') }}</div>#}
+                    <div class="score">{{ (rating)|number_format(1, '.', ',') }}</div>
                 </div>
             </div>
         </div>
@@ -40,29 +39,92 @@
             <div id="dashboardLastname">{{ viewedUser.lastname }}</div>
             <div id="dashboardDescription">"{{ viewedUser.description }}"</div>
             <div id="dashboardInsertedDate"><span>Member since </span>{{ viewedUser.insertedAt|date("m/d/Y") }}</div>
+            {% if viewedUser.username == user.username %}
+                <div class="buttonBox">
+                    <a href="{{ path('editProfile') }}">
+                        <button  class="editProfileButton"><i class="fas fa-cog"></I></button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="dashBoardTabSection">
+        <div id="dashBoardMenu">
+            <button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button>
+            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Comments</button>
+        </div>
+
+        <div id="dashBoardMenuTab1" class="dashBoardMenuTab">
+            <div>
+                <h2>Owned Items</h2>
+                {% for item in items %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="{{ item.cover }}" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            {#<div>{{ item.id }}</div>#}
+                            <h4>{{ item.name }}</h4>
+                            <div>{{ item.owner.firstname }} {{ item.owner.lastname }}</div>
+                            {#<div>{{ item.owner.id }}</div>#}
+                            <div>{{ item.description }}</div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
+            <div>
+                <h2>Comments</h2>
+                {% for comment in comments %}
+                    <div class="cardBox">
+                        <div class="commentBox">
+                            <span>"{{ comment.text }}"</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
 
 
-
-    {% if viewedUser is defined and viewedUser is not null %}
+    {#{% if viewedUser is defined and viewedUser is not null %}
         You are viewing: {{ viewedUser.firstname }}
     {% else %}
-    {% endif %}
+    {% endif %}#}
 
-    {% if viewedUser.username == user.username %}
-    <form action="{{ path('editProfile') }}">
-        <input type="submit" value="Edit">
-    </form>
-        {{ dump(viewedUser) }}
-    {% endif %}
-    Owned items:
-    {% for item in items %}
-        {{ item.name }}
-    {% endfor %}
-    Comments
-    {% for comment in comments %}
-        Comment: {{ comment.text }}
-    {% endfor %}
-    Rating: {{ rating }}
+
+    <script>
+        function openLink(evt, menuTab) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("dashBoardMenuTab");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" tablinkActive", "");
+            }
+            document.getElementById(menuTab).style.display = "block";
+            evt.currentTarget.className += " tablinkActive";
+        }
+
+        (function() {
+            // your page initialization code here
+            // the DOM will be available here
+            var x = $(".score").html()*20;
+            $(".rank").css('width', x+'%');
+
+        })();
+    </script>
+
+
 {% endblock %}
