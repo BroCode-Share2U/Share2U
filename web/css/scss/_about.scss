@@ -81,3 +81,37 @@
     padding: 1rem 0;
   }
 }
+
+/*RESPONSIVE*/
+@media screen and (max-width: 1140px){
+  #aboutPictures{
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+
+    .aboutArea{
+      width: 50%;
+      text-align: center;
+
+      .pictureBox{
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 720px){
+  #aboutPictures{
+
+    .aboutArea{
+      width: 100%;
+      text-align: center;
+      padding: 1rem 5rem;
+
+      .pictureBox{
+      }
+    }
+  }
+}

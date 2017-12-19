@@ -26,14 +26,13 @@
             <div class="h2Text">
                 <h2>choose your game from below</h2>
             </div>
-            <table>
-                <thead>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div id="additemArea"></div>
         </div>
 
         <div id="divFormAdd" style="display: none">
+            <div class="h2Text">
+                <h2>select the game platform and add a personal description</h2>
+            </div>
             <div class="inputBox buttonBox">
                 {{ form_label(itemForm) }}
                 {{ form_widget(itemForm) }}
@@ -43,9 +42,6 @@
     </div>
     <script>
         $("#item_form_submit").html("<i class=\"fas fa-plus\"></i>");
-
-
-
 
         $(function ()
         {
@@ -68,21 +64,26 @@
 
             function addGamesInTable(games)
             {
-                tableResultSearch.find('tbody').html('');
+                tableResultSearch.find('#additemArea').html('');
 
                 for (var i=0; i<games.length; i++){
                     if ( games[i].cover === undefined)
                     {
-                        games[i].cover = { url : 'https://laughingsquid.com/wp-content/uploads/gamingblinds_0000_closeup-1.jpg.jpg'};
+                        games[i].cover = { url : 'https://images.emojiterra.com/mozilla/512px/1f3ae.png'};
+                    }
+                    else
+                    {
+                        var str= games[i].cover.url;
+                        games[i].cover.url=str.replace(/t_thumb/gi, "t_cover_big");
                     }
                     if ( games[i].summary === undefined)
                     {
                         games[i].summary = 'No summary available';
                     }
-                    tableResultSearch.find('tbody').append(
+                    tableResultSearch.find('#additemArea').append(
                         '<div  class="cardBox" data-id="' + games[i].id + '" data-name="' + games[i].name + '" data-summary="' + games[i].summary + '" >' +
                             '<div class="insideCardBox1"><div class="pictureBox">' + '<img src="' + games[i].cover.url + '" alt="game picture">' + '</div></div>' +
-                            '<div class="insideCardBox2"><h4>' + games[i].name + '</h4>' + '<div id="additemCardDescription">' + games[i].summary + '</div></div>' +
+                            '<div class="insideCardBox2"><h4>' + games[i].name + '</h4>' + '<div id="additemCardDescriptionHiddenArea"><div id="additemCardDescription">' + games[i].summary + '</div></div></div>' +
                         '</div>'
                     )
                 }
