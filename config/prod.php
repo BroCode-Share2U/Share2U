@@ -60,6 +60,8 @@ $app->register(
             array('^/signup', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/about', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/support', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/forgot_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/reset_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/.+$', 'ROLE_USER')
         ),
         'security.role_hierarchy' => [                  // Role hierarchy definition

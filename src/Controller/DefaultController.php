@@ -14,6 +14,8 @@ class DefaultController extends Controller
 {
     public function homepageAction(Request $request, Application $app)
     {
+
+
         return $app['twig']->render('homepage.html.twig',[]);
     }
 
