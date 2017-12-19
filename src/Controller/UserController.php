@@ -5,10 +5,12 @@ namespace Controller;
 use Form\AddressForm;
 use Form\ForgetForm;
 use Form\UserForm;
-use Model\Address;
 use Form\ResetForm;
 use Model\Repository\UserRepository;
+use Model\Address;
 use Model\User;
+use Model\Item;
+use Model\Comment;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,9 +25,7 @@ class UserController extends Controller
         $viewedUser = $userRepo->findOneByUsername($username);
 
         if ($viewedUser !== null) {
-            return $app['twig']->render('profile.html.twig', [
-                'viewedUser' => $viewedUser
-            ]);
+            return $this->renderProfileOrUser($app, $viewedUser);
         }
         else  {
             echo "Viewed user does not exist"; die;
@@ -35,8 +35,23 @@ class UserController extends Controller
     public function showProfileAction(Request $request, Application $app) {
         $thisUser = $this->getAuthorizedUser($app);
 
+        return $this->renderProfileOrUser($app, $thisUser);
+    }
+
+    private function renderProfileOrUser ($app, $user) {
+        $em = self::getEntityManager($app);
+        $itemRepo = $em ->getRepository(Item::class);
+        $commentRepo = $em ->getRepository(Comment::class);
+
+        $items = $itemRepo->findByOwner($user);
+        $comments = $commentRepo->findByUser($user);
+        $rating = $commentRepo->getAverageRating($user);
+
         return $app['twig']->render('profile.html.twig', [
-            'viewedUser' => $thisUser
+            'viewedUser' => $user,
+            'items' => $items,
+            'comments' => $comments,
+            'rating' => $rating
         ]);
     }
 

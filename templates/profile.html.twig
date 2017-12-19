@@ -13,4 +13,13 @@
         <input type="submit" value="Edit">
     </form>
     {% endif %}
+    Owned items:
+    {% for item in items %}
+        {{ item.name }}
+    {% endfor %}
+    Comments
+    {% for comment in comments %}
+        Comment: {{ comment.text }}
+    {% endfor %}
+    Rating: {{ rating }}
 {% endblock %}
