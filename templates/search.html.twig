@@ -20,8 +20,8 @@
                         <div>{{ item.igdbId }}</div>
                         <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href="" id="userLinkCardBox">{{ item.owner.username }}</a></div>
                         <div class="buttonBox">
-                            <button>More</button>
-                            <button>Request</button>
+                            <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
+                            <a href="{{ path('requestItem', { 'itemId': item.id }) }}"><button>Request</button></a>
                         </div>
                     </div>
                 </div>
