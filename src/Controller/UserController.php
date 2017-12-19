@@ -19,15 +19,25 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 class UserController extends Controller
 {
     public function showUserAction(Request $request, Application $app, $username) {
-        $viewedUser = findUser($username);
+        $userRepo = $this->getEntityManager($app)->getRepository(User::class);
+        $viewedUser = $userRepo->findOneByUsername($username);
 
-        return $app['twig']->render('profile.html.twig', [
-            'viewedUser' => $viewedUser
-        ]);
+        if ($viewedUser !== null) {
+            return $app['twig']->render('profile.html.twig', [
+                'viewedUser' => $viewedUser
+            ]);
+        }
+        else  {
+            echo "Viewed user does not exist"; die;
+        }
     }
 
     public function showProfileAction(Request $request, Application $app) {
-        return $app['twig']->render('profile.html.twig', []);
+        $thisUser = $this->getAuthorizedUser($app);
+
+        return $app['twig']->render('profile.html.twig', [
+            'viewedUser' => $thisUser
+        ]);
     }
 
     public function editProfileAction(Request $request, Application $app)

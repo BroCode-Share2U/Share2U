@@ -4,12 +4,13 @@
 
 {% block content %}
     {% if viewedUser is defined and viewedUser is not null %}
-        {{ dump(viewedUser) }}
+        You are viewing: {{ viewedUser.firstname }}
     {% else %}
-        {{ dump(user) }}
     {% endif %}
 
-    <form action="{{ path('profile') }}">
-        <input type="button" value="Edit">
+    {% if viewedUser.username == user.username %}
+    <form action="{{ path('editProfile') }}">
+        <input type="submit" value="Edit">
     </form>
+    {% endif %}
 {% endblock %}
