@@ -60,7 +60,7 @@ $app->get('/admin/user', 'Controller\UserController::adminPanelAction')
     ->bind('adminPanel');
 /* delete */
 $app->delete('/admin/user/{userId}', 'Controller\UserController::deleteAction')
-    ->bind('deleteUser');
+    ->bind('admin/user');
 
 /* *********************
 * Item Controller
