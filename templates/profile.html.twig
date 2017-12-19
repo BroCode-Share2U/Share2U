@@ -3,5 +3,14 @@
 {% block title '' %}
 
 {% block content %}
-    Your profile
+    {% if viewedUser is defined and viewedUser is not null %}
+        You are viewing: {{ viewedUser.firstname }}
+    {% else %}
+    {% endif %}
+
+    {% if viewedUser.username == user.username %}
+    <form action="{{ path('editProfile') }}">
+        <input type="submit" value="Edit">
+    </form>
+    {% endif %}
 {% endblock %}

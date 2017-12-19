@@ -34,12 +34,15 @@ $app->match('/comment/{loanId}', 'Controller\CommentController::commentAction')
 /* *********************
 * User Controller
 ********************* */
-/* profile edit */
-$app->match('/profile', 'Controller\UserController::editAction')
-    ->bind('profile');
-/* profile */
-$app->get('/user/{username}', 'Controller\UserController::showAction')
+/* show a fellow user */
+$app->get('/user/{username}', 'Controller\UserController::showUserAction')
     ->bind('user');
+/* profile */
+$app->match('/profile', 'Controller\UserController::showProfileAction')
+    ->bind('profile');
+/* edit profile */
+$app->match('/profile/edit', 'Controller\UserController::editProfileAction')
+    ->bind('editProfile');
 /* signin */
 $app->get('/signin', 'Controller\UserController::signinAction')
     ->bind('signin');
