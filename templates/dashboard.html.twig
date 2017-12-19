@@ -8,14 +8,16 @@
     {{ dump(cancelIn) }}
     {{ dump(cancelOut) }}
 
-    <div id="dashBoardUserProfile">
+    <div id="UserProfile">
 
         <div id="dashBoardProfilePicture">
             <div class="pictureBox">
                 {% if user.gender ==0 %}
                     <img src="https://s3.envato.com/files/133963251/pv_590.jpg" alt="male profile picture">
-                {% else %}
+                {% elseif user.gender ==1%}
                     <img src="https://image.freepik.com/free-vector/beautiful-woman-in-pop-art-style_23-2147524176.jpg" alt="female profile picture">
+                {% else %}
+                    <img src="https://lh6.googleusercontent.com/-US-t-UBrhf4/VBKGm_9ITyI/AAAAAAAAf-I/xgfIcGrwFM4/w800-h800/pa19.jpg">
                 {% endif %}
             </div>
             <div id="dashBoardProfileRank">
@@ -70,9 +72,9 @@
                 <h2>Owned Items</h2>
                 {% for item in items %}
                     <div class="cardBox">
-                        <div class="insideCardBox1">
+                            <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ item.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">
@@ -99,11 +101,11 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ loan.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">
-                            <h4><a href="" id="userLinkCardBox">{{ loan.firstnameBorrower }} </a><span>requested: </span>{{ loan.name }}</h4>
+                            <h4><a href="" id="userLinkCardBox">{{ loan.usernameBorrower }} </a><span>requested: </span>{{ loan.name }}</h4>
                             <div>{{ loan.idLoan }}</div>
                             <div>{{ loan.status }}</div>
                             <div>{{ loan.requestMessage }}</div>
@@ -123,7 +125,31 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ loan.cover }}" alt="card item picture">
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>You requested {{ loan.name }} to {{ loan.usernameOwner }}</h4>
+                            <div>{{ loan.idLoan }}</div>
+                            <div>{{ loan.status }}</div>
+                            <div>{{ loan.requestMessage }}</div>
+                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m-d-Y H:i:s') }} <span>by </span><a id="userLinkCardBox" href="">{{ loan.firstnameOwner }}</a></div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                                <button data-id-loan="{{ loan.idLoan }}" class="cancelBtn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(requestsOut) }}#}
+            </div>
+            <div>
+                <h2>Requests Denied</h2>
+                {% for loan in requestsOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <img src="{{ loan.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">
@@ -150,7 +176,7 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ loan.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">
@@ -175,7 +201,7 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ loan.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">
@@ -202,7 +228,7 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ loan.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">
@@ -227,7 +253,7 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="https://i.pinimg.com/736x/ec/67/01/ec67011b56dfc9cdb8fba6f1190f2c97--retro-videos-retro-video-games.jpg" alt="card item picture">
+                                <img src="{{ loan.cover }}" alt="card item picture">
                             </div>
                         </div>
                         <div class="insideCardBox2">

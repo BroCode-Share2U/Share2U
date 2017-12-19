@@ -1,0 +1,78 @@
+#commentMain{
+  max-width: 50rem;
+  margin: 0 auto;
+  position: relative;
+
+  padding-bottom: 10rem;
+
+  .inputBox{
+    form{
+      #comment_form{
+        width: 100%;
+        div{
+          text-align: center;
+          position: relative;
+          margin: 0 auto;
+          textarea{
+            width: 100%;
+            height: 6.5rem;
+          }
+          #comment_form_submit{
+
+          }
+          &:nth-of-type(1){
+            label.required{
+              display: none;
+            }
+
+            #comment_form_rating{
+              input{
+                margin: 1rem;
+                position: relative;
+                height: 0.5rem;
+
+                &:hover{
+                  box-shadow: 0 0 30px var(--ColorTitleShadow1);
+                  &:after{
+                    color: var(--ColorFont);
+                  }
+                }
+
+                &:after{
+                  content: '\2605';
+                  font-size: 2rem;
+                  color: var(--ColorTitle);
+                  position: absolute;
+                  top: -1.3rem;
+                  left: -0.45rem;
+                  text-shadow:
+                          1px 1px 2px rgba(255,255,255,0.2),
+                          -1px 1px 2px rgba(255,255,255,0.2),
+                          1px -1px 2px rgba(255,255,255,0.2),
+                          -1px -1px 2px rgba(255,255,255,0.2);
+                }
+              }
+              .itemSelect{
+                box-shadow: 0 0 30px white;
+                &:after{
+                  color: var(--ColorTitle);
+                }
+                ~:after{
+                  color: #A29F9B ;
+                  text-shadow:
+                          1px 1px 2px rgba(0,0,0,0.2),
+                          -1px 1px 2px rgba(0,0,0,0.2),
+                          1px -1px 2px rgba(0,0,0,0.2),
+                          -1px -1px 2px rgba(0,0,0,0.2)
+                }
+              }
+            }
+          };
+          &:nth-of-type(2){
+            max-width: 30rem;
+          };
+        }
+      }
+    }
+  }
+}

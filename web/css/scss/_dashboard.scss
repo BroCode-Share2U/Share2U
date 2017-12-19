@@ -1,88 +1,4 @@
 //PROFILE SECTION
-#dashBoardUserProfile{
-  width: 60rem;
-  margin: 7rem auto;
-  position: relative;
-
-  #dashBoardProfilePicture{
-    position: relative;
-    text-align: center;
-    top: 1rem;
-    width: 25rem;
-    .pictureBox{
-      z-index: -1;
-    }
-  }
-  #dashBoardProfileRank{
-    position: absolute;
-    bottom: -2.5rem;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-  }
-
-  #dashBoardProfileInformation{
-    text-align: right;
-    color: var(--ColorFont);
-    padding: 0 1rem 1rem 1rem;
-    border-right: 2px solid white;
-    box-shadow: 2.5px 0 0 rgba(0,0,0,0.3);
-
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
-
-    top: 0;
-    right: 4rem;
-    width: 50%;
-
-    position: absolute;
-
-    #dashboardGender{
-      font-size: 2.2rem;
-      display: inline;
-      text-shadow: 0 0 10px black;
-    }
-
-    #dashboardUsername{
-      display: inline;
-      font-size: 4rem;
-      text-shadow: 0 0 10px black;
-    }
-
-    #dashboardFirstname,#dashboardLastname{
-      display: inline;
-      font-size: 1.4rem;
-    }
-
-    #dashboardDescription{
-      padding: 2rem 0;
-      color: var(--ColorLightGrey);
-      font-style: italic;
-    }
-
-    #dashboardEmail{
-      font-size: 1.1rem;
-      i{
-        font-size: 1rem;
-      }
-    }
-
-    #dashboardInsertedDate{
-      padding-top: 1rem;
-      span{
-        font-size: 0.9rem;
-        color: var(--ColorLightGrey);
-      }
-    }
-
-    #dashboardUpdatedDate{
-      span{
-        font-size: 0.9rem;
-        color: var(--ColorLightGrey);
-      }
-    }
-  }
-}
-
 .stars{
   display: inline-block;
   position: relative;
@@ -160,6 +76,10 @@
       margin: 1rem 1rem;
       width: 80%;
 
+      &:hover{
+        background: rgba(0,0,0,0.3);
+      }
+
       &:last-child{
         margin-bottom: 3rem;
       }
@@ -169,12 +89,10 @@
           &:hover{
             transition-duration:0.4s;
             border: 2px solid var(--ColorGreen);
-            transform: scale(1.02);
             box-shadow: 0 0 20px var(--ColorGreen);
 
             img {
               transition-duration: 0.4s;
-              transform: scale(1.02);
               opacity: 1;
             }
           }
@@ -182,7 +100,15 @@
       }
 
       .insideCardBox2{
-
+        button{
+          background: rgba(0,0,0,0.2);
+          &:hover{
+            transition-duration:0.2s;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--ColorGreen);
+            box-shadow: 0 0 5px var(--ColorGreen);
+          }
+        }
       }
     }
   }
@@ -237,11 +163,6 @@
   }
 }
 @media screen and (max-width: 960px){
-  #dashBoardUserProfile{
-    width: unset;
-    margin: 4rem auto;
-    margin-bottom: 7rem;
-  }
   #dashBoardTabSection{
     max-width: unset;
     min-width: unset;

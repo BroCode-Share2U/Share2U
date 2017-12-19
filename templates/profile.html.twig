@@ -3,6 +3,48 @@
 {% block title '' %}
 
 {% block content %}
+
+    <div id="UserProfile">
+
+        <div id="dashBoardProfilePicture">
+            <div class="pictureBox">
+                {% if viewedUser.gender ==0 %}
+                    <img src="https://s3.envato.com/files/133963251/pv_590.jpg" alt="male profile picture">
+                {% elseif viewedUser.gender ==1%}
+                    <img src="https://image.freepik.com/free-vector/beautiful-woman-in-pop-art-style_23-2147524176.jpg" alt="female profile picture">
+                {% else %}
+                    <img src="https://lh6.googleusercontent.com/-US-t-UBrhf4/VBKGm_9ITyI/AAAAAAAAf-I/xgfIcGrwFM4/w800-h800/pa19.jpg">
+                {% endif %}
+            </div>
+            <div id="dashBoardProfileRank">
+                <div class="stars">
+                    <div class="rank"></div>
+                    {#<div class="score">{{ (averageRating)|number_format(1, '.', ',') }}</div>#}
+                </div>
+            </div>
+        </div>
+        <div id="dashBoardProfileInformation" class="dashBoardProfileInformation">
+            <div id="dashboardGender">
+                {% if viewedUser.gender ==0 %}
+                    <i class="fas fa-mars" style="color:dodgerblue"></i>
+                {% elseif viewedUser.gender ==1 %}
+                    <i class="fas fa-venus" style="color:hotpink"></i>
+                {% elseif viewedUser.gender ==2 %}
+                    <i class="fas fa-transgender" style="color:lawngreen"></i>
+                {% else %}
+                    <i class="fas fa-genderless" style="color:orangered"></i>
+                {% endif %}
+            </div>
+            <div id="dashboardUsername">{{ viewedUser.username }}<br/></div>
+            <div id="dashboardFirstname">{{ viewedUser.firstname }}</div>
+            <div id="dashboardLastname">{{ viewedUser.lastname }}</div>
+            <div id="dashboardDescription">"{{ viewedUser.description }}"</div>
+            <div id="dashboardInsertedDate"><span>Member since </span>{{ viewedUser.insertedAt|date("m/d/Y") }}</div>
+    </div>
+
+
+
+
     {% if viewedUser is defined and viewedUser is not null %}
         You are viewing: {{ viewedUser.firstname }}
     {% else %}
@@ -12,6 +54,7 @@
     <form action="{{ path('editProfile') }}">
         <input type="submit" value="Edit">
     </form>
+        {{ dump(viewedUser) }}
     {% endif %}
     Owned items:
     {% for item in items %}
