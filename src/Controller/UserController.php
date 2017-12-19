@@ -100,6 +100,7 @@ class UserController extends Controller
 
             $length = 32;
             $token = base64_encode(random_bytes($length));
+            $token = str_replace('+', '', $token);
 
             $dbUser->setToken($token);
             $entityManager->flush();
@@ -130,27 +131,29 @@ class UserController extends Controller
         $user = new User();
         $entityManager =self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
-        $token = $request->query->get('token');
+        $token = $request->query->get('token_');
         $user = $entityManager->getRepository(User::class)->findOneByToken($token);
+
         if (!$user) {
             throw new CustomUserMessageAuthenticationException(
                 'this token is not valid ' );
         }
+
         $ResetForm = $formFactory->create(ResetForm::class, $user, [
             'standalone' => true,
             'user_repository' => $entityManager->getRepository(User::class)
         ]);
-        $ResetForm->handleRequest($request);
-        if ($ResetForm->isSubmitted() && $ResetForm->isValid()) {
 
-                $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
-                $password = $encoder->encodePassword($user->getPassword(), null);
-                $user->setPassword($password);
-                 var_dump($password);
-                $user->setToken(null);
-                 $entityManager->persist($user);
-                 $entityManager->flush();
-                var_dump($token);
+        $ResetForm->handleRequest($request);
+
+        if ($ResetForm->isSubmitted() && $ResetForm->isValid())
+        {
+            $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
+            $password = $encoder->encodePassword($user->getPassword(), null);
+            $user->setPassword($password);
+            $user->setToken(null);
+            $entityManager->persist($user);
+            $entityManager->flush();
             return $app->redirect($app['url_generator']->generate('homepage'));
         }
         return $app['twig']->render('reset_password.html.twig', [
