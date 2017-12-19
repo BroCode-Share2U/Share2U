@@ -88,7 +88,7 @@ class LoanController extends Controller
         );
     }
 
-    public function rejectAction(Request $request, Application $app, $loanId)
+    public function declineAction(Request $request, Application $app, $loanId)
     {
         $entityManager = self::getEntityManager($app);
         $user = self::getAuthorizedUser($app);
@@ -100,7 +100,7 @@ class LoanController extends Controller
             $ownerOk = $loan->getItem()->getOwner() === $user;
 
             if ($loanStatusOk && $ownerOk ){
-                $loanRepo->patchLoanStatus($loan, Loan::STATUS_DENIED);
+                $loanRepo->patchLoanStatus($loan, Loan::STATUS_DECLINED);
                 return $app->json(
                     [
                         'code' => 1,
