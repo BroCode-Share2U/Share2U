@@ -19,35 +19,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * Description of AddressForm
  */
-class UserForm extends AbstractType
+class EditProfileForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $emailCallback = new Assert\Callback(
-            function ($value, ExecutionContextInterface $context, $payload) {
-                if ($payload->emailExists($value)) {
-                    $context
-                    ->buildViolation('This email is already taken')
-                    ->atPath('email')
-                    ->addViolation();
-                }
-            }
-        );
-        $emailCallback->payload = $options['user_repository'];
-
-        $usernameExistsCallback = new Assert\Callback(
-            function ($value, ExecutionContextInterface $context, $payload) {
-                if ($payload->usernameExists($value)) {
-                    $context
-                        ->buildViolation('This username is already taken')
-                        ->atPath('username')
-                        ->addViolation();
-                }
-            }
-        );
-        $usernameExistsCallback->payload = $options['user_repository'];
-
-
         $builder->add(
             'firstname',
             TextType::class,
@@ -65,19 +40,6 @@ class UserForm extends AbstractType
                 ]
             ]
         )->add(
-            'username',
-            TextType::class,
-            [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => '/^[A-Za-z0-9_-].*$/'
-                    ]),
-                    $usernameExistsCallback,
-                ],
-                'error_bubbling' => true
-            ]
-        )->add(
             'description',
             TextareaType::class, [
                 'constraints' => [
@@ -86,18 +48,6 @@ class UserForm extends AbstractType
                     ])
                 ],
                 'required' => false
-            ]
-        )->add(
-            'email',
-            EmailType::class, [
-                'constraints' => [
-                    new Assert\Email(),
-                    new Assert\Length([
-                        'max' => 64
-                    ]),
-                    $emailCallback
-                ],
-                'error_bubbling' => true
             ]
         )->add(
             'gender',
@@ -141,10 +91,8 @@ class UserForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('user_repository');
         $resolver->setDefault('data_class', User::class);
         $resolver->setDefault('standalone', false);
-        $resolver->setDefault('edit', false);
 
         $resolver->addAllowedTypes('standalone', 'bool');
     }
