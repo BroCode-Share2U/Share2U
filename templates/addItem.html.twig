@@ -53,7 +53,7 @@
                 $.ajax({
                     url: "{{ path('searchIgdb') }}",
                     data: dataForm,
-                    method: "GET",
+                    method: "DELETE",
                     dataType: "JSON"
                 })
                     .done(function (data) {

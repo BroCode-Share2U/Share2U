@@ -235,12 +235,31 @@ class UserController extends Controller
 
     public function deleteAction(Request $request, Application $app, $userId)
     {
+        $manager = $app['orm.em'];
+        $repository = $manager->getRepository(User::class);
+        $user = $repository->find($userId);
+        if (!$user) {
+            $message = sprintf('User %d not found', $userId);
+            return $app->json(['status' => 'error', 'message' => $message], 404);
+        }
+
+        $manager->remove($user);
+        $manager->flush();
+
+         return $app->json(['status' => 'done']);
 
     }
 
     public function adminPanelAction(Request $request, Application $app)
     {
+        $repository = $app['orm.em']->getRepository(User::class);
+       $result = [];
+        foreach( $repository->findAll() as $user){
+            $result[] = $user->toArray();
+        }
 
-        return $app['twig']->render('adminPanel.html.twig',[]);
+         return $app['twig']->render('adminPanel.html.twig',[
+            'users' => $result
+         ]);
     }
 }

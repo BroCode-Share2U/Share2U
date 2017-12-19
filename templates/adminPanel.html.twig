@@ -1,7 +1,59 @@
 {% extends "layout.html.twig" %}
-
-{% block title '' %}
-
+{% if is_granted('ROLE_ADMIN') %}
+{% endif %}
 {% block content %}
-    adminPanel
+    <ul>
+        {% for user in users %}
+            <li>
+                <div>
+                     {{ user.id }}
+                     {{ user.username }}
+                     {{ user.firstname }}
+                     {{ user.lastname }}
+                      {{ user.email }}
+                    <div class="inputBox buttonBox">
+                            <button data-id-user="{{  user.id }}" class="deleteUser" ><i class="fa fa-trash"></i>Delete</button>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+<script>
+    $(function () {
+        $('.deleteUser' ). on('click', function (e) {
+            e.preventDefault();
+            var idUser = $(this).data('id-user');
+            var deleteBtn = $(this);
+            $.ajax({
+                url: 'user/' + idUser ,
+                method: "DELETE",
+                dataType: "JSON"
+            })
+                .done(function () {
+                    deleteBtn.fadeOut(100, function () {
+                        $(this).remove();
+                    })
+                });
+        });
+        setTimeout(function(){
+            $(document).ajaxStop(function(){
+                window.location.reload();
+            });
+        }, 250);
+    });
+</script>
+{#    {{ form_start(form) }}  #}{# display open tag of the form #}{#
+    <fieldset>
+        <legend>Person :</legend>
+        #}{#  form(form)   pour afficher le forme #}{#
+        {{ form_row(form.firstname) }} #}{# display form firstname label, input and error list #}{#
+        {{ form_row(form.lastname) }} #}{# display form lastname label, input and error list #}{#
+        {{ form_row(form.pseudo) }} #}{# display form username label, input and error list #}{#
+        {{ form_row(form.password) }} #}{# display form password label, input and error list #}{#
+    </fieldset>
+    {{ form_row(form.submit) }}  #}{# display form submit button #}{#
+    {{ form_rest(form) }}    #}{# pour afficher ce que n'a pas écrit #}{#
+
+    {{ form_end(form) }} #}{# display close tag of the form #}
+
 {% endblock %}
