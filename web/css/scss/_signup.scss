@@ -124,3 +124,39 @@
 #signupFormRedirectSignin{
   margin: 1rem 0;
 }
+
+
+/*RESPONSIVE*/
+
+@media screen and (max-width: 1120px){
+  #signupForm{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 925px){
+  #signupForm {
+    margin-bottom: 0;
+    max-width: 40rem;
+    padding-bottom: 5rem;
+
+    #signupFormSection2{
+      margin-top: 4rem;
+    }
+  }
+
+  #signupForm form div{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 490px){
+  #signupForm{
+    .userFormCountry, .userFormCity, .userFormZipCode{
+      width: 33.3% !important;
+    }
+    label{
+      font-size: 0.7rem;
+    }
+  }
+}

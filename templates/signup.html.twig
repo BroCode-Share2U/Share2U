@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div>
+        <div id="signupFormSection2">
             <div class="inputBox userFormAddress1">
                 {{ form_label(addressForm.address1) }}
                 {{ form_widget(addressForm.address1) }}
@@ -76,5 +76,10 @@
 
         {{ form_end(userForm) }}
     </div>
+
+
+    <script>
+        $("#user_form_submit").html("<i class=\"fas fa-check\"></i>");
+    </script>
 
 {% endblock %}

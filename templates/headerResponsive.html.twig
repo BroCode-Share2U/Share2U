@@ -1,0 +1,47 @@
+{#RESPONSIVE HEADER#}
+<div id="headerMenuResponsiveArea">
+    {% if user is not null %}
+    {% else %}
+    {% endif %}
+    <a id="headerMenuResponsiveTitle" " href="{{ path('homepage') }}"><h1 id="headerTitle" class="h1Text">Share<span style="margin: 0.7rem;" class="h1TextLetter">2</span>U</h1></a>
+
+        {% if user is not null %}
+            <div id="headerMenuResponsiveSearch">
+                <div id="headerSearch">
+                    <form action="search" method="GET" class="inputBox">
+                        <input id="headerSearchInput" type="text" placeholder="search here">
+                        <div class="buttonBox">
+                            <button id="headerSearchBtn" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+        {% endif %}
+
+    <div id="headerMenuResponsive" class="headerMenuToggle">
+        <div id="headerMenuResponsiveToggleArea"></div>
+        <ul>
+            {% if user is not null %}
+                <li><a href="profile">{{user.username}}</a></li>
+            {% else %}
+            {% endif %}
+            <li><a href="{{ path('homepage') }}">Home</a></li>
+            {% if user is not null %}
+                <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li><a href="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+            {% else %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="headerMenuResponsiveBars"><i class="fas fa-bars"></i></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.headerMenuResponsiveBars,#headerMenuResponsiveToggleArea').on('click', function() {
+            $('#headerMenuResponsive, .headerMenuResponsiveBars, #headerMenuResponsiveTitle, #headerMenuResponsiveSearch').toggleClass('headerMenuToggle');
+        });
+    });
+</script>
+{#END OF RESPONSIVE HEADER#}

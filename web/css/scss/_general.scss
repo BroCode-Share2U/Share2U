@@ -45,7 +45,7 @@
     border-radius: 15px;
     height: 5.6rem;
     resize: none;
-
+    padding: 1rem;
 
     font-family: Roboto,sans-serif;
   }
@@ -58,11 +58,6 @@
 }
 
 .buttonBox{
-
-  :hover{
-    color: var(--ColorButtonHover);
-  }
-
   button{
     width: 4rem;
     height: 4rem;
@@ -78,17 +73,22 @@
 
     cursor: pointer;
 
+    &:hover{
+      color: var(--ColorButtonHover);
+    }
+
+    &:focus{
+      color: var(--ColorFont);
+      border: 1px solid var(--ColorButtonFocus);
+      box-shadow: 0 0 20px rgba(#309280,0.5);
+      outline: none;
+      background-color: transparent;
+    }
+
     i{
       font-size: 2rem;
       text-shadow: 0 0 5px black;
     }
-  }
-  :focus{
-    color: var(--ColorFont);
-    border: 1px solid var(--ColorButtonFocus);
-    box-shadow: 0 0 20px rgba(#309280,0.5);
-    outline: none;
-    background-color: transparent;
   }
 }
 
@@ -248,7 +248,8 @@
 
 }
 .h1TextLetter{
-  margin: 1rem;
+  padding: 0 1rem;
+  margin: 0;
   color: var(--ColorTitleLetter);
 }
 .h2Text{

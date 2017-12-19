@@ -42,6 +42,9 @@
             <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y H:i:s') }}</div>
         </div>
     </div>
+    <div style="text-align: center">
+        <a href="{{ path('addItem') }}"><button>add item</button></a>
+    </div>
 
 
 <div id="dashBoardTabSection">
@@ -67,7 +70,7 @@
                             <h4>{{ item.name }}</h4>
                             <div>{{ item.owner.firstname }} {{ item.owner.lastname }}</div>
                             {#<div>{{ item.owner.id }}</div>#}
-                            <div>{{ item.igdbId }}</div>
+                            <div>{{ item.description }}</div>
                             <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
                             <div class="buttonBox">
                                 <button>More</button>
@@ -149,7 +152,7 @@
                             <div>{{ loan.firstnameBorrower }}</div>
                             <div class="buttonBox">
                                 <button>More</button>
-                                <button>Comment & Rate</button>
+                                <button>Finish</button>
                             </div>
                         </div>
                     </div>
@@ -174,7 +177,6 @@
                             <div>{{ loan.firstnameOwner }}</div>
                             <div class="buttonBox">
                                 <button>More</button>
-                                <button>Comment & Rate</button>
                             </div>
                         </div>
                     </div>
@@ -202,7 +204,7 @@
                             <div>{{ loan.firstnameBorrower }}</div>
                             <div class="buttonBox">
                                 <button>More</button>
-                                <button>Update</button>
+                                <button>Comment & Rate</button>
                             </div>
                         </div>
                     </div>
@@ -227,7 +229,7 @@
                             <div>{{ loan.firstnameOwner }}</div>
                             <div class="buttonBox">
                                 <button>More</button>
-                                <button>Update</button>
+                                <button>Comment & Rate</button>
                             </div>
                         </div>
                     </div>

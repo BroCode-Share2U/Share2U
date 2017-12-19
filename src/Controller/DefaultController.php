@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use GuzzleHttp\Client;
 use Model\Comment;
 use Model\Item;
 use Model\Loan;
@@ -73,4 +74,19 @@ class DefaultController extends Controller
                 'closedLoansOut' => $closedLoansOut,
             ]);
     }
+
+    public function searchIgdb(Request $request, Application $app)
+    {
+        $client = new Client();
+
+        $search = $request->query->get('inputSearch');
+        $headers = ['user-key' => ' 2d156ee0f911a8d4d7d0984c5ceff1ca ', 'Accept' => 'application/json'];
+
+        $request = new \GuzzleHttp\Psr7\Request('GET', 'https://api-2445582011268.apicast.io/games/?search='. $search . '&fields=name,summary,cover', $headers);
+
+        $response = $client->send($request, ['timeout' => 2]);
+
+        return $response->getBody()->getContents();
+    }
+
 }

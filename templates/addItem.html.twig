@@ -3,5 +3,106 @@
 {% block title '' %}
 
 {% block content %}
-    addItem
+    <style>
+        .cardBox.itemSelect{
+            background-color: #00fa00;
+        }
+    </style>
+
+    <div id="additemMain">
+        <div class="h2Text">
+            <h2>Add a game to share</h2>
+        </div>
+
+        <div class="inputBox buttonBox">
+            <form id="additemSearchIGDB" action="" method="post">
+                <label for="inputSearch">What's your game?</label>
+                <input id="inputSearch" name="inputSearch">
+                <button type="submit"><i class="fas fa-search-plus"></i></button>
+            </form>
+        </div>
+
+        <div id="additemSearchResult" style="display: none">
+            <div class="h2Text">
+                <h2>choose your game from below</h2>
+            </div>
+            <table>
+                <thead>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div id="divFormAdd" style="display: none">
+            <div class="inputBox buttonBox">
+                {{ form_label(itemForm) }}
+                {{ form_widget(itemForm) }}
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $("#item_form_submit").html("<i class=\"fas fa-plus\"></i>");
+
+
+
+
+        $(function ()
+        {
+            var tableResultSearch = $('#additemSearchResult');
+            var formSearchIgdb = $('#additemSearchIGDB');
+
+            formSearchIgdb.on('submit', function (e) {
+                e.preventDefault();
+                var dataForm = $(this).serialize();
+                $.ajax({
+                    url: "{{ path('searchIgdb') }}",
+                    data: dataForm,
+                    method: "GET",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        addGamesInTable(data);
+                    })
+            });
+
+            function addGamesInTable(games)
+            {
+                tableResultSearch.find('tbody').html('');
+
+                for (var i=0; i<games.length; i++){
+                    if ( games[i].cover === undefined)
+                    {
+                        games[i].cover = { url : 'https://laughingsquid.com/wp-content/uploads/gamingblinds_0000_closeup-1.jpg.jpg'};
+                    }
+                    if ( games[i].summary === undefined)
+                    {
+                        games[i].summary = 'No summary available';
+                    }
+                    tableResultSearch.find('tbody').append(
+                        '<div  class="cardBox" data-id="' + games[i].id + '" data-name="' + games[i].name + '" data-summary="' + games[i].summary + '" >' +
+                            '<div class="insideCardBox1"><div class="pictureBox">' + '<img src="' + games[i].cover.url + '" alt="game picture">' + '</div></div>' +
+                            '<div class="insideCardBox2"><h4>' + games[i].name + '</h4>' + '<div id="additemCardDescription">' + games[i].summary + '</div></div>' +
+                        '</div>'
+                    )
+                }
+                tableResultSearch.fadeIn(300);
+                $('#divFormAdd').fadeIn(300);
+                addListenerTr();
+            }
+
+            function addListenerTr()
+            {
+                $('.cardBox').on('click', function ()
+                {
+                    $('.itemSelect').removeClass('itemSelect');
+                    $('#item_form_igdbId').val($(this).data('id'));
+                    $('#item_form_name').val($(this).data('name'));
+                    $('#item_form_summary').val($(this).data('summary'));
+                    $('#item_form_cover').val($(this).find('img').attr('src'));
+                    $(this).addClass('itemSelect');
+                });
+            }
+        }); // Fin JQUERY
+    </script>
 {% endblock %}

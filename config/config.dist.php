@@ -6,7 +6,10 @@ $dbOption = [
         'dbname' => '',
         'host' => '',
         'user' => '',
-        'password' => ''
+        'password' => '',
+        'driverOptions' => [
+            1002 => 'SET NAMES utf8'
+        ]
     ]
 ];
 

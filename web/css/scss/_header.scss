@@ -8,7 +8,8 @@ body{
   font-family: Roboto, sans-serif;
   position: relative;
   min-height: 100vh;
-
+  max-width: 100%;
+  overflow-x: hidden;
 
   background-image: url(../img/backgroundShare2U-resized.jpg);
   background-position: center;
@@ -22,6 +23,11 @@ body{
 header{
   padding-top: 5rem;
 }
+
+#headerMenuResponsiveArea{
+  display: none;
+}
+
 nav{
   padding: 1rem;
   background: linear-gradient(rgba(0,0,0,0.5), transparent);
@@ -42,8 +48,27 @@ nav{
   #headerTitle{
     font-size: 4rem;
     margin-left: 1rem;
-
     vertical-align: middle;
+
+    text-shadow:
+            2px 2px 0 var(--ColorTitleShadow1) ,
+            -2px -2px 0 var(--ColorTitleShadow1) ,
+            2px -2px 0 var(--ColorTitleShadow1) ,
+            -2px 2px 0 var(--ColorTitleShadow1) ,
+
+            4px 4px 6px var(--ColorTitleShadow2) ,
+            -4px 4px 6px var(--ColorTitleShadow2) ,
+            4px -4px 6px var(--ColorTitleShadow2) ,
+            -4px -4px 6px var(--ColorTitleShadow2),
+
+            6px 6px 8px var(--ColorTitleShadow3) ,
+            -6px 6px 8px var(--ColorTitleShadow3) ,
+            6px -6px 8px var(--ColorTitleShadow3) ,
+            -6px -6px 8px var(--ColorTitleShadow3);
+
+    .h1TextLetter{
+      padding: 0 0.6rem;
+    }
   }
 
   #headerSearch{
@@ -51,6 +76,8 @@ nav{
 
     display: inline-block;
     vertical-align: middle;
+
+    z-index: 10;
     div{
       display: inline-block;
     }
@@ -128,9 +155,197 @@ nav{
 
 
 //layoutUnlogged
-#headerMenuUnlogged{
+#headerMenuUnlogged, #headerHomeLink{
   color: var(--ColorFont) !important;
   &:hover{
     color: var(--ColorTitleShadow1) !important;
+  }
+}
+
+
+//RESPONSIVE HEADER
+@media screen and (max-width: 1140px){
+  nav{
+    #headerTitle{
+      font-size: 2.7rem;
+    }
+    #headerSearchInput{
+      height: 2rem;
+      width: 10rem;
+    }
+    #headerMenuList{
+      right: 1rem;
+      li{
+        font-size: 1rem;
+        a{
+          padding: 0;
+        }
+      }
+      #headerMenuUsername{
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px){
+  header{
+    display: none;
+  }
+  @media screen and (max-width: 600px) {
+    #headerMenuResponsiveTitle {
+      display: none;
+    }
+  }
+
+  #headerMenuResponsiveArea{
+    position: relative;
+    top: -1rem;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(0,0,0,0.7);
+
+    z-index: 100;
+
+    color: var(--ColorFont);
+
+    #headerTitle{
+      position: absolute;
+      top: 0.5rem;
+      left: 1rem;
+      font-size: 2rem;
+      z-index: 1;
+
+      text-shadow:
+              2px 2px 0 var(--ColorTitleShadow1) ,
+              -2px -2px 0 var(--ColorTitleShadow1) ,
+              2px -2px 0 var(--ColorTitleShadow1) ,
+              -2px 2px 0 var(--ColorTitleShadow1) ,
+
+              4px 4px 6px var(--ColorTitleShadow2) ,
+              -4px 4px 6px var(--ColorTitleShadow2) ,
+              4px -4px 6px var(--ColorTitleShadow2) ,
+              -4px -4px 6px var(--ColorTitleShadow2),
+
+              6px 6px 8px var(--ColorTitleShadow3) ,
+              -6px 6px 8px var(--ColorTitleShadow3) ,
+              6px -6px 8px var(--ColorTitleShadow3) ,
+              -6px -6px 8px var(--ColorTitleShadow3);
+
+      .h1TextLetter{
+        padding: 0;
+      }
+    }
+
+    #headerSearch{
+      position: relative;
+      top: 1.3rem;
+      width: 40%;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      z-index: 1;
+
+      form{
+        margin: 0;
+        padding: 0;
+        text-align: center;
+
+        #headerSearchBtn{
+          position: absolute;
+          top: 0.7rem;
+          right: 0.3rem;
+          width: 2rem;
+          height: 2rem;
+          border: none;
+          i{
+            font-size: 1.4rem;
+          }
+        }
+
+        input{
+          width: 100%;
+          height: 2.3rem;
+        }
+      }
+    }
+
+    .headerMenuToggle{
+      #headerMenuResponsiveToggleArea{
+        display: none !important;
+      }
+      ul{
+        display: none !important;
+      }
+      i{
+        text-shadow: 0 0 20px var(--ColorGreen);
+      }
+      #headerTitle{
+        z-index: -1 !important;
+      }
+      #headerSearch{
+        z-index: -1 !important;
+      }
+    }
+
+    #headerMenuResponsive{
+      position: relative;
+      height: 2rem;
+
+
+      #headerMenuResponsiveToggleArea{
+        position: fixed;
+        background:rgba(0,0,0,0.3);
+        height: 100%;
+        width: 100vw;
+        top: 0;
+      }
+
+      ul{
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 1rem;
+        width: 50%;
+        li{
+          margin: 0;
+          list-style: none;
+          padding: 0.2rem 0;
+
+
+          a{
+            padding: 1rem 2rem;
+            background-color: rgba(0,0,0,0.5);
+            color: var(--ColorFont);
+            font-size: 1.2rem;
+
+            border: 1px solid lightgrey;
+            border-right: none;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            box-shadow: 0 0 5px black;
+
+            display: block;
+            text-decoration: none;
+
+            &:hover{
+              background: rgba(0,0,0,0.8);
+              border: 1px solid var(--ColorGreen);
+              border-right: none;
+              box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            }
+          }
+        }
+      }
+    }
+
+    .headerMenuResponsiveBars{
+      font-size: 2rem;
+      position: absolute;
+      right: 1.5rem;
+      top: 1.8rem;
+    }
   }
 }

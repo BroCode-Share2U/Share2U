@@ -69,3 +69,36 @@
 #homepageSecondSection{
 
 }
+
+
+
+/*RESPONSIVE*/
+
+@media screen and (max-width: 800px){
+  #homepageFirstSection{
+    margin-top: 10rem;
+    .h1Text{
+      font-size: 4rem;
+    }
+  }
+}
+@media screen and (max-width: 630px){
+  #homepageFirstSection{
+    margin-top: 13rem;
+    .h1Text{
+      font-size: 3rem;
+    }
+  }
+}
+@media screen and (max-width: 450px){
+  #homepageFirstSection{
+    margin-top: 13rem;
+    .h1Text{
+      font-size: 2rem;
+    }
+  }
+  #homepageSearch{
+    width: 60%;
+  }
+}
+

@@ -97,6 +97,12 @@ $app->patch('/loan/close/{loanId}', 'Controller\LoanController::closeAction')
 $app->patch('/loan/cancel/{loanId}', 'Controller\LoanController::cancelAction')
     ->bind('cancelRequest');
 
+/* *********************
+* Loan Controller
+********************* */
+/* request loan - borrower action, creates loan object */
+$app->get('/igdb', 'Controller\DefaultController::searchIgdb')
+    ->bind('searchIgdb');
 
 /* *********************
 * Error route
