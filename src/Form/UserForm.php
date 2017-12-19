@@ -144,6 +144,7 @@ class UserForm extends AbstractType
         $resolver->setRequired('user_repository');
         $resolver->setDefault('data_class', User::class);
         $resolver->setDefault('standalone', false);
+        $resolver->setDefault('edit', false);
 
         $resolver->addAllowedTypes('standalone', 'bool');
     }

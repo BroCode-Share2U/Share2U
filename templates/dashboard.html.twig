@@ -44,6 +44,11 @@
             <div id="dashboardEmail"><i class="fas fa-envelope"></i> {{ user.email }}</div>
             <div id="dashboardInsertedDate"><span>Member since </span>{{ user.insertedAt|date("m/d/Y") }}</div>
             <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y H:i:s') }}</div>
+            <div id="" class="buttonBox">
+                <a href="{{ path('editProfile') }}">
+                    <button><i class="fas fa-cog" style="color:dodgerblue"></i></button>
+                </a>
+            </div>
             <div id="dashBoardAddItemButton" class="buttonBox">
                 <a href="{{ path('addItem') }}"><button>Add new game</button></a>
             </div>

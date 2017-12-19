@@ -57,12 +57,57 @@ class UserController extends Controller
 
     public function editProfileAction(Request $request, Application $app)
     {
-        return $app['twig']->render('profileEdit.html.twig', []);
+        $user = self::getAuthorizedUser($app);
+
+        // if we're logged in
+        if ($user) {
+            $address = $user->getAddress();
+
+            $entityManager = self::getEntityManager($app);
+            $formFactory = self::getFormFactory($app);
+
+            // Create forms
+            $userForm = $formFactory->create(UserForm::class, $user, [
+                'standalone' => true,
+                'user_repository' => $entityManager->getRepository(User::class)
+            ]);
+            $addressForm = $formFactory->create(AddressForm::class, $address);
+
+            $userForm->handleRequest($request);
+            $addressForm->handleRequest($request);
+
+            // If the form was just submitted
+            if ($userForm->isSubmitted() && $userForm->isValid()) {
+                die('got here');
+
+                // Set parameters that aren't set by form->handleRequest()
+//                $user->setRole(User::ROLE_USER);
+                $now = new \DateTime();
+                $user->setUpdatedAt($now);
+                $user->setAddress($address);
+                // Encrypt password
+                $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
+                $password = $encoder->encodePassword($user->getPassword(), null);
+                $user->setPassword($password);
+
+                // Persist the update to user and address
+                $entityManager->flush();
+
+                return $app['twig']->render('profile.html.twig', []);
+            }
+            else {
+                return $app['twig']->render('profileEdit.html.twig', [
+                    'userForm' => $userForm->createView(),
+                    'addressForm' => $addressForm->createView()
+                ]);
+            }
+        }
+        // if we're not logged in redirect to the signin page
+        else return $app['twig']->render('signin.html.twig', []);
     }
 
     public function signinAction(Request $request, Application $app)
     {
-
         return $app['twig']->render('signin.html.twig',
             [
                 'error'         => $app['security.last_error']($request),
