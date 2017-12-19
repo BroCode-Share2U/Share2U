@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Form\AddressForm;
+use Form\EditProfileForm;
 use Form\ForgetForm;
 use Form\UserForm;
 use Form\ResetForm;
@@ -61,27 +62,21 @@ class UserController extends Controller
 
         // if we're logged in
         if ($user) {
-            $address = $user->getAddress();
-
-            $entityManager = self::getEntityManager($app);
             $formFactory = self::getFormFactory($app);
 
             // Create forms
-            $userForm = $formFactory->create(UserForm::class, $user, [
+            $editForm = $formFactory->create(EditProfileForm::class, $user, [
                 'standalone' => true,
-                'user_repository' => $entityManager->getRepository(User::class)
             ]);
+            $address = $user->getAddress();
             $addressForm = $formFactory->create(AddressForm::class, $address);
 
-            $userForm->handleRequest($request);
+            $editForm->handleRequest($request);
             $addressForm->handleRequest($request);
 
             // If the form was just submitted
-            if ($userForm->isSubmitted() && $userForm->isValid()) {
-                die('got here');
-
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
                 // Set parameters that aren't set by form->handleRequest()
-//                $user->setRole(User::ROLE_USER);
                 $now = new \DateTime();
                 $user->setUpdatedAt($now);
                 $user->setAddress($address);
@@ -91,13 +86,14 @@ class UserController extends Controller
                 $user->setPassword($password);
 
                 // Persist the update to user and address
+                $entityManager = self::getEntityManager($app);
                 $entityManager->flush();
 
-                return $app['twig']->render('profile.html.twig', []);
+                return $this->renderProfileOrUser($app, $user);
             }
             else {
                 return $app['twig']->render('profileEdit.html.twig', [
-                    'userForm' => $userForm->createView(),
+                    'editProfileForm' => $editForm->createView(),
                     'addressForm' => $addressForm->createView()
                 ]);
             }

@@ -8,33 +8,25 @@
             <h2>Edit your details</h2>
         </div>
 
-        {{ form_start(userForm) }}
+        {{ form_start(editProfileForm) }}
 
         <div>
             {#{{ form_errors(form) }}#}
             <div class="inputBox userFormFirstname">
-                {{ form_label(userForm.firstname) }}
-                {{ form_widget(userForm.firstname) }}
+                {{ form_label(editProfileForm.firstname) }}
+                {{ form_widget(editProfileForm.firstname) }}
             </div>
             <div class="inputBox userFormLastname">
-                {{ form_label(userForm.lastname) }}
-                {{ form_widget(userForm.lastname) }}
-            </div>
-            <div class="inputBox userFormEmail">
-                {{ form_label(userForm.email) }}
-                {{ form_widget(userForm.email) }}
-            </div>
-            <div class="inputBox userFormUsername">
-                {{ form_label(userForm.username) }}
-                {{ form_widget(userForm.username) }}
+                {{ form_label(editProfileForm.lastname) }}
+                {{ form_widget(editProfileForm.lastname) }}
             </div>
             <div class="inputBox userFormGender">
-                {{ form_label(userForm.gender) }}
-                {{ form_widget(userForm.gender) }}
+                {{ form_label(editProfileForm.gender) }}
+                {{ form_widget(editProfileForm.gender) }}
             </div>
             <div class="inputBox userFormPassword">
-                {{ form_label(userForm.password) }}
-                {{ form_widget(userForm.password) }}
+                {{ form_label(editProfileForm.password) }}
+                {{ form_widget(editProfileForm.password) }}
             </div>
         </div>
 
@@ -60,17 +52,17 @@
                 {{ form_widget(addressForm.country) }}
             </div>
             <div class="inputBox userFormDescription">
-                {{ form_label(userForm.description) }}
-                {{ form_widget(userForm.description) }}
+                {{ form_label(editProfileForm.description) }}
+                {{ form_widget(editProfileForm.description) }}
             </div>
         </div>
         <div id="submitArea" class="buttonBox">
-            {{ form_row(userForm.submit, { 'label': 'Submit' }) }}
+            {{ form_row(editProfileForm.submit, { 'label': 'Submit' }) }}
         </div>
 
-        {{ form_errors(userForm) }}
+        {{ form_errors(editProfileForm) }}
 
-        {{ form_end(userForm) }}
+        {{ form_end(editProfileForm) }}
     </div>
 
 
