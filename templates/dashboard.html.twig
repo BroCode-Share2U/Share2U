@@ -309,6 +309,27 @@
 
                     });
             });
+
+            $('.finishBtn').one('click', function () {
+                var idLoan = $(this).data('idLoan');
+                var finishBtn = $(this);
+                var moreBtn = $(finishBtn).parent().find('a');
+                $.ajax({
+                    url: "loan/close/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        moreBtn.fadeOut(350);
+                        $(finishBtn).fadeOut(300, function () {
+                            $(this).remove();
+                        });
+                        moreBtn.fadeIn(400);
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
         })
 
     </script>
