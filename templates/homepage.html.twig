@@ -10,7 +10,7 @@
         
     {% if user is not null %}
         <div id="homepageSearch">
-            <form action="search" method="GET" class="inputBox">
+            <form action="{{ path('searchItem') }}" method="GET" class="inputBox">
                 <input id="homepageSearchInput" type="text" name="searchString" placeholder="search here">
                 <div class="buttonBox">
                     <button id="homepageSearchBtn" type="submit"><i class="fas fa-search"></i></button>

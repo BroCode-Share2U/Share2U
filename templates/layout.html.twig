@@ -21,7 +21,7 @@
         <a href="{{ path('homepage') }}"><h1 id="headerTitle" class="h1Text">Share<span class="h1TextLetter">2</span>U</h1></a>
         {% if user is not null %}
             <div id="headerSearch">
-                <form action="search" method="GET" class="inputBox">
+                <form action="{{ path('searchItem') }}" method="GET" class="inputBox">
                 <input id="headerSearchInput" type="text" name="searchString" placeholder="search here">
                     <div class="buttonBox">
                         <button id="headerSearchBtn" type="submit"><i class="fas fa-search"></i></button>
