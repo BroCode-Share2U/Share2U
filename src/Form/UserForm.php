@@ -110,8 +110,7 @@ class UserForm extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Choice([0, 1, 2, 3])
-                ],
-                'expanded' => true
+                ]
             ]
         )->add(
             'password',
