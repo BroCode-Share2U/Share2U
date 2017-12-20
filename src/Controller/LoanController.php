@@ -2,13 +2,12 @@
 
 namespace Controller;
 
+use Model\Loan;
 use Model\Item;
 use Model\User;
-use Model\Loan;
 use Silex\Application;
 use Form\LoanForm;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LoanController extends Controller
@@ -31,26 +30,27 @@ class LoanController extends Controller
 
         $loanForm = null;
         if (!$itemIsLoaned && !$itemisRequested){
-
-            // Create empty user
+            // Create empty loan
             $loan = new Loan();
 
             // Create the loan form
             $loanForm = $formFactory->create(LoanForm::class, $loan, ['standalone' => true]);
 
-            //
+            // Retrieve data and put it into $loan
             $loanForm->handleRequest($request);
 
             // Set the item in the loan
             $loan->setItem($item);
             // Set the status
             $loan->setStatus(Loan::STATUS_REQUESTED);
+            // Set the timestamp
+            $loan->setUpdatedAt(new \DateTime());
 
             // Set the borrower
             $borrower = self::getAuthorizedUser($app);
             $loan->setBorrower($borrower);
 
-            // Persist the loan and send the eamil to the owner
+            // Persist the loan and send the email to the owner
             if ($loanForm->isSubmitted() && $loanForm->isValid()) {
                 $entityManager->persist($loan);
                 $entityManager->flush();
@@ -61,14 +61,12 @@ class LoanController extends Controller
             }
             $loanForm = $loanForm->createView();
         }
-
-        return $app['twig']->render('request.html.twig',
-            [
-                'item' => $item,
-                'requestForm' => $loanForm,
-                'itemIsLoaned' => $itemIsLoaned,
-                'itemIsRequested' => $itemisRequested
-            ]);
+        return $app['twig']->render('request.html.twig', [
+            'item' => $item,
+            'requestForm' => $loanForm,
+            'itemIsLoaned' => $itemIsLoaned,
+            'itemIsRequested' => $itemisRequested
+        ]);
     }
 
     public function acceptAction(Request $request, Application $app, $loanId)
@@ -82,8 +80,12 @@ class LoanController extends Controller
             $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_REQUESTED;
             $ownerOk = $loan->getItem()->getOwner() === $user;
 
-            if ($loanStatusOk && $ownerOk ){
-                $loanRepo->patchLoanStatus($loan, Loan::STATUS_IN_PROGRESS);
+            if ($loanStatusOk && $ownerOk ) {
+                $loan->setStatus(Loan::STATUS_IN_PROGRESS);
+                $loan->setUpdatedAt(new \DateTime());
+                $entityManager->persist($loan);
+                $entityManager->flush();
+
                 return $app->json(
                     [
                         'code' => 1,
@@ -111,8 +113,12 @@ class LoanController extends Controller
             $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_REQUESTED;
             $ownerOk = $loan->getItem()->getOwner() === $user;
 
-            if ($loanStatusOk && $ownerOk ){
-                $loanRepo->patchLoanStatus($loan, Loan::STATUS_DECLINED);
+            if ($loanStatusOk && $ownerOk ) {
+                $loan->setStatus(Loan::STATUS_DECLINED);
+                $loan->setUpdatedAt(new \DateTime());
+                $entityManager->persist($loan);
+                $entityManager->flush();
+
                 return $app->json(
                     [
                         'code' => 1,
@@ -136,26 +142,26 @@ class LoanController extends Controller
         $loanRepo = $entityManager->getRepository(Loan::class);
         $loan = $loanRepo->find($loanId);
 
-        if ($loan !== null){
+        if ($loan !== null) {
             $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_IN_PROGRESS;
             $ownerOk = $loan->getItem()->getOwner() === $user;
 
-            if ($loanStatusOk && $ownerOk ){
-                $loanRepo->patchLoanStatus($loan, Loan::STATUS_CLOSED);
-                return $app->json(
-                    [
-                        'code' => 1,
-                        'message' => 'status changed'
-                    ]
-                );
+            if ($loanStatusOk && $ownerOk ) {
+                $loan->setStatus(Loan::STATUS_CLOSED);
+                $loan->setUpdatedAt(new \DateTime());
+                $entityManager->persist($loan);
+                $entityManager->flush();
+
+                return $app->json([
+                    'code' => 1,
+                    'message' => 'status changed'
+                ]);
             }
         }
-        return $app->json(
-            [
-                'code' => 0,
-                'message' => 'Loan or User invalid'
-            ]
-        );
+        return $app->json([
+            'code' => 0,
+            'message' => 'Loan or User invalid'
+        ]);
     }
 
     public function cancelAction(Request $request, Application $app, $loanId)
@@ -165,26 +171,26 @@ class LoanController extends Controller
         $loanRepo = $entityManager->getRepository(Loan::class);
         $loan = $loanRepo->find($loanId);
 
-        if ($loan !== null){
-            $loanStatusOk = $loan->getStatus() ===  Loan::STATUS_REQUESTED;
+        if ($loan !== null) {
+            $loanStatusOk = $loan->getStatus() === Loan::STATUS_REQUESTED;
             $ownerOk = $loan->getBorrower() === $user;
 
-            if ($loanStatusOk && $ownerOk ){
-                $loanRepo->patchLoanStatus($loan, Loan::STATUS_CANCELLED);
-                return $app->json(
-                    [
-                        'code' => 1,
-                        'message' => 'status changed'
-                    ]
-                );
+            if ($loanStatusOk && $ownerOk) {
+                $loan->setStatus(Loan::STATUS_CANCELLED);
+                $loan->setUpdatedAt(new \DateTime());
+                $entityManager->persist($loan);
+                $entityManager->flush();
+
+                return $app->json([
+                    'code' => 1,
+                    'message' => 'status changed'
+                ]);
             }
         }
-        return $app->json(
-            [
-                'code' => 0,
-                'message' => 'Loan or User invalid'
-            ]
-        );
+        return $app->json([
+            'code' => 0,
+            'message' => 'Loan or User invalid'
+        ]);
     }
 
     public function sendRequestMessage(Application $app, Loan $loan)
