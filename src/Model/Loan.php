@@ -30,15 +30,15 @@ class Loan
      */
     private $requestedAt;
     
-    /**
-     * @Column(name="confirmed_at", type="datetime", nullable=false)
-     */
-    private $confirmedAt;
-    
-        /**
-     * @Column(name="closed_at", type="datetime", nullable=false)
-     */
-    private $closedAt;
+//    /**
+//     * @Column(name="confirmed_at", type="datetime", nullable=false)
+//     */
+//    private $confirmedAt;
+//
+//        /**
+//     * @Column(name="closed_at", type="datetime", nullable=false)
+//     */
+//    private $closedAt;
     
     /**
      * @Column(name="updated_at", type="datetime", nullable=false)
@@ -70,8 +70,8 @@ class Loan
             'status' => $this->status,
             'requestMessage' => $this->requestMessage,
             'requestedAt' => $this->requestedAt,
-            'confirmedAt' => $this->confirmedAt,
-            'closedAt' => $this->closedAt,
+//            'confirmedAt' => $this->confirmedAt,
+//            'closedAt' => $this->closedAt,
             'updatedAt' => $this->updatedAt,
             'item' => $this->item->toArray(),
             'borrower' => $this->borrower->toArray()
@@ -94,13 +94,13 @@ class Loan
         return $this->requestedAt;
     }
 
-    function getConfirmedAt() {
-        return $this->confirmedAt;
-    }
-
-    function getClosedAt() {
-        return $this->closedAt;
-    }
+//    function getConfirmedAt() {
+//        return $this->confirmedAt;
+//    }
+//
+//    function getClosedAt() {
+//        return $this->closedAt;
+//    }
 
     function getUpdatedAt() {
         return $this->updatedAt;
@@ -139,15 +139,15 @@ class Loan
         return $this;
     }
 
-    function setConfirmedAt($comfirmedAt) {
-        $this->confirmedAt = $comfirmedAt;
-        return $this;
-    }
-
-    function setClosedAt($closedAt) {
-        $this->closedAt = $closedAt;
-        return $this;
-    }
+//    function setConfirmedAt($comfirmedAt) {
+//        $this->confirmedAt = $comfirmedAt;
+//        return $this;
+//    }
+//
+//    function setClosedAt($closedAt) {
+//        $this->closedAt = $closedAt;
+//        return $this;
+//    }
 
     function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
