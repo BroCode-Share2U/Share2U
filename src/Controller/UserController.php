@@ -44,7 +44,7 @@ class UserController extends Controller
         $itemRepo = $em ->getRepository(Item::class);
         $commentRepo = $em ->getRepository(Comment::class);
 
-        $items = $itemRepo->findByOwner($user);
+        $items = $itemRepo->findBy(['owner'=>$user,'active'=>true]);
         $comments = $commentRepo->findByUser($user);
         $rating = $commentRepo->getAverageRating($user);
 
