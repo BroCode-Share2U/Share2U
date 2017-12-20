@@ -26,6 +26,9 @@ class CommentForm extends AbstractType
                     4 => '4',
                     5 => '5'
                 ],
+                'choice_label' => function (){
+                return ' ';
+                },
                 'constraints' => [
                     new Assert\Choice([0, 1, 2, 3, 4, 5])
                 ],

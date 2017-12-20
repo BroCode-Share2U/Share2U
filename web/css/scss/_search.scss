@@ -1,6 +1,7 @@
 #searchResultMain{
   max-width: 50rem;
   margin: 0 auto;
+  margin-top: 7rem;
   padding-bottom: 10rem;
 
   .searchResults{
@@ -17,5 +18,18 @@
 
 
     margin: 1rem 0;
+
+    #searchResultCardDescription{
+      text-align: center;
+      padding: 0.4rem 3rem 0 3rem;
+      max-height: 5rem;
+      overflow: hidden;
+      overflow-scrolling: auto;
+
+      span{
+        font-style: italic;
+        color: var(--ColorLightGrey);
+      }
+    }
   }
 }

@@ -4,7 +4,13 @@
 
 {% block content %}
     <div id="searchResultMain">
-        <div class="h2Text"><h2>Results for: <span> {{ searchString }}</span> </h2></div>
+        <div class="h2Text">
+                    {% if searchString is not empty %}
+                        <h2>Results for:<br/><span>"{{ searchString }}"</span> </h2>
+                    {% else %}
+                        <h2>All Results</h2>
+                    {% endif %}
+                    </div>
         <div class="searchResults">
             {% for item in items %}
                 <div class="cardBox">
@@ -17,8 +23,12 @@
                         {#<div>{{ item.id }}</div>#}
                         <h4>{{ item.name }}</h4>
                         {#<div>{{ item.owner.id }}</div>#}
-                        <div>{{ item.description }}</div>
-                        <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href=""" id="userLinkCardBox">{{ item.owner.username }}</a></div>
+                        <div id="searchResultCardDescription">
+                            {% if item.description is not null %}
+                                <span>"{{ item.description }}"</span>
+                            {% endif %}
+                            </div>
+                        <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href="{{ path('user', { 'username': item.owner.username }) }}" id="userLinkCardBox">{{ item.owner.username }}</a></div>
                         <div class="buttonBox">
                             <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
                             <a href="{{ path('requestItem', { 'itemId': item.id }) }}"><button>Request</button></a>
