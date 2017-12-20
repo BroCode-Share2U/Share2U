@@ -40,7 +40,7 @@
             <div id="dashboardDescription">"{{ user.description }}"</div>
             <div id="dashboardEmail"><i class="fas fa-envelope"></i> {{ user.email }}</div>
             <div id="dashboardInsertedDate"><span>Member since </span>{{ user.insertedAt|date("m/d/Y") }}</div>
-            <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y H:i:s') }}</div>
+            <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y') }}</div>
             <div id="" class="buttonBox">
                 <a href="{{ path('editProfile') }}">
                     <button class="editProfileButton"><i class="fas fa-cog"></i></button>
@@ -56,10 +56,10 @@
 
 <div id="dashBoardTabSection">
         <div id="dashBoardMenu">
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button>
+            <a href="#Tab1"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
+            <a href="#Tab2"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button></a>
+            <a href="#Tab3"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button></a>
+            <a href="#Tab4"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button></a>
         </div>
 
         <div id="dashBoardMenuTab1" class="dashBoardMenuTab" style="display: none">
@@ -73,11 +73,12 @@
                             </div>
                         </div>
                         <div class="insideCardBox2">
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ item.description }}</div>
+                            </div>
                             {#<div>{{ item.id }}</div>#}
                             <h4>{{ item.name }}</h4>
-                            <div>{{ item.owner.firstname }} {{ item.owner.lastname }}</div>
                             {#<div>{{ item.owner.id }}</div>#}
-                            <div>{{ item.description }}</div>
                             <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
@@ -92,7 +93,7 @@
 
         <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
             <div>
-                <h2>Requests in</h2>
+                <h2>Received</h2>
                 {% for loan in requestsIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -106,9 +107,10 @@
                                 <span>requested:<br/>
                                 </span>{{ loan.name }}
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                                 <button data-id-loan="{{ loan.idLoan }}" class="acceptBtn">Accept</button>
@@ -119,7 +121,7 @@
                 {% endfor %}
             </div>
             <div>
-                <h2>Requests out</h2>
+                <h2>You Requested</h2>
                 {% for loan in requestsOut %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -133,9 +135,10 @@
                                 {{ loan.name }}<br/>
                                 to <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m-d-Y H:i:s') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m/d/Y') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                                 <button data-id-loan="{{ loan.idLoan }}" class="cancelBtn">Cancel</button>
@@ -146,7 +149,7 @@
                 {#{{ dump(requestsOut) }}#}
             </div>
             <div>
-                <h2>Requests Denied</h2>
+                <h2>Declined</h2>
                 {% for loan in declineIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -160,9 +163,10 @@
                                 {{ loan.name }}<br/>
                                 <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                             </div>
@@ -182,9 +186,10 @@
                                 <span>declined your request for:</span><br/>
                                 {{ loan.name }}
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m-d-Y H:i:s') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m/d/Y') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                             </div>
@@ -193,7 +198,7 @@
                 {% endfor %}
             </div>
             <div>
-                <h2>Requests Canceled</h2>
+                <h2>Canceled</h2>
                 {% for loan in cancelIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -204,12 +209,13 @@
                         <div class="insideCardBox2">
                             <h4>
                                 <a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a><br/>
-                                <span>canceled this request</span><br/>
-                                <span>for: </span>{{ loan.name }}<br/>
+                                <span>canceled your request for: </span><br/>
+                                {{ loan.name }}<br/>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                             </div>
@@ -225,13 +231,14 @@
                         </div>
                         <div class="insideCardBox2">
                             <h4>
-                                <span>You canceled this request for:</span><br/>
+                                <span>You canceled the request for:</span><br/>
                                 {{ loan.name }}<br/>
                                 <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }}</a><br/>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m-d-Y H:i:s') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on</span>{{ loan.requestedAt|date('m/d/Y') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                             </div>
@@ -257,10 +264,10 @@
                                 {{ loan.name }}<br/>
                                 <span>from </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                            <div>{{ loan.firstnameBorrower }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                                 <button data-id-loan="{{ loan.idLoan }}" class="finishBtn">Finish</button>
@@ -284,10 +291,10 @@
                                 {{ loan.name }}<br/>
                                 <span>to </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                            <div>{{ loan.firstnameOwner }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                             </div>
@@ -314,10 +321,10 @@
                                 {{ loan.name }}<br/>
                                 <span>from </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
-                            <div>{{ loan.firstnameBorrower }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                                 <a href="{{ path('comment', { 'loanId': loan.idLoan }) }}"><button>Comment & Rate</button></a>
@@ -342,9 +349,10 @@
                                 {{ loan.name }}<br/>
                                 <span>to </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
-                            <div>{{ loan.status }}</div>
-                            <div>{{ loan.requestMessage }}</div>
-                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m-d-Y H:i:s') }}</div>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
                                 <a href="{{ path('comment', { 'loanId': loan.idLoan }) }}"><button>Comment & Rate</button></a>

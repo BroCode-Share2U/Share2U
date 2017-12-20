@@ -113,7 +113,13 @@
 
       &:hover{
         background: rgba(0,0,0,0.5);
-      }
+        -webkit-transform: scale(1.03) translateX(0.85rem);
+         -moz-transform: scale(1.03) translateX(0.85rem);
+         -ms-transform: scale(1.03) translateX(0.85rem);
+         -o-transform: scale(1.03) translateX(0.85rem);
+         transform: scale(1.03) translateX(0.85rem);
+       }
+
 
       #additemCardDescriptionHiddenArea{
         height: 75%;
