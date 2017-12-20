@@ -14,22 +14,26 @@ class LoanController extends Controller
 {
     public function requestAction(Request $request, Application $app, $itemId)
     {
-        // Get serivces
+        // Get services
         $entityManager = self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
 
         // Find the item with the param in url
-        $item = $entityManager->getRepository(Item::class)->find($itemId);
-        if ($item === null){
+        $itemRepo = $entityManager->getRepository(Item::class);
+        $item = $itemRepo->find($itemId);
+        if (!$item) {
             throw new NotFoundHttpException('item not found');
         }
 
-        // Item in loan ?
-        $itemIsLoaned = $entityManager->getRepository(Loan::class)->itemIsLoaned($item);
-        $itemisRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
+        // Is item requested, on loan or requester's own?
+        $loanRepo = $entityManager->getRepository(Loan::class);
+        $itemIsLoaned = $loanRepo->itemIsLoaned($item);
+        $itemIsRequested = $loanRepo->itemIsRequested($item);
+        $requester = self::getAuthorizedUser($app);
+        $itemIsRequestersOwn = $loanRepo->isOwnerOfItem($requester, $item);
 
         $loanForm = null;
-        if (!$itemIsLoaned && !$itemisRequested){
+        if (!$itemIsLoaned && !$itemIsRequested && !$itemIsRequestersOwn) {
             // Create empty loan
             $loan = new Loan();
 
@@ -56,7 +60,7 @@ class LoanController extends Controller
                 $entityManager->flush();
                 // Send email request
                 $this->sendRequestMessage($app, $loan);
-                // Redidect to the dashboard
+                // Redirect to the dashboard
                 return $app->redirect($app['url_generator']->generate('dashboard'));
             }
             $loanForm = $loanForm->createView();
@@ -65,7 +69,8 @@ class LoanController extends Controller
             'item' => $item,
             'requestForm' => $loanForm,
             'itemIsLoaned' => $itemIsLoaned,
-            'itemIsRequested' => $itemisRequested
+            'itemIsRequested' => $itemIsRequested,
+            'itemIsRequestersOwn' => $itemIsRequestersOwn
         ]);
     }
 
