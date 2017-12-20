@@ -65,8 +65,31 @@ class ItemController extends Controller
 
     public function editAction(Request $request, Application $app, $itemId)
     {
+        // Get serivces
+        $entityManager = self::getEntityManager($app);
+        $formFactory = self::getFormFactory($app);
 
-        return $app['twig']->render('editItem.html.twig',[]);
+        $item = $entityManager->getRepository(Item::class)->find($itemId);
+
+        $itemForm = $formFactory->create(ItemForm::class, $item, ['standalone' => true]);
+
+        $itemForm->handleRequest($request);
+
+        if ($itemForm->isSubmitted() && $itemForm->isValid()) {
+            $now = new \DateTime();
+            $item->setUpdatedAt($now);
+            $entityManager->flush();
+
+            // Redidect to the dashboard
+            return $app->redirect($app['url_generator']->generate('dashboard'));
+        }
+
+        return $app['twig']->render('editItem.html.twig',
+            [
+                'itemForm' => $itemForm->createView(),
+                'item' => $item->toArray()
+            ]
+        );
     }
 
     public function searchAction(Request $request, Application $app)
@@ -93,7 +116,7 @@ class ItemController extends Controller
         if ($item !== null){
             $ownerOk = $item->getOwner() === $user;
             if ( $ownerOk ){
-                $entityManager->remove($item);
+                $item->setActive(false);
                 $entityManager->flush();
                 return $app->json(
                     [
