@@ -210,8 +210,7 @@ class UserController extends Controller
         }
 
         $resetForm = $formFactory->create(ResetForm::class, $user, [
-            'standalone' => true,
-            'user_repository' => $entityManager->getRepository(User::class)
+            'standalone' => true
         ]);
 
         $resetForm->handleRequest($request);
