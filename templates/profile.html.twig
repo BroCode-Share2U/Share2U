@@ -86,7 +86,13 @@
                 {% for comment in comments %}
                     <div class="cardBox">
                         <div class="commentBox">
-                            <span>"{{ comment.text }}"</span>
+                            <h4 class="h4Text">
+                                "{{ comment.text }}" <br/>by <a href="{{ path('user', { 'username': comment.author.username }) }}" id="userLinkCardBox">{{ comment.author.username }} </a>
+                            </h4>
+                            <div class="stars">
+                                <div class="rank"></div>
+                                <div class="score">{{ (comment.rating)|number_format(1, '.', ',') }}</div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
