@@ -45,6 +45,7 @@ class ItemController extends Controller
         $itemForm->handleRequest($request);
 
         if ($itemForm->isSubmitted() && $itemForm->isValid()) {
+            $item->setActive(true);
             $now = new \DateTime();
             $item->setOwner(self::getAuthorizedUser($app));
             $item->setInsertedAt($now);
