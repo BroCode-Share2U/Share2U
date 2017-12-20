@@ -20,6 +20,7 @@ class ItemRepository extends EntityRepository {
                 ->setParameter(1, $searchRegex)
                 ->andWhere("NOT i.owner = ?2")
                 ->setParameter(2, $user->getId())
+                ->andWhere("i.active = 1")
             ;
         }
         // search all items
