@@ -46,6 +46,9 @@ $app->match('/profile', 'Controller\UserController::showProfileAction')
 /* edit profile */
 $app->match('/profile/edit', 'Controller\UserController::editProfileAction')
     ->bind('editProfile');
+/* edit password */
+$app->match('/profile/password', 'Controller\UserController::editPasswordAction')
+    ->bind('editPassword');
 /* signin */
 $app->get('/signin', 'Controller\UserController::signinAction')
     ->bind('signin');

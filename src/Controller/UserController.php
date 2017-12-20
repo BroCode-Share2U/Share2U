@@ -8,8 +8,8 @@ use Form\ForgetForm;
 use Form\UserForm;
 use Form\ResetForm;
 use Model\Repository\UserRepository;
-use Model\Address;
 use Model\User;
+use Model\Address;
 use Model\Item;
 use Model\Comment;
 use Silex\Application;
@@ -74,8 +74,12 @@ class UserController extends Controller
             $editForm->handleRequest($request);
             $addressForm->handleRequest($request);
 
+//            print_r($editForm->isValid());
+//            echo "I'm here"; die;
             // If the form was just submitted
             if ($editForm->isSubmitted() && $editForm->isValid()) {
+//                echo "I'm not here"; die;
+
                 // Set parameters that aren't set by form->handleRequest()
                 $now = new \DateTime();
                 $user->setUpdatedAt($now);
@@ -96,6 +100,43 @@ class UserController extends Controller
                 return $app['twig']->render('profileEdit.html.twig', [
                     'editProfileForm' => $editForm->createView(),
                     'addressForm' => $addressForm->createView()
+                ]);
+            }
+        }
+        // if we're not logged in redirect to the signin page
+        else return $app['twig']->render('signin.html.twig', []);
+    }
+
+    public function editPasswordAction(Request $request, Application $app)
+    {
+        $user = self::getAuthorizedUser($app);
+
+        // if we're logged in
+        if ($user) {
+            $formFactory = self::getFormFactory($app);
+
+            // Create forms
+            $editPasswordForm = $formFactory->create(ResetForm::class, $user, [
+                'standalone' => true,
+            ]);
+            $editPasswordForm->handleRequest($request);
+
+            // If the form was just submitted
+            if ($editPasswordForm->isSubmitted() && $editPasswordForm->isValid()) {
+                $user->setUpdatedAt(new \DateTime());
+                $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
+                $password = $encoder->encodePassword($user->getPassword(), null);
+                $user->setPassword($password);
+
+                // Persist the update to user and address
+                $entityManager = self::getEntityManager($app);
+                $entityManager->flush();
+
+                return $this->renderProfileOrUser($app, $user);
+            }
+            else {
+                return $app['twig']->render('passwordEdit.html.twig', [
+                    'editPasswordForm' => $editPasswordForm->createView()
                 ]);
             }
         }

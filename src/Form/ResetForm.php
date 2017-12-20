@@ -24,6 +24,7 @@ class ResetForm extends AbstractType
             RepeatedType::class,
             [
                 'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
                 'required' => true,
                 'first_options' => [
                     'label' => 'Password'

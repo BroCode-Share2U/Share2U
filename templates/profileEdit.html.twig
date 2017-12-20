@@ -8,6 +8,7 @@
             <h2>Edit your details</h2>
         </div>
 
+        {% do editProfileForm.password.setRendered %}
         {{ form_start(editProfileForm) }}
 
         <div id="editSignupfirstSection">
@@ -23,10 +24,6 @@
             <div class="inputBox userFormGender">
                 {{ form_label(editProfileForm.gender) }}
                 {{ form_widget(editProfileForm.gender) }}
-            </div>
-            <div class="inputBox userFormPassword">
-                {{ form_label(editProfileForm.password) }}
-                {{ form_widget(editProfileForm.password) }}
             </div>
         </div>
 
