@@ -66,10 +66,10 @@ class DefaultController extends Controller
         // Get rating
         $averageRating = $commentRepo->getAverageRating($user);
         // Get user's items
-        $items = [];
-        $itemsObject = $itemRepo->findBy(['owner'=>$user,'active'=>true]);
-        foreach ($itemsObject as $item) {
-            $items[] = $item->toArray();
+        $ownedItemsAsArrays = [];
+        $ownedItems = $itemRepo->findBy(['owner' => $user, 'active' => true], ['name' => 'ASC']);
+        foreach ($ownedItems as $item) {
+            $ownedItemsAsArrays[] = $item->toArray();
         }
 
         // Get requests in&out
@@ -84,18 +84,18 @@ class DefaultController extends Controller
         $declineIn = $loanRepo->getLoansIn($user, Loan::STATUS_DECLINED);
         $declineOut = $loanRepo->getLoansOut($user, Loan::STATUS_DECLINED);
 
-        // Get Cancel loans in&out
+        // Get cancelled loans in&out
         $cancelIn = $loanRepo->getLoansIn($user, Loan::STATUS_CANCELLED);
         $cancelOut = $loanRepo->getLoansOut($user, Loan::STATUS_CANCELLED);
 
-        // Get Clodsed loans in&out
+        // Get closed loans in&out
         $closedLoansIn = $loanRepo->getLoansIn($user, Loan::STATUS_CLOSED);
         $closedLoansOut = $loanRepo->getLoansOut($user, Loan::STATUS_CLOSED);
 
         return $app['twig']->render('dashboard.html.twig',
             [
                 'averageRating' => $averageRating,
-                'items' => $items,
+                'items' => $ownedItemsAsArrays,
                 'requestsIn' => $requestsIn,
                 'requestsOut' => $requestsOut,
                 'loansIn' => $loansIn,

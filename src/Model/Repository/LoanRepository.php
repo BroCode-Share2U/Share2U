@@ -23,8 +23,6 @@ class LoanRepository extends EntityRepository
                     'l.status',
                     'l.requestMessage',
                     'l.requestedAt',
-                    'l.confirmedAt',
-                    'l.closedAt',
                     'i.id AS idItem',
                     'i.name',
                     'i.cover',
@@ -41,6 +39,7 @@ class LoanRepository extends EntityRepository
                 ->setParameter('owner', $user)
             ->andWhere('l.status = :status')
                 ->setParameter('status', $status)
+            ->orderBy('l.requestedAt', 'DESC');
         ;
 
         return $queryBuilder->getQuery()->getResult();
@@ -60,8 +59,6 @@ class LoanRepository extends EntityRepository
                 'l.status',
                 'l.requestMessage',
                 'l.requestedAt',
-                'l.confirmedAt',
-                'l.closedAt',
                 'i.id AS idItem',
                 'i.name',
                 'i.cover',
@@ -81,24 +78,6 @@ class LoanRepository extends EntityRepository
         ;
 
         return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
-     * @param Loan $loan
-     * @param $status
-     * @return array
-     */
-    public function patchLoanStatus(Loan $loan, $status)
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $queryBuilder->update(Loan::class, 'l')
-            ->set('l.status', ':status')
-                ->setParameter('status', $status)
-            ->where('l = :loan')
-                ->setParameter('loan', $loan)
-        ;
-
-        return $queryBuilder->getQuery()->execute();
     }
 
     public function itemIsLoaned(Item $item)

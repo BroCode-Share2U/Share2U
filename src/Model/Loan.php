@@ -29,17 +29,7 @@ class Loan
      * @Column(name="requested_at", type="datetime", nullable=false)
      */
     private $requestedAt;
-    
-    /**
-     * @Column(name="confirmed_at", type="datetime", nullable=false)
-     */
-    private $confirmedAt;
-    
-        /**
-     * @Column(name="closed_at", type="datetime", nullable=false)
-     */
-    private $closedAt;
-    
+
     /**
      * @Column(name="updated_at", type="datetime", nullable=false)
      */
@@ -70,8 +60,6 @@ class Loan
             'status' => $this->status,
             'requestMessage' => $this->requestMessage,
             'requestedAt' => $this->requestedAt,
-            'confirmedAt' => $this->confirmedAt,
-            'closedAt' => $this->closedAt,
             'updatedAt' => $this->updatedAt,
             'item' => $this->item->toArray(),
             'borrower' => $this->borrower->toArray()
@@ -92,14 +80,6 @@ class Loan
 
     function getRequestedAt() {
         return $this->requestedAt;
-    }
-
-    function getConfirmedAt() {
-        return $this->confirmedAt;
-    }
-
-    function getClosedAt() {
-        return $this->closedAt;
     }
 
     function getUpdatedAt() {
@@ -136,16 +116,6 @@ class Loan
 
     function setRequestedAt($requestedAt) {
         $this->requestedAt = $requestedAt;
-        return $this;
-    }
-
-    function setConfirmedAt($comfirmedAt) {
-        $this->confirmedAt = $comfirmedAt;
-        return $this;
-    }
-
-    function setClosedAt($closedAt) {
-        $this->closedAt = $closedAt;
         return $this;
     }
 
