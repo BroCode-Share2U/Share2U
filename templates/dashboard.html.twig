@@ -86,7 +86,8 @@
                             <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
-                                <button>Update</button>
+                                <a href="{{ path('editItem', { 'itemId': item.id }) }}"><button>Update</button></a>
+                                <button data-id-item="{{ item.id }}" class="deleteBtn"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     </div>
@@ -305,20 +306,13 @@
             {
                 var idLoan = $(this).data('id-loan');
                 var acceptBtn = $(this);
-                var declineBtn = $(acceptBtn).parent().find('.declineBtn');
-                var moreBtn = $(acceptBtn).parent().find('a');
                 $.ajax({
                     url: "loan/accept/" + idLoan,
                     method: "PATCH",
                     dataType: "JSON"
                 })
                     .done(function (data) {
-                        console.log(data);
-                        moreBtn.fadeOut(350);
-                        $.merge(acceptBtn, declineBtn).fadeOut(300, function () {
-                            $(this).remove();
-                        });
-                        moreBtn.fadeIn(400);
+                        location.reload();
                     })
                     .fail(function (data) {
 
@@ -328,19 +322,13 @@
             $('.declineBtn').one('click', function () {
                 var idLoan = $(this).data('id-loan');
                 var declineBtn = $(this);
-                var acceptBtn = $(declineBtn).parent().find('.acceptBtn');
-                var moreBtn = $(declineBtn).parent().find('a');
                 $.ajax({
                     url: "loan/decline/" + idLoan,
                     method: "PATCH",
                     dataType: "JSON"
                 })
                     .done(function (data) {
-                        moreBtn.fadeOut(350);
-                        $.merge(acceptBtn, declineBtn).fadeOut(300, function () {
-                            $(this).remove();
-                        });
-                        moreBtn.fadeIn(400);
+                        location.reload();
                     })
                     .fail(function (data) {
 
@@ -350,18 +338,45 @@
             $('.finishBtn').one('click', function () {
                 var idLoan = $(this).data('id-loan');
                 var finishBtn = $(this);
-                var moreBtn = $(finishBtn).parent().find('a');
                 $.ajax({
                     url: "loan/close/" + idLoan,
                     method: "PATCH",
                     dataType: "JSON"
                 })
                     .done(function (data) {
-                        moreBtn.fadeOut(350);
-                        $(finishBtn).fadeOut(300, function () {
-                            $(this).remove();
-                        });
-                        moreBtn.fadeIn(400);
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+
+            $('.cancelBtn').one('click', function () {
+                var idLoan = $(this).data('id-loan');
+                var cancelBtn = $(this);
+                $.ajax({
+                    url: "loan/cancel/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+
+            $('.deleteBtn').one('click', function () {
+                var idItem = $(this).data('id-item');
+                var deleteBtn = $(this);
+                $.ajax({
+                    url: "item/" + idItem,
+                    method: "DELETE",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
                     })
                     .fail(function (data) {
 

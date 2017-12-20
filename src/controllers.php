@@ -68,13 +68,13 @@ $app->delete('/admin/user/{userId}', 'Controller\UserController::deleteAction')
 /* *********************
 * Item Controller
 ********************* */
+/* add item */
 $app->match('/item/add', 'Controller\ItemController::addAction')
     ->bind('addItem');
-/* edit item */
 /* item */
 $app->get('/item/{itemId}', 'Controller\ItemController::showAction')
     ->bind('item');
-/* add item */
+/* edit item */
 $app->match('/item/edit/{itemId}', 'Controller\ItemController::editAction')
     ->bind('editItem');
 /* delete item */
