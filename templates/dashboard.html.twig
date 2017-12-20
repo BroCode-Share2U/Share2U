@@ -86,7 +86,7 @@
                             <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
-                                <button>Update</button>
+                                <a href="{{ path('editItem', { 'itemId': item.id }) }}"><button>Update</button></a>
                             </div>
                         </div>
                     </div>
