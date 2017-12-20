@@ -101,7 +101,7 @@ class LoanRepository extends EntityRepository
         return $queryBuilder->getQuery()->execute();
     }
 
-    public function itemIsInLoan(Item $item)
+    public function itemIsLoaned(Item $item)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select('l.id')
