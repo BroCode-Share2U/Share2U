@@ -14,7 +14,12 @@ class Item
      * @Column(name="id", type="guid", nullable=false)
      */
     protected $id;
-    
+
+    /**
+     * @Column(name="active", type="boolean", nullable=false)
+     */
+    private $active;
+
     /**
      * @Column(name="name", type="string", length=64, nullable=false)
      */
@@ -65,6 +70,7 @@ class Item
     {
         return [
             'id' => $this->id,
+            'active' => $this->active,
             'name' => $this->name,
             'platform' => $this->platform,
             'summary' => $this->summary,
@@ -83,6 +89,14 @@ class Item
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 
     /**
@@ -155,6 +169,14 @@ class Item
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 
     /**

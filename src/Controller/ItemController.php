@@ -116,7 +116,7 @@ class ItemController extends Controller
         if ($item !== null){
             $ownerOk = $item->getOwner() === $user;
             if ( $ownerOk ){
-                $entityManager->remove($item);
+                $item->setActive(false);
                 $entityManager->flush();
                 return $app->json(
                     [
