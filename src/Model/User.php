@@ -65,7 +65,7 @@ class User implements UserInterface
     /**
      * @Column(name="role", type="smallint", length=1, nullable=false)
      */
-    private $role;    
+    private $roles;
     
     /**
      * @Column(name="inserted_at", type="datetime", nullable=false)
@@ -84,8 +84,6 @@ class User implements UserInterface
      */
     private $address;
 
-    private $roles = [];
-    
     public const GENDER_MALE = 0;
     public const GENDER_FEMALE = 1;
     public const GENDER_OTHER = 2;
@@ -151,10 +149,6 @@ class User implements UserInterface
         return $this->token;
     }
 
-    public function getRole() {
-        return $this->role;
-    }
-
     public function getInsertedAt() {
         return $this->insertedAt;
     }
@@ -212,11 +206,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setRole($role) {
-        $this->role = $role;
-        return $this;
-    }
-
     public function setInsertedAt($insertedAt) {
         $this->insertedAt = $insertedAt;
         return $this;
@@ -231,7 +220,6 @@ class User implements UserInterface
         $this->address = $address;
         return $this;
     }
-
 
     /**
      * Returns the roles granted to the user.
@@ -251,8 +239,10 @@ class User implements UserInterface
      */
     public function getRoles()
     {
+        if ($this->roles === self::ROLE_ADMIN) {
+            return ['ROLE_ADMIN'];
+        }
         return ['ROLE_USER'];
-
     }
 
     /**

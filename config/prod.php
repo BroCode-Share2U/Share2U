@@ -43,6 +43,8 @@ $app->register(
                 'form' => array(
                     'login_path' => '/signin',
                     'check_path' => '/user/signin_check',
+                    'always_use_default_target_path' => true,
+                    'default_target_path' =>  '/admin/user'
                 ),
                 'logout' => array(
                     'logout_path' => '/logout',
@@ -62,10 +64,11 @@ $app->register(
             array('^/support', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/forgot_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/reset_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
-            array('^/.+$', 'ROLE_USER')
+            array('^/admin/user/.+', 'ROLE_ADMIN'),
+            array('^/.*$', 'ROLE_USER')
         ),
         'security.role_hierarchy' => [                  // Role hierarchy definition
-            'ROLE_ADMIN' => ['ROLE_USER']               // Role admin is upper than role user
+            'ROLE_ADMIN' => ['ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH']               // Role admin is upper than role user
         ]
     ]
 );

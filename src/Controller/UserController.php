@@ -106,6 +106,7 @@ class UserController extends Controller
 
     public function signinAction(Request $request, Application $app)
     {
+
         return $app['twig']->render('signin.html.twig',
             [
                 'error'         => $app['security.last_error']($request),
@@ -252,6 +253,10 @@ class UserController extends Controller
 
     public function adminPanelAction(Request $request, Application $app)
     {
+        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
+            return $app->redirect($app['url_generator']->generate('homepage'));
+        }
+
         $repository = $app['orm.em']->getRepository(User::class);
         $result = [];
         foreach($repository->findAll() as $user) {
