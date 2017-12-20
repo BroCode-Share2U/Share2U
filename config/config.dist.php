@@ -22,6 +22,12 @@ $swiftMailerConfig =
                 'username' => '',
                 'password' => '',
                 'encryption' => 'ssl',
-                'auth_mode' => 'login'
+                'auth_mode' => 'login',
+                'stream_context_options' => [
+                    'ssl' => [
+                        'allow_self_signed' => true,
+                        'verify_peer' => false
+                    ]
+                ]
             ]
     ];

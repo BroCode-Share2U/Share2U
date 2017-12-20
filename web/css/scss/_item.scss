@@ -5,6 +5,7 @@
     top: 4.5rem !important;
     position: absolute;
     z-index: 1;
+    top: 1rem !important;
   }
 
   #dashboardDescription{
@@ -71,9 +72,5 @@
 
   .itemProfile {
     max-width: 70rem !important;
-
-    #dashBoardProfilePicture {
-      top: 1rem !important;
-    }
   }
 }

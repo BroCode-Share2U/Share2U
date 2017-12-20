@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad54de396d35c71e2728a9c20f884a49",
+    "content-hash": "1b70d164dcc3f79d089fcf736ac1dc40",
     "packages": [
         {
             "name": "dflydev/doctrine-orm-service-provider",
@@ -1326,7 +1326,7 @@
         },
         {
             "name": "silex/web-profiler",
-            "version": "v2.0.10",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex-WebProfiler.git",
@@ -3437,7 +3437,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "silex/web-profiler": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

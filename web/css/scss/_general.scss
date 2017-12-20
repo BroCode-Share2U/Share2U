@@ -134,6 +134,22 @@
   flex-wrap: nowrap;
   justify-content: space-between;
 
+  transition-duration: 0.2s;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+
+  &:hover{
+    background: rgba(0,0,0,0.3);
+    -webkit-transform: scale(1.03);
+    -moz-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    -o-transform: scale(1.03);
+    transform: scale(1.03);
+  }
+
   .insideCardBox1{
     width: 25%;
 
@@ -336,6 +352,16 @@
     width: unset;
     margin: 4rem auto;
     margin-bottom: 7rem;
+  }
+
+  .cardBox{
+    &:hover{
+      -webkit-transform: none !important;
+      -moz-transform: none !important;
+      -ms-transform: none !important;
+      -o-transform: none !important;
+      transform: none !important;
+    }
   }
 }
 

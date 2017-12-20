@@ -35,11 +35,13 @@
 
 #dashBoardAddItemButton{
   text-align: right;
+
   button{
     width: 11rem;
     height: 3rem;
     font-size: 1rem;
     margin-top: 1rem;
+
     &:hover {
       transition-duration: 0.3s;
       border: 2px solid var(--ColorGreen);
@@ -76,10 +78,6 @@
       margin: 1rem 1rem;
       width: 80%;
 
-      &:hover{
-        background: rgba(0,0,0,0.3);
-      }
-
       &:last-child{
         margin-bottom: 3rem;
       }
@@ -107,6 +105,50 @@
             background: rgba(0,0,0,0.3);
             border: 1px solid var(--ColorGreen);
             box-shadow: 0 0 5px var(--ColorGreen);
+          }
+        }
+        & .deleteBtn{
+          color: var(--ColorRed);
+          width: 2.5rem;
+          height: 3rem;
+          text-align: center;
+          padding: 0;
+          padding-right: 0.3rem;
+
+          border-left: none;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+
+          position: absolute;
+          top: -4rem;
+          right: -3.2rem;
+
+          &:hover{
+            transition-duration: 0.3s;
+            border: 1px solid var(--ColorRed);
+            border-left: none;
+            box-shadow: 1px 0 5px var(--ColorRed);
+            width: 6rem;
+            right: -6.72rem;
+            &:hover{
+              :before{
+                font-size: 1.5rem;
+                content: 'X';
+                padding-right: 0;
+              }
+            }
+
+            i{
+              -webkit-transform: scale(1.2);
+              -moz-transform: scale(1.2);
+              -ms-transform: scale(1.2);
+              -o-transform: scale(1.2);
+              transform: scale(1.2);
+            }
+          }
+          i{
+            font-size: 1.2rem;
           }
         }
       }
@@ -162,6 +204,7 @@
     }
   }
 }
+
 @media screen and (max-width: 960px){
   #dashBoardTabSection{
     max-width: unset;
@@ -169,8 +212,8 @@
   }
 
   .dashBoardMenuTab{
-    padding-left: 1rem !important;
-  }
+     padding-left: 1rem !important;
+   }
 
   #dashBoardMenu{
     button{
@@ -183,6 +226,29 @@
   #dashBoardTabSection{
     .cardBox{
       width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px){
+  #dashBoardTabSection{
+    .cardBox{
+      .insideCardBox2{
+        .deleteBtn{
+          border: none;
+          border-radius: 100px !important;
+          width: 3rem !important;
+          padding: 0 !important;
+          top: -8rem !important;
+          right: -0.5rem !important;
+          background: none !important;
+          box-shadow: none !important;
+          &:hover{
+            border: none !important;
+
+          }
+        }
+      }
     }
   }
 }
