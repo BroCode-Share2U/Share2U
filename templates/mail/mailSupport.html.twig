@@ -1,0 +1,22 @@
+{# The subject line. #}
+{%- block subject -%}
+    {%- autoescape false -%}
+    <div class="starter-template">
+        <h1>Contact Us</h1>
+    </div>
+    {%- endautoescape -%}
+{%- endblock -%}
+
+{# The HTML message. Optional. #}
+{%- block body_html -%}
+    <h1>Want some help? </h1>
+
+    <hr style="margin-top: 30px;"/>
+
+    <p style="font-size: 13px;">
+        {{ message1 }}
+        <br>
+        {{ email }}
+        <br/>
+    </p>
+{%- endblock -%}

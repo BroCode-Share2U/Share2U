@@ -29,20 +29,27 @@ class DefaultController extends Controller
         $options = [];
 
         if($request->getMethod() == 'POST') {
+
             $name = $request->get('firstname') .' '. $request->get('lastname');
+            $email = $request->get('email');
+            $message1 = $request->get('message');
 
             $messagebody = new \Swift_Message();
             $messagebody->setSubject('Hello , I need some help please?')
                 ->setFrom(array($request->get('email') =>$name ))
                 ->setTo('share2u.contact@gmail.com')
-                ->setBody($request->get('message')."\n".$request->get('email'));
+                ->setBody($app['twig']->render('mail/mailSupport.html.twig', [
+                    'message' => $messagebody,
+                    'message1' => $message1,
+                    'email' => $email
+                ]),
+                'text/html'
+            );
             $app['mailer']->send($messagebody);
-
             $options = [
                 'sent' => true
             ];
         }
-
             return $app['twig']->render('support.html.twig', $options);
     }
 
