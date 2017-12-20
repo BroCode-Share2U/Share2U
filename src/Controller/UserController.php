@@ -79,6 +79,7 @@ class UserController extends Controller
                 // Set parameters that aren't set by form->handleRequest()
                 $now = new \DateTime();
                 $user->setUpdatedAt($now);
+                $address->setUpdatedAt($now);
                 $user->setAddress($address);
                 // Encrypt password
                 $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
@@ -135,6 +136,8 @@ class UserController extends Controller
             $now = new \DateTime();
             $user->setInsertedAt($now);
             $user->setUpdatedAt($now);
+            $address->setInsertedAt($now);
+            $address->setUpdatedAt($now);
             $user->setAddress($address);
             // Encrypt password
             $encoder = $app['security.encoder_factory']->getEncoder(UserInterface::class);
