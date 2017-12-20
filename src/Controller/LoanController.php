@@ -26,11 +26,11 @@ class LoanController extends Controller
         }
 
         // Item in loan ?
-        $itemInLoan = $entityManager->getRepository(Loan::class)->itemIsInLoan($item);
-        $itemRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
+        $itemIsLoaned = $entityManager->getRepository(Loan::class)->itemIsLoaned($item);
+        $itemisRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
 
         $loanForm = null;
-        if (!$itemInLoan && !$itemRequested){
+        if (!$itemIsLoaned && !$itemisRequested){
 
             // Create empty user
             $loan = new Loan();
@@ -66,8 +66,8 @@ class LoanController extends Controller
             [
                 'item' => $item,
                 'requestForm' => $loanForm,
-                'itemInLoan' => $itemInLoan,
-                'itemRequested' => $itemRequested
+                'itemIsLoaned' => $itemIsLoaned,
+                'itemIsRequested' => $itemisRequested
             ]);
     }
 

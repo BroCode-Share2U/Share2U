@@ -23,8 +23,8 @@
             {{ form_end(requestForm) }}
         {% else %}
         <div class="h3Text">
-            {% if itemInLoan %}<h3>Already in Loan</h3>{% endif %}
-            {% if itemRequested %}<h3>Already Requested</h3>{% endif %}
+            {% if itemIsLoaned %}<h3>Already in Loan</h3>{% endif %}
+            {% if itemIsRequested %}<h3>Already Requested</h3>{% endif %}
         </div>
         {% endif %}
     </div>
