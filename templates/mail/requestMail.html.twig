@@ -1,4 +1,7 @@
-<h1>Check your dashboard!</h1>
-{{ borrower }}
-{{ borrowerEmail }}
-{{ message }}
+<h1>Game request!</h1>
+<p>User {{ borrower.username }} requested your game {{ item.name }}!</p>
+<h2>Their message to you:</h2>
+<p>{{ message }}</p>
+<br>
+<br>
+<p>Please go to your <a href="{{ url('dashboard') }}">dashboard</a> to accept or decline the request.</p>

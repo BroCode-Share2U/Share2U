@@ -193,18 +193,19 @@ class LoanController extends Controller
         $borrowerEmail = $loan->getBorrower()->getEmail();
 
         $message = new \Swift_Message();
-            $message->setSubject('[Share2U] Request loan')
-                ->setFrom([$borrowerEmail])
-                ->setTo([$ownerEmail])
-                ->setBody($app['twig']->render('mail/requestMail.html.twig',
-                    [
-                        'message' => $loan->getRequestMessage(),
-                        'borrower' => $loan->getBorrower()->getLastname(),
-                        'borrowerEmail' => $borrowerEmail
-                    ]),
-                    'text/html'
-                );
-            $app['mailer']->send($message);
+        $message
+            ->setSubject('[Share2U] Request loan')
+            ->setFrom([$borrowerEmail])
+            ->setTo([$ownerEmail])
+            ->setBody($app['twig']
+                ->render('mail/requestMail.html.twig', [
+                    'message' => $loan->getRequestMessage(),
+                    'borrower' => $loan->getBorrower(),
+//                    'borrower' => $loan->getBorrower()->getLastname(),
+                    'item' => $loan->getItem()
+                ]),
+            'text/html'
+        );
+        $app['mailer']->send($message);
     }
-
 }
