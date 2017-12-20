@@ -252,22 +252,8 @@ class User implements UserInterface
     public function getRoles()
     {
         return ['ROLE_USER'];
-        /*
-        $this->roles = [];
-        foreach ($roles as $role){
-            $this->addRole($role);
-        }
-        return $this;*/
+
     }
-    /*
-    function addRole(Role $role)
-    {
-        if (in_array($role, $this->roles)){
-            return $this;
-        }
-        $this->roles[] = $role;
-        return $this;
-    } */
 
     /**
      * Returns the salt that was originally used to encode the password.
@@ -278,7 +264,7 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+       return;
     }
 
     /**
@@ -289,7 +275,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+       return;
     }
 
 
