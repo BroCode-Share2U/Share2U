@@ -74,7 +74,7 @@ class DefaultController extends Controller
 
         // Get declined request in&out
         $declineIn = $loanRepo->getLoansIn($user, Loan::STATUS_DECLINED);
-        $declineOut = $loanRepo->getLoansIn($user, Loan::STATUS_DECLINED);
+        $declineOut = $loanRepo->getLoansOut($user, Loan::STATUS_DECLINED);
 
         // Get Cancel loans in&out
         $cancelIn = $loanRepo->getLoansIn($user, Loan::STATUS_CANCELLED);
