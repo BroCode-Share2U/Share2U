@@ -3,11 +3,6 @@
 {% block title '' %}
 
 {% block content %}
-    {#{{ dump(declineIn) }}
-    {{ dump(declineOut) }}
-    {{ dump(cancelIn) }}
-    {{ dump(cancelOut) }}#}
-
     <div id="UserProfile">
 
         <div id="dashBoardProfilePicture">
@@ -60,14 +55,14 @@
 
 
 <div id="dashBoardTabSection">
-        <div id="dashBoardMenu">
-            <button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button>
+        <div id="dashBoardMenu">{#tablinkActive#}
+            <a href="#Tab1"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
+            <a href="#Tab2"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button></a>
+            <a href="#Tab3"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button></a>
+            <a href="#Tab4"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button></a>
         </div>
 
-        <div id="dashBoardMenuTab1" class="dashBoardMenuTab">
+        <div id="dashBoardMenuTab1" class="dashBoardMenuTab" style="display: none">
             <div>
                 <h2>Owned Items</h2>
                 {% for item in items %}
@@ -384,6 +379,12 @@
             $(".rank").css('width', x+'%');
 
         })();
+
+        // recover existing tab in refresh
+        var hash = window.location.hash ? window.location.hash.replace(/#/, "") : "Tab1";
+        var tab = "dashBoardMenu" + hash;
+        $('#'+tab).show(0);
+        $('[href="#'+ hash +'"]').find('button').addClass('tablinkActive');
 
         // loan api action
         $(function () {
