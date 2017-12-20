@@ -3,12 +3,6 @@
 {% block title '' %}
 
 {% block content %}
-    <style>
-        .cardBox.itemSelect{
-            background-color: #00fa00;
-        }
-    </style>
-
     <div id="additemMain">
         <div class="h2Text">
             <h2>Add a game to share</h2>
@@ -53,7 +47,7 @@
                 $.ajax({
                     url: "{{ path('searchIgdb') }}",
                     data: dataForm,
-                    method: "DELETE",
+                    method: "GET",
                     dataType: "JSON"
                 })
                     .done(function (data) {
