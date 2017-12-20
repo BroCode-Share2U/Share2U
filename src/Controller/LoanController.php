@@ -14,7 +14,7 @@ class LoanController extends Controller
 {
     public function requestAction(Request $request, Application $app, $itemId)
     {
-        // Get serivces
+        // Get services
         $entityManager = self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
 
@@ -24,12 +24,12 @@ class LoanController extends Controller
             throw new NotFoundHttpException('item not found');
         }
 
-        // Item in loan ?
+        // Item in loan?
         $itemIsLoaned = $entityManager->getRepository(Loan::class)->itemIsLoaned($item);
-        $itemisRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
+        $itemIsRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
 
         $loanForm = null;
-        if (!$itemIsLoaned && !$itemisRequested){
+        if (!$itemIsLoaned && !$itemIsRequested) {
             // Create empty loan
             $loan = new Loan();
 
@@ -65,7 +65,7 @@ class LoanController extends Controller
             'item' => $item,
             'requestForm' => $loanForm,
             'itemIsLoaned' => $itemIsLoaned,
-            'itemIsRequested' => $itemisRequested
+            'itemIsRequested' => $itemIsRequested,
         ]);
     }
 
