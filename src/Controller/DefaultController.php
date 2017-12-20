@@ -60,7 +60,8 @@ class DefaultController extends Controller
         $averageRating = $commentRepo->getAverageRating($user);
         // Get user's items
         $items = [];
-        foreach ($itemRepo->findByOwner($user) as $item) {
+        $itemsObject = $itemRepo->findBy(['owner'=>$user,'active'=>true]);
+        foreach ($itemsObject as $item) {
             $items[] = $item->toArray();
         }
 
