@@ -26,7 +26,24 @@ class DefaultController extends Controller
 
     public function supportAction(Request $request, Application $app)
     {
-        return $app['twig']->render('support.html.twig',[]);
+        $options = [];
+
+        if($request->getMethod() == 'POST') {
+            $name = $request->get('firstname') .' '. $request->get('lastname');
+
+            $messagebody = new \Swift_Message();
+            $messagebody->setSubject('Hello , I need some help please?')
+                ->setFrom(array($request->get('email') =>$name ))
+                ->setTo('share2u.contact@gmail.com')
+                ->setBody($request->get('message')."\n".$request->get('email'));
+            $app['mailer']->send($messagebody);
+
+            $options = [
+                'sent' => true
+            ];
+        }
+
+            return $app['twig']->render('support.html.twig', $options);
     }
 
     public function dashboardAction(Request $request, Application $app)
