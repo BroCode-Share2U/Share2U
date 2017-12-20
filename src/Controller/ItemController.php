@@ -97,11 +97,11 @@ class ItemController extends Controller
 
     public function searchAction(Request $request, Application $app)
     {
-        $entityManager = $this->getEntityManager($app);
+        $entityManager = self::getEntityManager($app);
         $itemRepo = $entityManager->getRepository(Item::class);
 
         // Get the user
-        $user = $this->getAuthorizedUser($app);
+        $user = self::getAuthorizedUser($app);
         $searchString = $request->query->get('searchString');
 
         return $app['twig']->render('search.html.twig', [
