@@ -48,7 +48,6 @@ class ResetForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('user_repository');
         $resolver->setDefault('data_class', User::class);
         $resolver->setDefault('standalone', false);
 

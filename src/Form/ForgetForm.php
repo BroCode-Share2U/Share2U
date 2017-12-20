@@ -11,9 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- * Description of AddressForm
- */
 class ForgetForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
