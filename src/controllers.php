@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 $app->get('/', 'Controller\DefaultController::homepageAction')
     ->bind('homepage');
 /* support */
-$app->get('/support', 'Controller\DefaultController::supportAction')
+$app->match('/support', 'Controller\DefaultController::supportAction')
     ->bind('support');
 /* about */
 $app->get('/about', 'Controller\DefaultController::aboutAction')
