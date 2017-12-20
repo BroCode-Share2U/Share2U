@@ -37,7 +37,10 @@
             <div id="dashboardUsername">{{ viewedUser.username }}<br/></div>
             <div id="dashboardFirstname">{{ viewedUser.firstname }}</div>
             <div id="dashboardLastname">{{ viewedUser.lastname }}</div>
-            <div id="dashboardDescription">{{ viewedUser.description }}</div>
+            {% if viewedUser.description is empty%}
+            {% else %}
+                <div id="dashboardDescription">"{{ viewedUser.description }}"</div>
+            {% endif%}
             <div id="dashboardInsertedDate"><span>Member since </span>{{ viewedUser.insertedAt|date("m/d/Y") }}</div>
             {% if viewedUser.username == user.username %}
                 <div class="buttonBox">
@@ -50,8 +53,8 @@
     </div>
     <div id="dashBoardTabSection">
         <div id="dashBoardMenu">
-            <button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button>
-            <button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Comments</button>
+            <a><button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
+            <a><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Comments</button></a>
         </div>
 
         <div id="dashBoardMenuTab1" class="dashBoardMenuTab">
@@ -67,9 +70,8 @@
                         <div class="insideCardBox2">
                             {#<div>{{ item.id }}</div>#}
                             <h4>{{ item.name }}</h4>
-                            <div>{{ item.owner.firstname }} {{ item.owner.lastname }}</div>
                             {#<div>{{ item.owner.id }}</div>#}
-                            <div>{{ item.description }}</div>
+                            <div class="insideCardBox2Description">{{ item.description }}</div>
                             <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
                             <div class="buttonBox">
                                 <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
@@ -87,11 +89,10 @@
                     <div class="cardBox">
                         <div class="commentBox">
                             <h4 class="h4Text">
-                                "{{ comment.text }}" <br/>by <a href="{{ path('user', { 'username': comment.author.username }) }}" id="userLinkCardBox">{{ comment.author.username }} </a>
+                                "{{ comment.text }}" <br/><span>by </span><a href="{{ path('user', { 'username': comment.author.username }) }}" id="userLinkCardBox">{{ comment.author.username }} </a>
                             </h4>
                             <div class="stars">
-                                <div class="rank"></div>
-                                <div class="score">{{ (comment.rating)|number_format(1, '.', ',') }}</div>
+                                <div class="rank" style="width: {{ (comment.rating)|number_format(1, '.', ',')*20 }}%;"></div>
                             </div>
                         </div>
                     </div>
@@ -124,10 +125,8 @@
         }
 
         (function() {
-            // your page initialization code here
-            // the DOM will be available here
-            var x = $(".score").html()*20;
-            $(".rank").css('width', x+'%');
+            var x = $("#dashBoardProfileRank .score").html()*20;
+            $("#dashBoardProfileRank .rank").css('width', x+'%');
 
         })();
     </script>

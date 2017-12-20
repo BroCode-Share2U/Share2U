@@ -10,9 +10,11 @@
                 <img src="{{ item.cover }}" alt="game picture">
 
             </div>
-            <div class="buttonBox">
-                <a id="dashBoardAddItemButton" href="{{ path('requestItem', { 'itemId': item.id }) }}"><button>Request</button></a>
-            </div>
+            {% if item.owner.username != user.username %}
+                <div class="buttonBox">
+                    <a id="dashBoardAddItemButton" href="{{ path('requestItem', { 'itemId': item.id }) }}"><button>Request</button></a>
+                </div>
+            {% endif %}
         </div>
         <div id="dashBoardProfileInformation" class="dashBoardProfileInformation">
             <div id="dashboardUsername">{{ item.name }}<br/></div>
@@ -28,14 +30,14 @@
             </div>
         </div>
     </div>
-    <div style="text-align: center;padding-top: 8rem;padding-bottom: 10rem;">
+    <div id="itemGallery" style="text-align: center;padding-top: 6rem">
         {% if itemIgdb.videos is defined %}
             <div id="videos">
                 <div class="h3Text">
                     <h3>Videos</h3>
                 </div>
                 {% for video in itemIgdb.videos %}
-                    <div style="margin-bottom:2rem;display: inline-block;width: 180px">
+                    <div style="margin-bottom:2rem;display: inline-block;width: 100%">
                         <a data-fancybox href="https://www.youtube.com/watch?v={{ video.video_id }}">
                             <img src="https://i.ytimg.com/vi/{{ video.video_id }}/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&amp;rs=AOn4CLBT_PaWDI-TozWUHMVF1NSpYbiMog" width="168">
                         </a>

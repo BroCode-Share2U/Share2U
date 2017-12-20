@@ -243,19 +243,6 @@
       }
     }
   }
-
-  .commentBox{
-    color: var(--ColorFont);
-    font-size: 1.1rem;
-    font-style: italic;
-
-    padding: 1rem 2rem;
-    width: 100%;
-    text-align: center;
-
-    span{
-    }
-  }
 }
 
 
@@ -364,7 +351,36 @@
     }
   }
 }
-
+@media screen and (max-width: 550px){
+  .bottomPictureCardBox{
+    display: none;
+  }
+  .pictureBox{
+    z-index: -1;
+  }
+  #dashBoardTabSection{
+    .pictureBox{
+      background: none;
+      border: none;
+      box-shadow: none;
+      img{
+        display: none;
+      }
+    }
+    .insideCardBox1{
+      width: 0 !important;
+    }
+    .insideCardBox2{
+      width: 100% !important;
+      h4{
+        width: 100% !important;
+      }
+      .insideCardBox2Description{
+        padding-left: 0 !important;
+      }
+    }
+  }
+}
 
 
 //TEXT

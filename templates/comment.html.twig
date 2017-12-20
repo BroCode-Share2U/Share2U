@@ -19,7 +19,7 @@
                 {% elseif isLoaner %}
                     <span>Rate your sharing for: <br/></span>
                 {% endif %}
-                {{ loan.item.name }}
+                <span id="commentCardBoxItemName">{{ loan.item.name }}</span>
                 {% if isBorrower %}
                     <span><br/>from: {{ loan.item.owner.username }}</span>
                 {% elseif isLoaner %}
@@ -27,7 +27,7 @@
                 {% endif %}
                 </h4>
                 {#<div>{{ item.owner.id }}</div>#}
-                <div>{{ loan.item.description }}</div>
+                <div class="insideCardBox2Description">{{ loan.item.description }}</div>
                 <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.item.insertedAt|date("m/d/Y") }}</div>
             </div>
         </div>
@@ -39,6 +39,8 @@
 
     <script>
         $("#comment_form_submit").html("<i class=\"fas fa-paper-plane\"></i>");
+
+        $("#comment_form div:nth-of-type(2) label").html("Your comment");
 
         function addListenerTr()
         {

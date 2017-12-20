@@ -78,3 +78,13 @@ footer{
     }
   }
 }
+
+
+/*RESPONSIVE*/
+@media screen and (max-width: 770px){
+  footer{
+    #footerMenuList{
+      display: none;
+    }
+  }
+}

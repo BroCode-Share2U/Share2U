@@ -3,8 +3,48 @@
   margin: 0 auto;
   position: relative;
   margin-top: 6rem;
+  padding: 1rem;
 
-  padding-bottom: 10rem;
+  .insideCardBox2Description{
+    text-align: center;
+    font-style: italic;
+    color: var(--ColorLightGrey);
+    text-shadow: 0 0 3px black;
+
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+
+    max-height: 3.4rem;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 5rem;
+    padding-left: 10rem;
+    z-index: -1;
+
+    &:before{
+      content: '"';
+    }
+    &:after{
+      content: '"';
+    }
+
+    .h4Text{
+      margin-top: 0.1rem;
+    }
+  }
+
+  .insideCardBox2{
+    margin-top: 0.1rem;
+  }
+
+  #commentCardBoxItemName{
+    color: var(--ColorFont);
+    font-size: 1.5rem;
+  }
 
   .inputBox{
     form{
@@ -73,10 +113,7 @@
                 }
               }
             }
-          };
-          &:nth-of-type(2){
-            max-width: 30rem;
-          };
+          }
         }
       }
     }

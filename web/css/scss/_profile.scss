@@ -1,3 +1,30 @@
 .dashBoardProfileInformation{
   margin-top: 1rem;
+
+}
+.commentBox{
+  padding: 0.8rem 1rem 0.3rem 1rem;
+  text-align: center;
+  width: 100%;
+  font-style: italic;
+
+
+
+  .h4Text{
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--ColorLightGrey);
+    text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    span{
+      color: var(--ColorLightGrey);
+      font-size: 0.85rem;
+      &:hover{
+       color: inherit;
+      }
+    }
+  }
+  .stars{
+    font-style: normal;
+    font-size: 2.5rem;
+  }
 }

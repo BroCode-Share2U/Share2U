@@ -8,7 +8,7 @@
         {% if user is not null %}
             <div id="headerMenuResponsiveSearch">
                 <div id="headerSearch">
-                    <form action="search" method="GET" class="inputBox">
+                    <form action="{{ path('searchItem') }}" method="GET" class="inputBox">
                         <input id="headerSearchInput" type="text" placeholder="search here">
                         <div class="buttonBox">
                             <button id="headerSearchBtn" type="submit"><i class="fas fa-search"></i></button>
@@ -23,14 +23,16 @@
         <div id="headerMenuResponsiveToggleArea"></div>
         <ul>
             {% if user is not null %}
-                <li><a href="profile">{{user.username}}</a></li>
-            {% else %}
+                <li><a href="{{ path('profile') }}">{{user.username}}</a></li>
             {% endif %}
-            <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li><a href="{{ path('homepage') }}">Home</a></li>
             {% if user is not null %}
                 <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-                <li><a href="logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
-            {% else %}
+            {% endif %}
+                <li><a href="{{ path('about') }}">About</a></li>
+                <li><a href="{{ path('support') }}">Support</a></li>
+            {% if user is not null %}
+                <li><a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt"></i></a></li>
             {% endif %}
         </ul>
     </div>

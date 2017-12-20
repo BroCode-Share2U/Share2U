@@ -3,7 +3,7 @@
 {% block title '' %}
 
 {% block content %}
-    <div id="additemMain">
+    <div id="edititemMain">
 
         <div class="h2Text">
             <h2>Edit your game</h2>
@@ -18,9 +18,8 @@
             <div class="insideCardBox2">
                 {#<div>{{ item.id }}</div>#}
                 <h4>{{ item.name }}</h4>
-                <div>{{ item.owner.firstname }} {{ item.owner.lastname }}</div>
                 {#<div>{{ item.owner.id }}</div>#}
-                <div>{{ item.description }}</div>
+                <div class="insideCardBox2Description">{{ item.description }}</div>
                 <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
             </div>
         </div>
@@ -34,7 +33,7 @@
 
         <div id="divFormEdit">
             <div class="h2Text">
-                <h2>select the game platform and add a personal description</h2>
+                <h2>select the game platform<br/>and add a personal description</h2>
             </div>
             <div class="inputBox buttonBox">
                 {{ form(itemForm) }}
