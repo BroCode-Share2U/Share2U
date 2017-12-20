@@ -41,18 +41,6 @@
         }, 250);
     });
 </script>
-{#    {{ form_start(form) }}  #}{# display open tag of the form #}{#
-    <fieldset>
-        <legend>Person :</legend>
-        #}{#  form(form)   pour afficher le forme #}{#
-        {{ form_row(form.firstname) }} #}{# display form firstname label, input and error list #}{#
-        {{ form_row(form.lastname) }} #}{# display form lastname label, input and error list #}{#
-        {{ form_row(form.pseudo) }} #}{# display form username label, input and error list #}{#
-        {{ form_row(form.password) }} #}{# display form password label, input and error list #}{#
-    </fieldset>
-    {{ form_row(form.submit) }}  #}{# display form submit button #}{#
-    {{ form_rest(form) }}    #}{# pour afficher ce que n'a pas écrit #}{#
 
-    {{ form_end(form) }} #}{# display close tag of the form #}
 
 {% endblock %}

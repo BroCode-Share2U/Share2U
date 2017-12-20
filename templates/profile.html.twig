@@ -37,7 +37,7 @@
             <div id="dashboardUsername">{{ viewedUser.username }}<br/></div>
             <div id="dashboardFirstname">{{ viewedUser.firstname }}</div>
             <div id="dashboardLastname">{{ viewedUser.lastname }}</div>
-            <div id="dashboardDescription">"{{ viewedUser.description }}"</div>
+            <div id="dashboardDescription">{{ viewedUser.description }}</div>
             <div id="dashboardInsertedDate"><span>Member since </span>{{ viewedUser.insertedAt|date("m/d/Y") }}</div>
             {% if viewedUser.username == user.username %}
                 <div class="buttonBox">
