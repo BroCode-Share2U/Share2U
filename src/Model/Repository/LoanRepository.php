@@ -111,4 +111,8 @@ class LoanRepository extends EntityRepository
         $result = $queryBuilder->getQuery()->getArrayResult();
         return (count($result) > 0);
     }
+
+    public function isOwnerOfItem(User $user, Item $item) {
+        return $item->getOwner()->getId() === $user->getId();
+    }
 }

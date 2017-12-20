@@ -25,6 +25,7 @@
         <div class="h3Text">
             {% if itemIsLoaned %}<h3>Already in Loan</h3>{% endif %}
             {% if itemIsRequested %}<h3>Already Requested</h3>{% endif %}
+            {% if itemIsRequestersOwn %}<h3>You can't request your own item</h3>{% endif %}
         </div>
         {% endif %}
     </div>

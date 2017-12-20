@@ -19,17 +19,21 @@ class LoanController extends Controller
         $formFactory = self::getFormFactory($app);
 
         // Find the item with the param in url
-        $item = $entityManager->getRepository(Item::class)->find($itemId);
-        if ($item === null){
+        $itemRepo = $entityManager->getRepository(Item::class);
+        $item = $itemRepo->find($itemId);
+        if (!$item) {
             throw new NotFoundHttpException('item not found');
         }
 
-        // Item in loan?
-        $itemIsLoaned = $entityManager->getRepository(Loan::class)->itemIsLoaned($item);
-        $itemIsRequested = $entityManager->getRepository(Loan::class)->itemIsRequested($item);
+        // Is item requested, on loan or requester's own?
+        $loanRepo = $entityManager->getRepository(Loan::class);
+        $itemIsLoaned = $loanRepo->itemIsLoaned($item);
+        $itemIsRequested = $loanRepo->itemIsRequested($item);
+        $requester = self::getAuthorizedUser($app);
+        $itemIsRequestersOwn = $loanRepo->isOwnerOfItem($requester, $item);
 
         $loanForm = null;
-        if (!$itemIsLoaned && !$itemIsRequested) {
+        if (!$itemIsLoaned && !$itemIsRequested && !$itemIsRequestersOwn) {
             // Create empty loan
             $loan = new Loan();
 
@@ -66,6 +70,7 @@ class LoanController extends Controller
             'requestForm' => $loanForm,
             'itemIsLoaned' => $itemIsLoaned,
             'itemIsRequested' => $itemIsRequested,
+            'itemIsRequestersOwn' => $itemIsRequestersOwn
         ]);
     }
 
