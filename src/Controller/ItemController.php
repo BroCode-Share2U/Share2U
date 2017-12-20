@@ -3,15 +3,11 @@
 namespace Controller;
 
 use Form\ItemForm;
+use GuzzleHttp\Client;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-
-//ADDED FOR TEST//////////
-use Model\User;
 use Model\Item;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-////////////////////////////////
 
 
 class ItemController extends Controller
@@ -25,9 +21,15 @@ class ItemController extends Controller
             throw new NotFoundHttpException('item not found');
         }
 
+        $client = new Client();
+        $headers = ['user-key' => ' 2d156ee0f911a8d4d7d0984c5ceff1ca ', 'Accept' => 'application/json'];
+        $requestAjax = new \GuzzleHttp\Psr7\Request('GET', 'https://api-2445582011268.apicast.io/games/'.$item->getIgdbId()  , $headers);
+        $response = $client->send($requestAjax, ['timeout' => 2]);
+
         return $app['twig']->render('item.html.twig',
             [
-                'item' => $item->toArray()
+                'item' => $item->toArray(),
+                'itemIgdb' => \GuzzleHttp\json_decode($response->getBody()->getContents())[0]
             ]
         );
     }
