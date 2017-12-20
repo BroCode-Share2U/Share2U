@@ -56,7 +56,7 @@ class LoanController extends Controller
                 $entityManager->flush();
                 // Send email request
                 $this->sendRequestMessage($app, $loan);
-                // Redidect to the dashboard
+                // Redirect to the dashboard
                 return $app->redirect($app['url_generator']->generate('dashboard'));
             }
             $loanForm = $loanForm->createView();
