@@ -23,6 +23,9 @@ $app->get('/about', 'Controller\DefaultController::aboutAction')
 /* dashboard */
 $app->get('/dashboard', 'Controller\DefaultController::dashboardAction')
     ->bind('dashboard');
+/* Search IGDB - User Action, proxy for search in IGDB */
+$app->get('/igdb', 'Controller\DefaultController::searchIgdb')
+    ->bind('searchIgdb');
 
 /* *********************
 * Comment Controller
@@ -100,12 +103,6 @@ $app->patch('/loan/close/{loanId}', 'Controller\LoanController::closeAction')
 $app->patch('/loan/cancel/{loanId}', 'Controller\LoanController::cancelAction')
     ->bind('cancelRequest');
 
-/* *********************
-* Loan Controller
-********************* */
-/* request loan - borrower action, creates loan object */
-$app->get('/igdb', 'Controller\DefaultController::searchIgdb')
-    ->bind('searchIgdb');
 
 /* *********************
 * Error route
