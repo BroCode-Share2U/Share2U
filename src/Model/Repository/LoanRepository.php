@@ -41,6 +41,7 @@ class LoanRepository extends EntityRepository
                 ->setParameter('owner', $user)
             ->andWhere('l.status = :status')
                 ->setParameter('status', $status)
+            ->orderBy('l.requestedAt', 'DESC');
         ;
 
         return $queryBuilder->getQuery()->getResult();
