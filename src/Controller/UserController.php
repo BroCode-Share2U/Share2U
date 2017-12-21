@@ -134,7 +134,7 @@ class UserController extends Controller
         if ($userForm->isSubmitted() && $userForm->isValid()) {
 
             // Set parameters that aren't set by form->handleRequest()
-            $user->setRole(User::ROLE_USER);
+            $user->setRoles(User::ROLE_USER);
             $now = new \DateTime();
             $user->setInsertedAt($now);
             $user->setUpdatedAt($now);
@@ -253,9 +253,9 @@ class UserController extends Controller
 
     public function adminPanelAction(Request $request, Application $app)
     {
-        if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
+         if (!$app['security.authorization_checker']->isGranted('ROLE_ADMIN')) {
             return $app->redirect($app['url_generator']->generate('homepage'));
-        }
+         }
 
         $repository = $app['orm.em']->getRepository(User::class);
         $result = [];

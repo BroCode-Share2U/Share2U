@@ -221,6 +221,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function setRoles($roles) {
+        $this->roles = $roles;
+        return $this;
+    }
+
     /**
      * Returns the roles granted to the user.
      *
@@ -239,9 +244,9 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        if ($this->roles === self::ROLE_ADMIN) {
+         if ($this->roles === self::ROLE_ADMIN) {
             return ['ROLE_ADMIN'];
-        }
+         }
         return ['ROLE_USER'];
     }
 
