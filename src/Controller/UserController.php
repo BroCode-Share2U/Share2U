@@ -15,8 +15,9 @@ use Model\Comment;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class UserController extends Controller
@@ -28,9 +29,7 @@ class UserController extends Controller
         if ($viewedUser !== null) {
             return $this->renderProfileOrUser($app, $viewedUser);
         }
-        else  {
-            echo "Viewed user does not exist"; die;
-        }
+        throw new NotFoundHttpException("Viewed user does not exist");
     }
 
     public function showProfileAction(Request $request, Application $app) {
@@ -211,7 +210,7 @@ class UserController extends Controller
         $user = $entityManager->getRepository(User::class)->findOneByToken($token);
 
         if (!$user) {
-            throw new CustomUserMessageAuthenticationException('this token is not valid');
+            throw new CustomUserMessageAuthenticationException('This token is not valid');
         }
 
         $resetForm = $formFactory->create(ResetForm::class, $user, [
