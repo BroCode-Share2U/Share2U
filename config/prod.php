@@ -44,7 +44,7 @@ $app->register(
                     'login_path' => '/signin',
                     'check_path' => '/user/signin_check',
                     'always_use_default_target_path' => true,
-                    'default_target_path' =>  '/admin/user'
+                    'default_target_path' =>  '/'
                 ),
                 'logout' => array(
                     'logout_path' => '/logout',
@@ -64,6 +64,7 @@ $app->register(
             array('^/support', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/forgot_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/reset_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/admin/user/.+', 'ROLE_ADMIN'),
             array('^/.*$', 'ROLE_USER')
         ),

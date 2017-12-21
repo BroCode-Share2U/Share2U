@@ -23,6 +23,9 @@
             <li><a id="headerMenuUnlogged" href="{{ path('homepage') }}">Home</a></li>
             {% if user is not null %}
                 <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                {% if user is not null  and is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('adminPanel') }}"><i class="fas fa-sliders-h"></i></a></li>
+                {% endif %}
                 <li><a id="headerMenuLogout" href="{{ path('logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
             {% else %}
             {% endif %}
