@@ -14,9 +14,9 @@ use Model\Item;
 use Model\Comment;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
@@ -265,5 +265,43 @@ class UserController extends Controller
         return $app['twig']->render('adminPanel.html.twig', [
            'users' => $result
         ]);
+    }
+
+    public function sendMessageAction(Request $request, Application $app, $username)
+    {
+        $user = self::getAuthorizedUser($app);
+        $entityManager = self::getEntityManager($app);
+        $viewedUser = $entityManager->getRepository(User::class)->findOneByUsername($username);
+        if ($viewedUser === null)
+        {
+            throw new NotFoundHttpException('User not Found not found');
+        }
+        $sent = false;
+
+        if($request->getMethod() == 'POST')
+        {
+            $messageBody = $request->request->get('message');
+            $message = new \Swift_Message();
+            $message->setSubject($viewedUser->getUsername(). ' ')
+                ->setFrom($user->getEmail())
+                ->setTo($viewedUser->getEmail())
+                ->setBody($app['twig']->render('mail/contactUser.html.twig',
+                    [
+                        'message' => $messageBody,
+                        'email' => $user->getEmail()
+                    ]
+                ),
+                    'text/html'
+                );
+            $app['mailer']->send($message);
+            $sent = true;
+        }
+
+        return $app['twig']->render('sendMessage.html.twig',
+            [
+                'sent' => $sent,
+                'viewedUser' => $viewedUser->toArray()
+            ]
+        );
     }
 }

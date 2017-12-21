@@ -40,6 +40,9 @@ $app->match('/comment/{loanId}', 'Controller\CommentController::commentAction')
 /* show a fellow user */
 $app->get('/user/{username}', 'Controller\UserController::showUserAction')
     ->bind('user');
+/* send message user */
+$app->match('/message/{username}', 'Controller\UserController::sendMessageAction')
+    ->bind('sendMessage');
 /* profile */
 $app->match('/profile', 'Controller\UserController::showProfileAction')
     ->bind('profile');
