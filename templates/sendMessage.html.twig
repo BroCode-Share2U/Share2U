@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    <div id="supportMain">
+
+        {% if sent == false %}
+        <div class="starter-template">
+            <div class="h2Text">
+                    <h2>Contact {{ viewedUser.username }}</h2>
+            </div>
+        </div>
+        <form role="form" method="POST" action="">
+            <div class="inputBox">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" class="form-control" rows="3" placeholder="Enter Your Message" required="required" maxlength="500"></textarea>
+            </div>
+            <div class="inputBox buttonBox">
+                <button type="submit" class="btn btn-default"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </form>
+        {% else %}
+            <div class="starter-template">
+                <div class="h2Text">
+                    <h2>sent</h2>
+                    <script>
+                        $(function () {
+                            var delay = 2000;
+                            setTimeout(
+                                function(){
+                                    window.location.href = "{{ url('dashboard') }}";
+                                    }, delay
+                            );
+                        });
+                    </script>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

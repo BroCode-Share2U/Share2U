@@ -48,6 +48,12 @@
                         <button  class="editProfileButton"><i class="fas fa-cog"></I></button>
                     </a>
                 </div>
+            {% else %}
+                <div class="buttonBox">
+                    <a href="{{ path('sendMessage', { 'username': viewedUser.username }) }}">
+                        <button class="editProfileButton"><i class="fas fa-envelope"></i></button>
+                    </a>
+                </div>
             {% endif %}
         </div>
     </div>
