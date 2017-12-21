@@ -119,6 +119,29 @@
     border: 6px solid transparent;
     border-radius: 100%;
   }
+
+
+  &:hover{
+    transition-duration:0.4s;
+    border: 2px solid var(--ColorGreen);
+    box-shadow: 0 0 20px var(--ColorGreen);
+
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -ms-transform: scale(1.01);
+    -o-transform: scale(1.01);
+    transform: scale(1.01);
+
+    img {
+      transition-duration: 0.4s;
+      opacity: 1;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+  }
 }
 
 
@@ -167,6 +190,17 @@
     padding: 0 0.5rem;
     margin: 1rem 0;
     color: var(--ColorFont);
+
+    a{
+      text-decoration: none;
+      color: var(--ColorTitle);
+      &:hover{
+        color: var(--ColorFont);
+      }
+      h4:hover{
+        color: var(--ColorFont);
+      }
+    }
 
     h4{
       margin: 0;

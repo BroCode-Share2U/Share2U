@@ -16,16 +16,18 @@
                 <div class="cardBox">
                     <div class="insideCardBox1">
                         <div class="pictureBox">
-                            <img src="{{ item.cover }}" alt="card item picture">
+                            <a href="{{ path('item', { 'itemId': item.id}) }}"><img src="{{ item.cover }}" alt="card item picture"></a>
                         </div>
                     </div>
                     <div class="insideCardBox2">
                         {#<div>{{ item.id }}</div>#}
-                        <h4>{{ item.name }}</h4>
+                        <a href="{{ path('item', { 'itemId': item.id}) }}"><h4>{{ item.name }}</h4></a>
                         {#<div>{{ item.owner.id }}</div>#}
-                        <div id="searchResultCardDescription">
+                        <div class="insideCardBox2Description">
                             {% if item.description is not null %}
-                                <span>"{{ item.description }}"</span>
+                                {{ item.description }}
+                            {% else %}
+                                No description yet
                             {% endif %}
                             </div>
                         <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}<span> by </span><a href="{{ path('user', { 'username': item.owner.username }) }}" id="userLinkCardBox">{{ item.owner.username }}</a></div>

@@ -72,15 +72,21 @@
                     <div class="cardBox">
                             <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ item.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': item.id }) }}"><img src="{{ item.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <div class="insideCardBox2DescriptionArea">
-                                <div class="insideCardBox2Description">{{ item.description }}</div>
+                                <div class="insideCardBox2Description">
+                                    {% if item.description is not empty %}
+                                        {{ item.description }}
+                                    {% else %}
+                                        No description yet
+                                    {% endif %}
+                                </div>
                             </div>
                             {#<div>{{ item.id }}</div>#}
-                            <h4>{{ item.name }}</h4>
+                            <a href="{{ path('item', { 'itemId': item.id }) }}"><h4>{{ item.name }}</h4></a>
                             {#<div>{{ item.owner.id }}</div>#}
                             <div class="bottomPictureCardBox"><span>since </span>{{ item.insertedAt|date("m/d/Y") }}</div>
                             <div class="buttonBox">
@@ -96,19 +102,21 @@
 
         <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
             <div>
-                <h2>Received</h2>
+                {% if requestsIn is not empty %}
+                    <h2>Received</h2>
+                {% endif %}
                 {% for loan in requestsIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a><br/>
                                 <span>requested:<br/>
-                                </span>{{ loan.name }}
+                                </span><a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
@@ -124,18 +132,20 @@
                 {% endfor %}
             </div>
             <div>
-                <h2>You Requested</h2>
+                {% if requestsOut is not empty %}
+                    <h2>You Requested</h2>
+                {% endif %}
                 {% for loan in requestsOut %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <span>You requested</span><br/>
-                                {{ loan.name }}<br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
                                 to <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
@@ -152,18 +162,20 @@
                 {#{{ dump(requestsOut) }}#}
             </div>
             <div>
-                <h2>Declined</h2>
+                {% if declineIn is not empty %}
+                    <h2>Declined</h2>
+                {% endif %}
                 {% for loan in declineIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <span>You declined :</span><br/>
-                                {{ loan.name }}<br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
                                 <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
@@ -180,14 +192,14 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }}</a><br/>
-                                <span>declined your request for:</span><br/>
-                                {{ loan.name }}
+                                <span>declined your request for</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
@@ -201,19 +213,21 @@
                 {% endfor %}
             </div>
             <div>
-                <h2>Canceled</h2>
+                {% if cancelIn is not empty %}
+                    <h2>Canceled</h2>
+                {% endif %}
                 {% for loan in cancelIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a><br/>
-                                <span>canceled your request for: </span><br/>
-                                {{ loan.name }}<br/>
+                                <span>canceled your request for</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
@@ -229,13 +243,13 @@
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <span>You canceled the request for:</span><br/>
-                                {{ loan.name }}<br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
                                 <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }}</a><br/>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
@@ -253,18 +267,20 @@
 
         <div id="dashBoardMenuTab3" class="dashBoardMenuTab" style="display:none">
             <div>
-                <h2>Shared</h2>
+                {% if loansIn is not empty %}
+                    <h2>Shared</h2>
+                {% endif %}
                 {% for loan in loansIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <span>You shared: </span><br/>
-                                {{ loan.name }}<br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
                                 <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
@@ -280,18 +296,20 @@
                 {% endfor %}
             </div>
             <div>
-                <h2>Borrowed</h2>
+                {% if loansOut is not empty %}
+                    <h2>Borrowed</h2>
+                {% endif %}
                 {% for loan in loansOut %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
                                 <span>You borrowed:</span><br/>
-                                {{ loan.name }}<br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
                                 <span>from </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
@@ -310,19 +328,21 @@
 
         <div id="dashBoardMenuTab4" class="dashBoardMenuTab" style="display:none">
             <div>
-                <h2>Finished Sharing</h2>
+                {% if closedLoansIn is not empty %}
+                    <h2>Finished Sharing</h2>
+                {% endif %}
                 {% for loan in closedLoansIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
-                                <span>You borrowed: </span><br/>
-                                {{ loan.name }}<br/>
-                                <span>from </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
+                                <span>You shared: </span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
@@ -338,19 +358,21 @@
                 {#{{ dump(closedLoansIn) }}#}
             </div>
             <div>
-                <h2>Finished Borrowing</h2>
+                {% if closedLoansOut is not empty %}
+                    <h2>Finished Borrowing</h2>
+                {% endif %}
                 {% for loan in closedLoansOut %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
                             <div class="pictureBox">
-                                <img src="{{ loan.cover }}" alt="card item picture">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
                             </div>
                         </div>
                         <div class="insideCardBox2">
                             <h4>
-                                <span>You shared:</span><br/>
-                                {{ loan.name }}<br/>
-                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
+                                <span>You borrowed:</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>from </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>

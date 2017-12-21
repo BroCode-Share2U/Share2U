@@ -93,18 +93,7 @@
       }
 
       .insideCardBox1{
-        .pictureBox{
-          &:hover{
-            transition-duration:0.4s;
-            border: 2px solid var(--ColorGreen);
-            box-shadow: 0 0 20px var(--ColorGreen);
 
-            img {
-              transition-duration: 0.4s;
-              opacity: 1;
-            }
-          }
-        }
       }
 
       .insideCardBox2{
