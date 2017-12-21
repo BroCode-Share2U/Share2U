@@ -279,6 +279,8 @@ nav{
     }
 
     .headerMenuToggle{
+      transition-duration: 2s;
+      transition-property: all;
       #headerMenuResponsiveToggleArea{
         display: none !important;
       }

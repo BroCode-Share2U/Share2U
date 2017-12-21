@@ -13,6 +13,7 @@
         </div>
 
         {{ form_start(userForm) }}
+        {{ form_errors(userForm) }}
 
         <div>
             {#{{ form_errors(form) }}#}
@@ -72,7 +73,7 @@
             {{ form_row(userForm.submit, { 'label': 'Submit' }) }}
         </div>
 
-        {{ form_errors(userForm) }}
+
 
         {{ form_end(userForm) }}
     </div>

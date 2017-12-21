@@ -190,6 +190,9 @@
     padding: 0 0.5rem;
     margin: 1rem 0;
     color: var(--ColorFont);
+    .insideCardBox2Description{
+      z-index: -2;
+    }
 
     a{
       text-decoration: none;
