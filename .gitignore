@@ -5,6 +5,8 @@ nbproject/private/private.properties
 vendor/
 
 var/
+!var/cache/.gitkeep
+!var/log/.gitkeep
 
 config/config\.php
 \.idea/
