@@ -53,11 +53,29 @@
     </div>
     <div id="dashBoardTabSection">
         <div id="dashBoardMenu">
-            <a><button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
-            <a><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Comments</button></a>
+            <a><button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab2')">Comments</button></a>
+            <a><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
         </div>
 
-        <div id="dashBoardMenuTab1" class="dashBoardMenuTab">
+        <div id="dashBoardMenuTab2" class="dashBoardMenuTab">
+            <div>
+                <h2>Comments</h2>
+                {% for comment in comments %}
+                    <div class="cardBox">
+                        <div class="commentBox">
+                            <h4 class="h4Text">
+                                "{{ comment.text }}" <br/><span>by </span><a href="{{ path('user', { 'username': comment.author.username }) }}" id="userLinkCardBox">{{ comment.author.username }} </a>
+                            </h4>
+                            <div class="stars">
+                                <div class="rank" style="width: {{ (comment.rating)|number_format(1, '.', ',')*20 }}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="dashBoardMenuTab1" class="dashBoardMenuTab" style="display:none">
             <div>
                 <h2>Owned Items</h2>
                 {% for item in items %}
@@ -82,23 +100,6 @@
             </div>
         </div>
 
-        <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
-            <div>
-                <h2>Comments</h2>
-                {% for comment in comments %}
-                    <div class="cardBox">
-                        <div class="commentBox">
-                            <h4 class="h4Text">
-                                "{{ comment.text }}" <br/><span>by </span><a href="{{ path('user', { 'username': comment.author.username }) }}" id="userLinkCardBox">{{ comment.author.username }} </a>
-                            </h4>
-                            <div class="stars">
-                                <div class="rank" style="width: {{ (comment.rating)|number_format(1, '.', ',')*20 }}%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
     </div>
 
 

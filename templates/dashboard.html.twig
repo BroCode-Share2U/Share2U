@@ -61,7 +61,7 @@
         <div id="dashBoardMenu">
             <a href="#Tab1"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
             <a href="#Tab2"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button></a>
-            <a href="#Tab3"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">Loans</button></a>
+            <a href="#Tab3"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">In Progress</button></a>
             <a href="#Tab4"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button></a>
         </div>
 
@@ -253,7 +253,7 @@
 
         <div id="dashBoardMenuTab3" class="dashBoardMenuTab" style="display:none">
             <div>
-                <h2>Loans In</h2>
+                <h2>Shared</h2>
                 {% for loan in loansIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -263,9 +263,9 @@
                         </div>
                         <div class="insideCardBox2">
                             <h4>
-                                <span>You borrowed: </span><br/>
+                                <span>You shared: </span><br/>
                                 {{ loan.name }}<br/>
-                                <span>from </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
+                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
@@ -280,7 +280,7 @@
                 {% endfor %}
             </div>
             <div>
-                <h2>Loans out</h2>
+                <h2>Borrowed</h2>
                 {% for loan in loansOut %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -290,9 +290,9 @@
                         </div>
                         <div class="insideCardBox2">
                             <h4>
-                                <span>You shared:</span><br/>
+                                <span>You borrowed:</span><br/>
                                 {{ loan.name }}<br/>
-                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
+                                <span>from </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
                             </h4>
                             <div class="insideCardBox2DescriptionArea">
                                 <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
@@ -310,7 +310,7 @@
 
         <div id="dashBoardMenuTab4" class="dashBoardMenuTab" style="display:none">
             <div>
-                <h2>Finished Loans In</h2>
+                <h2>Finished Sharing</h2>
                 {% for loan in closedLoansIn %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
@@ -338,7 +338,7 @@
                 {#{{ dump(closedLoansIn) }}#}
             </div>
             <div>
-                <h2>Finished Loans Out</h2>
+                <h2>Finished Borrowing</h2>
                 {% for loan in closedLoansOut %}
                     <div class="cardBox">
                         <div class="insideCardBox1">
