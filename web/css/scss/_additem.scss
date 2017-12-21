@@ -151,6 +151,7 @@
         text-align: left;
         width: 15%;
         min-width: 10rem;
+        z-index: 0;
       }
       .insideCardBox2{
         padding: 0 1rem 1rem 0;
@@ -168,7 +169,8 @@
     }
     .itemSelect{
       background: rgba(0,0,0,0.6);
-      box-shadow: 0 0 20px var(--ColorGreen);
+      box-shadow: 0 0 20px var(--ColorButtonFocus);
+
       .pictureBox{
         box-shadow: 0 0 10px var(--ColorGreen);
       }
@@ -192,5 +194,24 @@
 @media screen and (max-width: 850px){
   #additemCardDescriptionHiddenArea{
     padding-left: 13rem !important;
+  }
+}
+@media screen and (max-width: 500px){
+  #additemArea{
+    .insideCardBox1{
+      .pictureBox{
+        width: 5rem;
+        height: 5rem;
+      }
+    }
+    #additemCardDescriptionHiddenArea{
+      margin-left: -17rem !important;
+    }
+    .insideCardBox2{
+      h4{
+        padding: 0 2rem !important;
+        font-size: 1.1rem;
+      }
+    }
   }
 }
