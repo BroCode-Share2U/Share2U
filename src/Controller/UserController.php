@@ -105,7 +105,6 @@ class UserController extends Controller
 
     public function signinAction(Request $request, Application $app)
     {
-
         return $app['twig']->render('signin.html.twig',
             [
                 'error'         => $app['security.last_error']($request),
@@ -173,7 +172,7 @@ class UserController extends Controller
 
         if ($forgetForm->isSubmitted() && $forgetForm->isValid()) {
             $dbUser = $entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
-
+            $sent ='';
             $length = 32;
             $token = base64_encode(random_bytes($length));
             $token = str_replace('+', '', $token);
@@ -192,10 +191,13 @@ class UserController extends Controller
                     'text/html'
                 );
             $app['mailer']->send($messageBody);
-            $app['session']->set('alert',  'Instructions for resetting your password have been emailed to you');
+            $sent ='Instructions to reset your password sent';
 
-            return $app->redirect($app['url_generator']->generate('homepage'));
-        } else {
+            return $app['twig']->render('forgot_password.html.twig', [
+                'sent' => $sent
+            ]);
+        }
+        else {
             return $app['twig']->render('forgot_password.html.twig', [
                 'form' => $forgetForm->createView()
             ]);
