@@ -103,10 +103,24 @@ class ItemController extends Controller
         // Get the user
         $user = self::getAuthorizedUser($app);
         $searchString = $request->query->get('searchString');
+        $page = empty($request->query->get('page')) ? 1 : (int) $request->query->get('page');
+        $limit = 5;
+        if ( (($page-1) * $limit) < 0 )
+        {
+            $offset = 0;
+        }else
+            {
+            $offset = ($page-1) * $limit;
+        }
+        $nbPage = round(count($itemRepo->searchOthersItems($searchString, $user)) / $limit);
 
         return $app['twig']->render('search.html.twig', [
-            'items' => $itemRepo->searchOthersItems($searchString, $user),
-            'searchString' => $searchString
+            'items' => $itemRepo->searchOthersItems($searchString, $user, $offset, $limit),
+            'searchString' => $searchString,
+            'page' => $page,
+            'limit' => $limit,
+            'offset' => $offset,
+            'nbPage' => $nbPage
         ]);
     }
 

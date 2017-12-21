@@ -7,7 +7,7 @@ use Model\Item;
 
 class ItemRepository extends EntityRepository {
 
-    public function searchOthersItems($searchString, $user = null, $offset = 0, $limit = 10) {
+    public function searchOthersItems($searchString, $user = null, $offset = 0, $limit = 1000) {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $searchRegex = "%" . $searchString . "%";
 
@@ -32,6 +32,8 @@ class ItemRepository extends EntityRepository {
                 ->from(Item::class, "i")
                 ->where("i.name LIKE ?1")
                 ->setParameter(1, $searchRegex)
+                ->setFirstResult( $offset )
+                ->setMaxResults( $limit )
             ;
         }
 

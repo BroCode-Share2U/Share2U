@@ -38,44 +38,76 @@
             {% endfor %}
         </div>
 
-        <div>
-{#            <?php if (empty($search) && empty($session)) : ?>
-            <div class="row center-align">
-                <ul class="pagination">
-                    <?php if ($pagination["page"] == 1) : ?>
-                    <li class="disabled"><a href=""><i class="material-icons">first_page</i></a></li>
-                    <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
-                    <?php else: ?>
-                    <li><a href="list.php?page=1&nbPage=<?= $pagination["limit"] ?>"><i class="material-icons">first_page</i></a></li>
-                    <li><a href="list.php?page=<?= $pagination["page"]-1 ?>&nbPage=<?= $pagination["limit"] ?>"><i class="material-icons">chevron_left</i></a></li>
-                    <?php endif; ?>
+        <style>
+            #pagination ul{
+                padding: 0;
+                color: #fff;
+                font-size: 2rem;
+                text-align: center;
+                background-color: rgba(0,0,0 , 0.3);
+                border-radius: 2rem;
+                border: 1px solid #fff;
+                line-height: 2rem;
+            }
+            #pagination ul li{
+                display: inline-block;
+                margin: 0 1rem;
+            }
+            #pagination .navigationDisable{
+                color: #bbb;
+                font-size: 1.5rem;
+                line-height: 2.5rem;
+            }
+            #pagination .navigation{
+                color: #fff;
+                font-size: 1.5rem;
+            }
+            #pagination li a{
+                color: #fff;
+                text-decoration: none;
+            }
+            #pagination li.activePage a{
+                color: var(--ColorTitle);
+                text-shadow: 1px 1px 0 rgba(0,0,0,0.3),-1px -1px 0 rgba(0,0,0,0.3),1px -1px 0 rgba(0,0,0,0.3),-1px 1px 0 rgba(0,0,0,0.3),2px 2px 5px var(--ColorTitleShadow2),-2px 2px 5px var(--ColorTitleShadow2),2px -2px 5px var(--ColorTitleShadow2),-2px -2px 5px var(--ColorTitleShadow2);
+            }
+        </style>
 
-                    <?php if( $pagination["page"] > 5 ) : ?>
+        <div id="pagination">
+            <ul>
+                {% if page == 1 %}
+                    <li class="navigationDisable"><i class="fas fa-angle-double-left"></i></li>
+                    <li class="navigationDisable"><i class="fas fa-chevron-left"></i></li>
+                {% else %}
+                    <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page=1"><i class="fas fa-angle-double-left"></i></a></li>
+                    <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ page }}"><i class="fas fa-chevron-left"></i></a></li>
+                {% endif %}
+
+                {% if page > 5 %}
                     <li>...</li>
-                    <?php endif; ?>
+                {% endif %}
 
-                    <?php for ($i = $pagination["page"]-4; $i <= $pagination["page"]+4; $i++) : ?>
-                    <?php if ($pagination["page"] == $i) : ?>
-                    <li class="active"><a href="list.php?page=<?= $pagination["page"] ?>&nbPage=<?= $pagination["limit"] ?>"><?= $pagination["page"] ?></a></li>
-                    <?php elseif ($i > 0 && $i <= $pagination["numberPage"]) : ?>
-                    <li class="waves-effect"><a href="list.php?page=<?= $i ?>&nbPage=<?= $pagination["limit"] ?>"><?= $i ?></a></li>
-                    <?php endif;  ?>
-                    <?php endfor; ?>
+                {#<?php for ($i = $pagination["page"]-4; $i <= $pagination["page"]+4; $i++) : ?>#}
+                {% for i in range(page-4, page+4) %}
+                    {% if page == i %}
+                        <li class="activePage"><a href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ page }}">{{ page }}</a></li>
+                    {% elseif (i > 0) and (i <= nbPage) %}
+                        <li class=" page"><a href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
 
-                    <?php if( $pagination["page"] < $pagination["numberPage"] - 4 ) : ?>
+                {% if page < (nbPage - 4) %}
                     <li>...</li>
-                    <?php endif; ?>
+                {% endif %}
 
-                    <?php if ($pagination["page"] == $pagination["numberPage"]) : ?>
-                    <li class="disabled"><a href=""><i class="material-icons">chevron_right</i></a></li>
-                    <li class="disabled"><a href=""><i class="material-icons">last_page</i></a></li>
-                    <?php else: ?>
-                    <li><a href="list.php?page=<?= $pagination["page"]+1 ?>&nbPage=<?= $pagination["limit"] ?>"><i class="material-icons">chevron_right</i></a></li>
-                    <li><a href="list.php?page=<?= $pagination["numberPage"] ?>&nbPage=<?= $pagination["limit"] ?>"><i class="material-icons">last_page</i></a></li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-            <?php endif; ?>#}
+                {% if page == nbPage %}
+                <li class="navigationDisable"><i class="fas fa-chevron-right"></i></li>
+                <li class="navigationDisable"><i class="fas fa-angle-double-right"></i></li>
+                {% else %}
+                <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ page + 1 }}"><i class="fas fa-chevron-right"></i></a></li>
+                <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ nbPage}}"><i class="fas fa-angle-double-right"></i></a></li>
+                {% endif %}
+            </ul>
         </div>
+
     </div>
 {% endblock %}
