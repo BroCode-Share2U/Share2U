@@ -114,13 +114,15 @@ class DefaultController extends Controller
         $search = $request->query->get('inputSearch');
         $headers = ['user-key' => ' 2d156ee0f911a8d4d7d0984c5ceff1ca ', 'Accept' => 'application/json'];
 
-        $request = new \GuzzleHttp\Psr7\Request(
+        $searchIgdb = 'https://api-2445582011268.apicast.io/games/?search='. $search . '&fields=name,summary,cover&filter[version_parent][not_exists]=1';
+
+        $requestIgdb = new \GuzzleHttp\Psr7\Request(
             'GET',
-            'https://api-2445582011268.apicast.io/games/?search='. $search . '&fields=name,summary,cover&filter[version_parent][not_exists]=1',
+            $searchIgdb,
             $headers
         );
 
-        $response = $client->send($request, ['timeout' => 2]);
+        $response = $client->send($requestIgdb, ['timeout' => 2]);
 
         return $response->getBody()->getContents();
     }
