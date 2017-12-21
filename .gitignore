@@ -11,4 +11,3 @@ var/
 config/config\.php
 \.idea/
 nbproject
-composer.lock
