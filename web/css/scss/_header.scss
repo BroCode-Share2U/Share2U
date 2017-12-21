@@ -193,14 +193,14 @@ nav{
   }
 }
 
+@media screen and (max-width: 600px) {
+  #headerMenuResponsiveTitle {
+    display: none;
+  }
+}
 @media screen and (max-width: 800px){
   header{
     display: none;
-  }
-  @media screen and (max-width: 600px) {
-    #headerMenuResponsiveTitle {
-      display: none;
-    }
   }
 
   #headerMenuResponsiveArea{
@@ -309,44 +309,44 @@ nav{
         height: 100%;
         width: 100vw;
         top: 0;
-      }
-
-      ul{
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 1rem;
-        width: 50%;
-        li{
-          margin: 0;
-          list-style: none;
-          padding: 0.2rem 0;
+        ul{
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 3rem;
+          width: 50%;
+          li{
+            margin: 0;
+            list-style: none;
+            padding: 0.2rem 0;
 
 
-          a{
-            padding: 1rem 2rem;
-            background-color: rgba(0,0,0,0.5);
-            color: var(--ColorFont);
-            font-size: 1.2rem;
+            a{
+              padding: 1rem 2rem;
+              background-color: rgba(0,0,0,0.5);
+              color: var(--ColorFont);
+              font-size: 1.2rem;
 
-            border: 1px solid lightgrey;
-            border-right: none;
-            border-top-left-radius: 50px;
-            border-bottom-left-radius: 50px;
-            box-shadow: 0 0 5px black;
-
-            display: block;
-            text-decoration: none;
-
-            &:hover{
-              background: rgba(0,0,0,0.8);
-              border: 1px solid var(--ColorGreen);
+              border: 1px solid lightgrey;
               border-right: none;
-              box-shadow: 0 0 10px rgba(255,255,255,0.5);
+              border-top-left-radius: 50px;
+              border-bottom-left-radius: 50px;
+              box-shadow: 0 0 5px black;
+
+              display: block;
+              text-decoration: none;
+
+              &:hover{
+                background: rgba(0,0,0,0.8);
+                border: 1px solid var(--ColorGreen);
+                border-right: none;
+                box-shadow: 0 0 10px rgba(255,255,255,0.5);
+              }
             }
           }
         }
       }
+
     }
 
     .headerMenuResponsiveBars{
