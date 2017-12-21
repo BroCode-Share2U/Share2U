@@ -42,7 +42,7 @@
             #pagination ul{
                 padding: 0;
                 color: #fff;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 text-align: center;
                 background-color: rgba(0,0,0 , 0.3);
                 border-radius: 2rem;
@@ -51,16 +51,16 @@
             }
             #pagination ul li{
                 display: inline-block;
-                margin: 0 1rem;
+                margin: 0 0.6rem;
             }
             #pagination .navigationDisable{
                 color: #bbb;
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 line-height: 2.5rem;
             }
             #pagination .navigation{
                 color: #fff;
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             #pagination li a{
                 color: #fff;
@@ -80,7 +80,7 @@
                     <li class="navigationDisable"><i class="fas fa-chevron-left"></i></li>
                 {% else %}
                     <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page=1"><i class="fas fa-angle-double-left"></i></a></li>
-                    <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ page }}"><i class="fas fa-chevron-left"></i></a></li>
+                    <li><a class="navigation" href="{{  path('searchItem') }}?searchString={{ searchString }}&page={{ page - 1 }}"><i class="fas fa-chevron-left"></i></a></li>
                 {% endif %}
 
                 {% if page > 5 %}
