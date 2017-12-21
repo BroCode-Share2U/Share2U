@@ -1,0 +1,32 @@
+{% extends "layoutHomepage.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    <div id="homepageFirstSection">
+        <div class="h1Text">
+            <h1>Share<span class="h1TextLetter">2</span>U</h1>
+        </div>
+        
+    {% if user is not null %}
+        <div id="homepageSearch">
+            <form action="{{ path('searchItem') }}" method="GET" class="inputBox">
+                <input id="homepageSearchInput" type="text" name="searchString" placeholder="search here">
+                <div class="buttonBox">
+                    <button id="homepageSearchBtn" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+
+    {% else %}
+        <div id="homepageButtons" class="buttonBox">
+            <a  href="{{ path('signup') }}">Register</a>
+            <a  href="{{ path('signin') }}">Sign In</a>
+        </div>
+    {% endif %}
+
+    </div>
+    <div id="homepageSecondSection">
+
+    </div>
+{% endblock %}

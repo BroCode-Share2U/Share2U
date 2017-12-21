@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <ul>
+        {% for user in users %}
+            <li>
+                <div>
+                     {{ user.id }}
+                     {{ user.username }}
+                     {{ user.firstname }}
+                     {{ user.lastname }}
+                      {{ user.email }}
+                    <div class="inputBox buttonBox">
+                            <button data-id-user="{{  user.id }}" class="deleteUser" ><i class="fa fa-trash"></i>Delete</button>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+<script>
+    $(function () {
+        $('.deleteUser' ). on('click', function (e) {
+            e.preventDefault();
+            var idUser = $(this).data('id-user');
+            var deleteBtn = $(this);
+            $.ajax({
+                url: 'user/' + idUser ,
+                method: "DELETE",
+                dataType: "JSON"
+            })
+                .done(function () {
+                    deleteBtn.fadeOut(100, function () {
+                        $(this).remove();
+                    })
+                });
+        });
+        setTimeout(function(){
+            $(document).ajaxStop(function(){
+                window.location.reload();
+            });
+        }, 250);
+    });
+</script>
+
+
+{% endblock %}

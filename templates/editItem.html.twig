@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    <div id="edititemMain">
+
+        <div class="h2Text">
+            <h2>Edit your game</h2>
+        </div>
+
+        <div class="cardBox">
+            <div class="insideCardBox1">
+                <div class="pictureBox">
+                    <img src="{{ item.cover }}" alt="card item picture">
+                </div>
+            </div>
+            <div class="insideCardBox2">
+                {#<div>{{ item.id }}</div>#}
+                <h4>{{ item.name }}</h4>
+                {#<div>{{ item.owner.id }}</div>#}
+                <div class="insideCardBox2Description">{{ item.description }}</div>
+                <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
+            </div>
+        </div>
+
+        <div id="additemSearchResult" style="display: none">
+            <div class="h2Text">
+                <h2>choose your game from below</h2>
+            </div>
+            <div id="additemArea"></div>
+        </div>
+
+        <div id="divFormEdit">
+            <div class="h2Text">
+                <h2>select the game platform<br/>and add a personal description</h2>
+            </div>
+            <div class="inputBox buttonBox">
+                {{ form(itemForm) }}
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $("#item_form_submit").html("<i class=\"fas fa-sync-alt\"></i>");
+    </script>
+{% endblock %}

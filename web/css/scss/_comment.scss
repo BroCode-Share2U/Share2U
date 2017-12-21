@@ -1,0 +1,121 @@
+#commentMain{
+  max-width: 40rem;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 6rem;
+  padding: 1rem;
+
+  .insideCardBox2Description{
+    text-align: center;
+    font-style: italic;
+    color: var(--ColorLightGrey);
+    text-shadow: 0 0 3px black;
+
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+
+    max-height: 3.4rem;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 5rem;
+    padding-left: 10rem;
+    z-index: -1;
+
+    &:before{
+      content: '"';
+    }
+    &:after{
+      content: '"';
+    }
+
+    .h4Text{
+      margin-top: 0.1rem;
+    }
+  }
+
+  .insideCardBox2{
+    margin-top: 0.1rem;
+  }
+
+  #commentCardBoxItemName{
+    color: var(--ColorFont);
+    font-size: 1.5rem;
+  }
+
+  .inputBox{
+    form{
+      #comment_form{
+        width: 100%;
+
+        div{
+          text-align: center;
+          position: relative;
+          margin: 0 auto;
+
+          textarea{
+            width: 100%;
+            height: 6.5rem;
+          }
+
+          &:nth-of-type(1){
+            label.required{
+              display: none;
+            }
+
+            #comment_form_rating{
+              margin: 1rem auto;
+              margin-top: 2rem;
+              input{
+                margin: 1rem;
+                position: relative;
+                height: 0.5rem;
+              }
+              label{
+                display: inline-block;
+                position: relative;
+                &:hover{
+                  box-shadow: 0 0 30px var(--ColorTitleShadow1);
+                  &:after{
+                    color: var(--ColorFont);
+                  }
+                }
+                &:after{
+                  content: "\2605";
+                  font-size: 3rem;
+                  color: var(--ColorTitle);
+                  position: absolute;
+                  top: -2.55rem;
+                  left: -3.5rem;
+                  text-shadow:
+                          1px 1px 2px rgba(255,255,255,0.2),
+                          -1px 1px 2px rgba(255,255,255,0.2),
+                          1px -1px 2px rgba(255,255,255,0.2),
+                          -1px -1px 2px rgba(255,255,255,0.2);
+
+                }
+              }
+              .itemSelect{
+                box-shadow: 0 0 30px white;
+                &:after{
+                  color: var(--ColorTitle);
+                }
+                ~:after{
+                  color: #A29F9B ;
+                  text-shadow:
+                          1px 1px 2px rgba(0,0,0,0.2),
+                          -1px 1px 2px rgba(0,0,0,0.2),
+                          1px -1px 2px rgba(0,0,0,0.2),
+                          -1px -1px 2px rgba(0,0,0,0.2)
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

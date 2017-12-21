@@ -1,0 +1,337 @@
+//PROFILE SECTION
+.stars{
+  display: inline-block;
+  position: relative;
+  font-size: 3rem;
+
+  z-index: -1;
+  text-shadow: 0 0 10px var(--ColorTitleShadow2);
+
+  &:before{
+    color: var(--ColorLightGrey);
+    content: '\2606\2606\2606\2606\2606';
+  }
+}
+
+.rank{
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  &:after{
+    content: '\2605\2605\2605\2605\2605';
+    color: var(--ColorTitle);
+  }
+}
+
+.score{
+  font-size: 50%;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+#dashBoardAddItemButton{
+  text-align: right;
+
+  button{
+    width: 11rem;
+    height: 3rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+
+    &:hover {
+      transition-duration: 0.3s;
+      border: 2px solid var(--ColorGreen);
+      box-shadow: 0 0 20px var(--ColorGreen);
+    }
+  }
+}
+
+//TAB SECTION
+#dashBoardMenuTab1{
+  .insideCardBox2{
+    h4{
+      margin: 0 !important;
+    }
+    .insideCardBox2Description{
+      top: 3.5rem;
+    }
+  }
+}
+
+#dashBoardTabSection{
+  position: relative;
+  margin: 0 auto;
+  max-width: 70rem;
+  min-width: 60rem;
+  display: flex;
+  flex-wrap: wrap;
+  
+  .dashBoardMenuTab{
+    padding-left: 2rem;
+    width: 85%;
+
+    outline: none;
+
+    h2{
+      color: var(--ColorFont);
+      font-size: 2rem;
+      margin: 0;
+      text-shadow: 0 0 10px black;
+      font-weight: lighter;
+    }
+
+    .cardBox{
+      margin: 1rem 1rem;
+      width: 80%;
+
+      &:last-child{
+        margin-bottom: 3rem;
+      }
+
+      .insideCardBox1{
+
+      }
+
+      .insideCardBox2{
+        h4{
+          margin-top: -0.8rem;
+        }
+        .insideCardBox2Description{
+          text-align: center;
+          font-style: italic;
+          color: var(--ColorLightGrey);
+          text-shadow: 0 0 3px black;
+
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+          background-color: rgba(0,0,0,0.3);
+          box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+
+          max-height: 3.4rem;
+          overflow-y: auto;
+          position: absolute;
+          right: 0;
+          left: 0;
+          padding-left: 10rem;
+          z-index: -1;
+
+          &:before{
+            content: '"';
+          }
+          &:after{
+            content: '"';
+          }
+        }
+
+        button{
+          background: rgba(0,0,0,0.2);
+          &:hover{
+            transition-duration:0.2s;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--ColorGreen);
+            box-shadow: 0 0 5px var(--ColorGreen);
+          }
+        }
+        & .deleteBtn{
+          color: var(--ColorRed);
+          width: 2.5rem;
+          height: 3rem;
+          text-align: center;
+          padding: 0;
+          padding-right: 0.3rem;
+
+          border-left: none;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+
+          position: absolute;
+          top: -4rem;
+          right: -3.2rem;
+
+          &:hover{
+            transition-duration: 0.2s;
+            border: 1px solid var(--ColorRed);
+            border-left: none;
+            box-shadow: 1px 0 5px var(--ColorRed);
+            width: 6rem;
+            right: -6.72rem;
+            &:hover{
+              :before{
+                font-size: 1.5rem;
+                font-family: arial;
+                content: 'X';
+                padding-right: 0;
+              }
+            }
+
+            i{
+              -webkit-transform: scale(1.2);
+              -moz-transform: scale(1.2);
+              -ms-transform: scale(1.2);
+              -o-transform: scale(1.2);
+              transform: scale(1.2);
+            }
+          }
+          i{
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+#dashBoardMenu{
+  width: 15%;
+  margin-bottom: 7rem;
+  padding-left: 1rem;
+
+  border-right: 2px solid white;
+  box-shadow: 2.5px 0 0 rgba(0,0,0,0.3);
+
+  .tablink{
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--ColorFont);
+    text-shadow: 0 0 10px black;
+
+    border: 1px solid var(--ColorFont);
+    border-right: none;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: transparent;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+    outline: none;
+    text-transform: uppercase;
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.7rem 0.5rem;
+    cursor: pointer;
+
+    &:hover{
+      background-color: rgba(0,0,0,0.25) !important;
+    }
+  }
+}
+
+.tablinkActive{
+  background-color: rgba(0,0,0,0.5) !important;
+  box-shadow: 0 0 5px var(--ColorGreen) !important;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+//RESPONSIVE
+@media screen and (max-width: 1130px){
+  .dashBoardMenuTab{
+    .cardBox{
+      width: 90% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 960px){
+  #dashBoardTabSection{
+    max-width: unset;
+    min-width: unset;
+  }
+
+  .dashBoardMenuTab{
+     padding-left: 1rem !important;
+   }
+
+  #dashBoardMenu{
+    button{
+      font-size: 0.9rem !important;
+    }
+  }
+}
+
+@media screen and (max-width: 850px){
+  #dashBoardTabSection{
+    .cardBox{
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px){
+  #dashBoardTabSection{
+    .cardBox{
+      .insideCardBox2{
+        .deleteBtn{
+          border: none;
+          border-radius: 100px !important;
+          width: 3rem !important;
+          padding: 0 !important;
+          top: -8rem !important;
+          right: -0.5rem !important;
+          background: none !important;
+          box-shadow: none !important;
+          &:hover{
+            border: none !important;
+
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 770px){
+  #dashBoardUserProfile{
+    margin: 0 auto;
+  }
+  #dashBoardProfilePicture{
+    margin: 0 auto;
+  }
+  #dashBoardProfileInformation{
+    position: static !important;
+    margin: 5rem auto;
+    width: 90% !important;
+  }
+  #dashBoardMenu{
+    position: relative;
+    min-height: 29.5rem;
+
+
+    a{
+      position: absolute;
+      right: -3.3rem;
+      top: 3rem;
+
+
+
+
+      margin: 0;
+      padding: 0.1rem 1rem;
+
+      &:nth-child(2){
+        top: 10rem;
+      }
+      &:nth-child(3){
+        top: 17rem;
+      }
+      &:nth-child(4){
+        top: 24rem;
+      }
+    }
+
+    .tablink{
+      height: 2.5rem;
+      line-height: 0.8rem;
+      width: 7rem;
+      transform: rotate(-90deg);
+      border-right: 1px solid var(--ColorFont);
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 50px;
+      border-bottom: none;
+    }
+  }
+}

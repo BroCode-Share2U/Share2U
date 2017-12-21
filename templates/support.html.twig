@@ -1,0 +1,51 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    <div id="supportMain">
+        <div class="starter-template">
+            <div class="h2Text">
+                {% if sent is not defined %}
+                    <h2>Contact Us</h2>
+                {% endif %}
+            </div>
+            <div class="h3Text">
+                {% if sent is not defined %}
+                <span>Want some help? Get in touch using the form below.</span>
+                {% endif %}
+            </div>
+        </div>
+        {% if sent is defined %}
+            <div class="h3Text">
+                <span>Thank you for getting in touch!<br/><br/>If a response is required<br/>we will get back to you as soon as we can</span>
+            </div>
+        {% else %}
+            <div class="h3Text">
+                <span><br/>Contact us using the form below and we'll get back in touch with you as soon as possible  .</span>
+            </div>
+            <form role="form" method="POST" action="{{ path('support') }}">
+                <div class="inputBox">
+                    <label for="name">FirstName</label>
+                    <input type="name" class="form-control" id="firstname" name="firstname" placeholder="Enter FirstName" required="required">
+                </div>
+                <div class="inputBox">
+                    <label for="name">LastName</label>
+                    <input type="name" class="form-control" id="lastname" name="lastname" placeholder="Enter LastName" required="required">
+                </div>
+
+                <div class="inputBox">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required="required">
+                </div>
+                <div class="inputBox">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" class="form-control" rows="3" placeholder="Enter Your Message" required="required" maxlength="500"></textarea>
+                </div>
+                <div class="inputBox buttonBox">
+                    <button type="submit" class="btn btn-default"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

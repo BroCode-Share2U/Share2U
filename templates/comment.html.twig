@@ -1,0 +1,57 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    {#{{ dump(loan) }}#}
+    <div id="commentMain">
+        <div class="cardBox">
+            <div class="insideCardBox1">
+                <div class="pictureBox">
+                    <img src="{{ loan.item.cover }}" alt="card item picture">
+                </div>
+            </div>
+            <div class="insideCardBox2">
+                {#<div>{{ item.id }}</div>#}
+                <h4>
+                {% if isBorrower %}
+                    <span>Rate your loan for: <br/></span>
+                {% elseif isLoaner %}
+                    <span>Rate your sharing for: <br/></span>
+                {% endif %}
+                <span id="commentCardBoxItemName">{{ loan.item.name }}</span>
+                {% if isBorrower %}
+                    <span><br/>from: {{ loan.item.owner.username }}</span>
+                {% elseif isLoaner %}
+                    <span><br/>to: {{ loan.borrower.username }}<br/></span>
+                {% endif %}
+                </h4>
+                {#<div>{{ item.owner.id }}</div>#}
+                <div class="insideCardBox2Description">{{ loan.item.description }}</div>
+                <div class="bottomPictureCardBox"><span>Posted on </span>{{ loan.item.insertedAt|date("m/d/Y") }}</div>
+            </div>
+        </div>
+        <div class="inputBox buttonBox">
+            {{form(commentForm)}}
+        </div>
+    </div>
+
+
+    <script>
+        $("#comment_form_submit").html("<i class=\"fas fa-paper-plane\"></i>");
+
+        $("#comment_form div:nth-of-type(2) label").html("Your comment");
+
+        function addListenerTr()
+        {
+            $('#comment_form_rating label').on('click', function ()
+            {
+                $('.itemSelect').removeClass('itemSelect');
+                $(this).addClass('itemSelect');
+            });
+        }
+        addListenerTr();
+
+
+    </script>
+{% endblock %}

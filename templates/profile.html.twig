@@ -1,0 +1,146 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+
+    <div id="UserProfile">
+        <div id="dashBoardProfilePicture">
+            <div class="pictureBox">
+                {% if viewedUser.gender ==0 %}
+                    <img src="https://s3.envato.com/files/133963251/pv_590.jpg" alt="male profile picture">
+                {% elseif viewedUser.gender ==1%}
+                    <img src="https://image.freepik.com/free-vector/beautiful-woman-in-pop-art-style_23-2147524176.jpg" alt="female profile picture">
+                {% else %}
+                    <img src="https://lh6.googleusercontent.com/-US-t-UBrhf4/VBKGm_9ITyI/AAAAAAAAf-I/xgfIcGrwFM4/w800-h800/pa19.jpg">
+                {% endif %}
+            </div>
+            <div id="dashBoardProfileRank">
+                <div class="stars">
+                    <div class="rank"></div>
+                    <div class="score">{{ (rating)|number_format(1, '.', ',') }}</div>
+                </div>
+            </div>
+        </div>
+        <div id="dashBoardProfileInformation" class="dashBoardProfileInformation">
+            <div id="dashboardGender">
+                {% if viewedUser.gender ==0 %}
+                    <i class="fas fa-mars" style="color:dodgerblue"></i>
+                {% elseif viewedUser.gender ==1 %}
+                    <i class="fas fa-venus" style="color:hotpink"></i>
+                {% elseif viewedUser.gender ==2 %}
+                    <i class="fas fa-transgender" style="color:lawngreen"></i>
+                {% else %}
+                    <i class="fas fa-genderless" style="color:orangered"></i>
+                {% endif %}
+            </div>
+            <div id="dashboardUsername">{{ viewedUser.username }}<br/></div>
+            <div id="dashboardFirstname">{{ viewedUser.firstname }}</div>
+            <div id="dashboardLastname">{{ viewedUser.lastname }}</div>
+            {% if viewedUser.description is empty%}
+            {% else %}
+                <div id="dashboardDescription">"{{ viewedUser.description }}"</div>
+            {% endif%}
+            <div id="dashboardInsertedDate"><span>Member since </span>{{ viewedUser.insertedAt|date("m/d/Y") }}</div>
+            {% if viewedUser.username == user.username %}
+                <div class="buttonBox">
+                    <a href="{{ path('editProfile') }}">
+                        <button  class="editProfileButton"><i class="fas fa-cog"></I></button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="dashBoardTabSection">
+        <div id="dashBoardMenu">
+            <a><button class="tablink tablinkActive" onclick="openLink(event, 'dashBoardMenuTab2')">Comments</button></a>
+            <a><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
+        </div>
+
+        <div id="dashBoardMenuTab2" class="dashBoardMenuTab">
+            <div>
+                {% if comments is not empty %}
+                    <h2>Comments</h2>
+                {% endif %}
+                {% for comment in comments %}
+                    <div class="cardBox">
+                        <div class="commentBox">
+                            <h4 class="h4Text">
+                                "{{ comment.text }}" <br/><span>by </span><a href="{{ path('user', { 'username': comment.author.username }) }}" id="userLinkCardBox">{{ comment.author.username }} </a>
+                            </h4>
+                            <div class="stars">
+                                <div class="rank" style="width: {{ (comment.rating)|number_format(1, '.', ',')*20 }}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="dashBoardMenuTab1" class="dashBoardMenuTab" style="display:none">
+            <div>
+                {% if items is not empty %}
+                    <h2>Owned Items</h2>
+                {% endif %}
+                {% for item in items %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': item.id }) }}"><img src="{{ item.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            {#<div>{{ item.id }}</div>#}
+                            <h4><a href="{{ path('item', { 'itemId': item.id }) }}">{{ item.name }}</a></h4>
+                            {#<div>{{ item.owner.id }}</div>#}
+                            <div class="insideCardBox2Description">
+                                {% if item.description is not empty %}
+                                    {{ item.description }}
+                                {% else %}
+                                    No description yet
+                                {% endif %}
+                            </div>
+                            <div class="bottomPictureCardBox"><span>Posted on </span>{{ item.insertedAt|date("m/d/Y") }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+
+    {#{% if viewedUser is defined and viewedUser is not null %}
+        You are viewing: {{ viewedUser.firstname }}
+    {% else %}
+    {% endif %}#}
+
+
+    <script>
+        function openLink(evt, menuTab) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("dashBoardMenuTab");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" tablinkActive", "");
+            }
+            document.getElementById(menuTab).style.display = "block";
+            evt.currentTarget.className += " tablinkActive";
+        }
+
+        (function() {
+            var x = $("#dashBoardProfileRank .score").html()*20;
+            $("#dashBoardProfileRank .rank").css('width', x+'%');
+
+        })();
+    </script>
+
+
+{% endblock %}

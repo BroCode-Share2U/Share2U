@@ -1,0 +1,167 @@
+#signupForm{
+  margin: 4rem auto;
+  background-color: transparent;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  width: 70rem;
+
+  form{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    div{
+      width: 49%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #submitArea{
+      margin: 2rem 0;
+      width: 100%;
+
+      div{
+        margin: 0 auto;
+
+        button{
+          margin: 2rem auto;
+        }
+      }
+    }
+
+    //INPUT SIZES
+    .userFormFirstname{
+      width: 50%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormLastname{
+      width: 50%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormEmail{
+      width: 100%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormUsername{
+      width: 69%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormGender{
+      width: 31%;
+      #user_form_gender{
+        font-size: 1.05rem;
+        padding: 0 0.5rem;
+
+        width: 100%;
+        height: 2.3rem;
+      }
+    }
+    .userFormPassword{
+      label{
+        display: none;
+      }
+      width: 100%;
+      div{
+        width: 100%;
+        position: relative;
+        input{
+          width: 100%;
+        }
+        label{
+        display: inline;
+        }
+      }
+    }
+    .userFormAddress1{
+      width: 100%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormAddress2{
+      width: 100%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormCity{
+      width: 40%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormZipCode{
+      width: 20%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormCountry{
+      width: 40%;
+      input{
+        width: 100%;
+      }
+    }
+    .userFormDescription{
+      width: 100%;
+      textarea{
+        width: 100%;
+        padding: 0.6rem 1rem;
+      }
+    }
+  }
+}
+
+#signupFormRedirectSignin{
+  margin: 1rem 0;
+}
+
+
+/*RESPONSIVE*/
+
+@media screen and (max-width: 1120px){
+  #signupForm{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 925px){
+  #signupForm {
+    margin-bottom: 0;
+    max-width: 40rem;
+    padding-bottom: 0;
+
+    #signupFormSection2{
+      margin-top: 4rem;
+    }
+  }
+
+  #signupForm form div{
+    width: 100%;
+  }
+
+  #editSignupfirstSection{
+    margin-bottom: 0 !important;
+  }
+}
+
+
+@media screen and (max-width: 490px){
+  #signupForm{
+    .userFormCountry, .userFormCity, .userFormZipCode{
+      width: 33.3% !important;
+    }
+    label{
+      font-size: 0.7rem;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+#signinForm{
+  width: 20rem;
+  margin: 7rem auto;
+
+  position: relative;
+
+  div{
+    margin: 0.5rem 0;
+  }
+
+  form{
+    margin: 1rem auto;
+  }
+
+  .inputBox{
+    width: 19rem;
+    margin: 0.5rem auto;
+
+    input{
+      width: 100%;
+    }
+  }
+
+  .errorText{
+    color: var(--ColorRed);
+    font-size: 1.5rem;
+
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .signinFormSubmit{
+    position: relative;
+    
+    button{
+      margin: 1.5rem auto;
+
+      position: absolute;
+      left: 0;
+      right: 0;
+    }
+    
+    a{
+      font-size: 0.8rem;
+      color: var(--ColorFont);
+      text-shadow: 0 0 5px var(--ColorBlue);
+
+      text-decoration: none;
+      position: absolute;
+      top: -0.5rem;
+      right: 0.5rem;
+    }
+  }
+}

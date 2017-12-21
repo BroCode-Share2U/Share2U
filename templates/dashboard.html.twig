@@ -1,0 +1,509 @@
+{% extends "layout.html.twig" %}
+
+{% block title '' %}
+
+{% block content %}
+    <div id="UserProfile">
+
+        <div id="dashBoardProfilePicture">
+            <div class="pictureBox">
+                {% if user.gender ==0 %}
+                    <img src="https://s3.envato.com/files/133963251/pv_590.jpg" alt="male profile picture">
+                {% elseif user.gender ==1%}
+                    <img src="https://image.freepik.com/free-vector/beautiful-woman-in-pop-art-style_23-2147524176.jpg" alt="female profile picture">
+                {% else %}
+                    <img src="https://lh6.googleusercontent.com/-US-t-UBrhf4/VBKGm_9ITyI/AAAAAAAAf-I/xgfIcGrwFM4/w800-h800/pa19.jpg">
+                {% endif %}
+            </div>
+            <div id="dashBoardProfileRank">
+                <div class="stars">
+                    <div class="rank"></div>
+                    <div class="score">{{ (averageRating)|number_format(1, '.', ',') }}</div>
+                </div>
+            </div>
+        </div>
+        <div id="dashBoardProfileInformation">
+            <div id="dashboardGender">
+                {% if user.gender ==0 %}
+                    <i class="fas fa-mars" style="color:dodgerblue"></i>
+                {% elseif user.gender ==1 %}
+                    <i class="fas fa-venus" style="color:hotpink"></i>
+                {% elseif user.gender ==2 %}
+                    <i class="fas fa-transgender" style="color:lawngreen"></i>
+                {% else %}
+                    <i class="fas fa-genderless" style="color:orangered"></i>
+                {% endif %}
+            </div>
+            <div id="dashboardUsername">{{ user.username }}<br/></div>
+            <div id="dashboardFirstname">{{ user.firstname }}</div>
+            <div id="dashboardLastname">{{ user.lastname }}</div>
+            {% if user.description is empty%}
+            {% else %}
+                <div id="dashboardDescription">"{{ user.description }}"</div>
+            {% endif%}
+            <div id="dashboardEmail"><i class="fas fa-envelope"></i> {{ user.email }}</div>
+            <div id="dashboardInsertedDate"><span>Member since </span>{{ user.insertedAt|date("m/d/Y") }}</div>
+            <div id="dashboardUpdatedDate"><span>Updated at </span>{{ user.updatedAt|date('m/d/Y') }}</div>
+            <div id="" class="buttonBox">
+                <a href="{{ path('editProfile') }}">
+                    <button class="editProfileButton"><i class="fas fa-cog"></i></button>
+                </a>
+            </div>
+            <div id="dashBoardAddItemButton" class="buttonBox">
+                <a href="{{ path('addItem') }}"><button>Add new game</button></a>
+            </div>
+        </div>
+    </div>
+
+
+
+<div id="dashBoardTabSection">
+        <div id="dashBoardMenu">
+            <a href="#Tab1"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab1')">Owned Items</button></a>
+            <a href="#Tab2"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab2')">Requests</button></a>
+            <a href="#Tab3"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab3')">In Progress</button></a>
+            <a href="#Tab4"><button class="tablink" onclick="openLink(event, 'dashBoardMenuTab4')">Finished</button></a>
+        </div>
+
+        <div id="dashBoardMenuTab1" class="dashBoardMenuTab" style="display: none">
+            <div>
+                <h2>Owned Items</h2>
+                {% for item in items %}
+                    <div class="cardBox">
+                            <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': item.id }) }}"><img src="{{ item.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">
+                                    {% if item.description is not empty %}
+                                        {{ item.description }}
+                                    {% else %}
+                                        No description yet
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {#<div>{{ item.id }}</div>#}
+                            <a href="{{ path('item', { 'itemId': item.id }) }}"><h4>{{ item.name }}</h4></a>
+                            {#<div>{{ item.owner.id }}</div>#}
+                            <div class="bottomPictureCardBox"><span>since </span>{{ item.insertedAt|date("m/d/Y") }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': item.id }) }}"><button>More</button></a>
+                                <a href="{{ path('editItem', { 'itemId': item.id }) }}"><button>Update</button></a>
+                                <button data-id-item="{{ item.id }}" class="deleteBtn"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="dashBoardMenuTab2" class="dashBoardMenuTab" style="display:none">
+            <div>
+                {% if requestsIn is not empty %}
+                    <h2>Received</h2>
+                {% endif %}
+                {% for loan in requestsIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a><br/>
+                                <span>requested:<br/>
+                                </span><a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                                <button data-id-loan="{{ loan.idLoan }}" class="acceptBtn">Accept</button>
+                                <button data-id-loan="{{ loan.idLoan }}" class="declineBtn">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% if requestsOut is not empty %}
+                    <h2>You Requested</h2>
+                {% endif %}
+                {% for loan in requestsOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You requested</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                to <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                                <button data-id-loan="{{ loan.idLoan }}" class="cancelBtn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(requestsOut) }}#}
+            </div>
+            <div>
+                {% if declineIn is not empty %}
+                    <h2>Declined</h2>
+                {% endif %}
+                {% for loan in declineIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You declined :</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for loan in declineOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }}</a><br/>
+                                <span>declined your request for</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% if cancelIn is not empty %}
+                    <h2>Canceled</h2>
+                {% endif %}
+                {% for loan in cancelIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a><br/>
+                                <span>canceled your request for</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for loan in cancelOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You canceled the request for:</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }}</a><br/>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }} <span>by </span><a id="userLinkCardBox" href="{{ path('user', { 'username': loan.usernameOwner }) }}">{{ loan.usernameOwner }}</a></div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="dashBoardMenuTab3" class="dashBoardMenuTab" style="display:none">
+            <div>
+                {% if loansIn is not empty %}
+                    <h2>Shared</h2>
+                {% endif %}
+                {% for loan in loansIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You shared: </span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                                <button data-id-loan="{{ loan.idLoan }}" class="finishBtn">Finish</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% if loansOut is not empty %}
+                    <h2>Borrowed</h2>
+                {% endif %}
+                {% for loan in loansOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You borrowed:</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>from </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(loansOut) }}#}
+            </div>
+        </div>
+
+        <div id="dashBoardMenuTab4" class="dashBoardMenuTab" style="display:none">
+            <div>
+                {% if closedLoansIn is not empty %}
+                    <h2>Finished Sharing</h2>
+                {% endif %}
+                {% for loan in closedLoansIn %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You shared: </span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>to </span><a href="{{ path('user', { 'username': loan.usernameBorrower }) }}" id="userLinkCardBox">{{ loan.usernameBorrower }} </a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                                <a href="{{ path('comment', { 'loanId': loan.idLoan }) }}"><button>Comment</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(closedLoansIn) }}#}
+            </div>
+            <div>
+                {% if closedLoansOut is not empty %}
+                    <h2>Finished Borrowing</h2>
+                {% endif %}
+                {% for loan in closedLoansOut %}
+                    <div class="cardBox">
+                        <div class="insideCardBox1">
+                            <div class="pictureBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><img src="{{ loan.cover }}" alt="card item picture"></a>
+                            </div>
+                        </div>
+                        <div class="insideCardBox2">
+                            <h4>
+                                <span>You borrowed:</span><br/>
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}">{{ loan.name }}</a><br/>
+                                <span>from </span><a href="{{ path('user', { 'username': loan.usernameOwner }) }}" id="userLinkCardBox">{{ loan.usernameOwner }} </a>
+                            </h4>
+                            <div class="insideCardBox2DescriptionArea">
+                                <div class="insideCardBox2Description">{{ loan.requestMessage }}</div>
+                            </div>
+                            <div class="bottomPictureCardBox"><span>since </span>{{ loan.requestedAt|date('m/d/Y') }}</div>
+                            <div class="buttonBox">
+                                <a href="{{ path('item', { 'itemId': loan.idItem }) }}"><button>More</button></a>
+                                <a href="{{ path('comment', { 'loanId': loan.idLoan }) }}"><button>Comment</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {#{{ dump(closedLoansOut) }}#}
+            </div>
+        </div>
+</div>
+
+    <script>
+        function openLink(evt, menuTab) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("dashBoardMenuTab");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" tablinkActive", "");
+            }
+            document.getElementById(menuTab).style.display = "block";
+            evt.currentTarget.className += " tablinkActive";
+        }
+
+        (function() {
+            var x = $(".score").html()*20;
+            $(".rank").css('width', x+'%');
+        })();
+
+        // recover existing tab in refresh
+        var hash = window.location.hash ? window.location.hash.replace(/#/, "") : "Tab1";
+        var tab = "dashBoardMenu" + hash;
+        $('#'+tab).show(0);
+        $('[href="#'+ hash +'"]').find('button').addClass('tablinkActive');
+
+        // loan api action
+        $(function () {
+
+            $('.acceptBtn').one('click', function ()
+            {
+                var idLoan = $(this).data('id-loan');
+                var acceptBtn = $(this);
+                $.ajax({
+                    url: "loan/accept/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+
+            $('.declineBtn').one('click', function () {
+                var idLoan = $(this).data('id-loan');
+                var declineBtn = $(this);
+                $.ajax({
+                    url: "loan/decline/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+
+            $('.finishBtn').one('click', function () {
+                var idLoan = $(this).data('id-loan');
+                var finishBtn = $(this);
+                $.ajax({
+                    url: "loan/close/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+
+            $('.cancelBtn').one('click', function () {
+                var idLoan = $(this).data('id-loan');
+                var cancelBtn = $(this);
+                $.ajax({
+                    url: "loan/cancel/" + idLoan,
+                    method: "PATCH",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+
+            $('.deleteBtn').one('click', function () {
+                var idItem = $(this).data('id-item');
+                var deleteBtn = $(this);
+                $.ajax({
+                    url: "item/" + idItem,
+                    method: "DELETE",
+                    dataType: "JSON"
+                })
+                    .done(function (data) {
+                        location.reload();
+                    })
+                    .fail(function (data) {
+
+                    });
+            });
+        })
+
+    </script>
+
+
+
+
+{% endblock %}

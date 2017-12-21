@@ -1,0 +1,32 @@
+body{
+  --ColorFont: white;
+  --ColorGreen: #18BBB0;
+  --ColorBlue: #6D63FF;
+  --ColorGrey:grey;
+  --ColorLightGrey:lightgrey;
+  --ColorRed:#FF512E;
+  --ColorRed2:#FF0A00;
+  --ColorButtonFocus:#18DED3;
+  --ColorButtonHover:#39DE7A;
+  --ColorInputBackground:#F8FEE1;
+
+  --ColorFocus:#309280;
+
+  --ColorTitle: #BBFFF7;
+  --ColorTitleLetter:white;
+  --ColorTitleShadow1:#4DA2FC;
+  --ColorTitleShadow2:#316BA1;
+  --ColorTitleShadow3:#183C48;
+}
+
+@font-face{
+  font-family: rustico;
+  src: url(font/Rustico-Regular.otf);
+}
+
+@font-face{
+  font-family: third-rail;
+  src: url(font/ThirdRail-Demo.ttf);
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');

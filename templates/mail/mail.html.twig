@@ -1,0 +1,28 @@
+
+
+{# The subject line. #}
+{%- block subject -%}{%- autoescape false -%}
+    Reset your password
+{%- endautoescape -%}{%- endblock -%}
+
+{# The HTML message. Optional. #}
+{%- block body_html -%}
+
+    <h1>Reset your password</h1>
+
+    <p>
+        Please <a href="http://localhost/Share2U/web/index_dev.php/reset_password?token ={{ token }}">click here to reset your password</a>
+    </p>
+
+    <hr style="margin-top: 30px;"/>
+    <p style="font-size: 13px;">
+        <strong>Didn't ask to reset your password?</strong>
+        <br/>
+        If you didn't ask to reset your password, it's likely that
+        another user entered your username or email address by mistake
+        while trying to reset their password. If that's the case, you
+        don't need to take any further action and you can safely
+        disregard this email.
+    </p>
+
+{%- endblock -%}

@@ -1,0 +1,27 @@
+#supportMain{
+  margin-top: 6rem;
+  .h3Text{
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+  form{
+    margin-top: 3rem;
+  }
+  .inputBox{
+    max-width: 30rem;
+    margin: 0 auto;
+    z-index: 1;
+
+    input,textarea{
+      width: 100%;
+    }
+    textarea{
+      height: 8rem;
+    }
+  }
+  .buttonBox{
+    text-align: center;
+    padding-top: 7rem;
+    z-index: 0;
+  }
+}

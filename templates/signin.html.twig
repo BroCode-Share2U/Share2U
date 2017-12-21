@@ -1,0 +1,45 @@
+{% extends "layoutUnlogged.html.twig" %}
+
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
+
+    {% if app.user %}
+        <p>Hello, {{ app.user.displayName }}.</p>
+        <p><a href="{{ path('user.logout') }}">Sign out</a></p>
+
+    {% else %}
+        <div id="signinForm">
+            <div class="h2Text">
+                <h2>Sign in</h2>
+            </div>
+
+            <div class="h4Text">
+                Don't have an account? <a href="{{ path('signup') }}">Register now</a>
+            </div>
+
+            {% if error %}
+                <div class="errorText">{{ error|nl2br }}</div>
+            {% endif %}
+
+            <form method="POST" action="{{ path('user_signin_check') }}">
+
+                <div class="inputBox">
+                    <label for="inputEmail">Username</label>
+                    <input name="_username" type="text" id="inputEmail" placeholder="..." required value="{{ last_username }}">
+                </div>
+
+                <div class="inputBox">
+                    <label for="inputPassword">Password</label>
+                    <input name="_password" type="password" id="inputPassword" required placeholder="...">
+                </div>
+
+                <div class="inputBox buttonBox signinFormSubmit">
+                    <button type="submit"><i class="fas fa-sign-in-alt"></i></button>
+                    <a  href="{{ path('forgot_password') }}">Forgot your password?</a>
+                </div>
+            </form>
+        </div>
+
+    {% endif %}
+{% endblock %}

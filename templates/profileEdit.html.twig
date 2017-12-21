@@ -1,0 +1,73 @@
+{% extends "layout.html.twig" %}
+
+{% block title 'Edit your profile' %}
+
+{% block content %}
+    <div id="signupForm" class="editSignupForm">
+        <div class="h2Text">
+            <h2>Edit your details</h2>
+        </div>
+
+        {{ form_start(editProfileForm) }}
+
+        <div id="editSignupfirstSection">
+            {#{{ form_errors(form) }}#}
+            <div class="inputBox userFormFirstname">
+                {{ form_label(editProfileForm.firstname) }}
+                {{ form_widget(editProfileForm.firstname) }}
+            </div>
+            <div class="inputBox userFormLastname">
+                {{ form_label(editProfileForm.lastname) }}
+                {{ form_widget(editProfileForm.lastname) }}
+            </div>
+            <div class="inputBox userFormGender">
+                {{ form_label(editProfileForm.gender) }}
+                {{ form_widget(editProfileForm.gender) }}
+            </div>
+            <div class="inputBox userFormPassword">
+                {{ form_label(editProfileForm.password) }}
+                {{ form_widget(editProfileForm.password) }}
+            </div>
+        </div>
+
+        <div id="signupFormSection2">
+            <div class="inputBox userFormAddress1">
+                {{ form_label(addressForm.address1) }}
+                {{ form_widget(addressForm.address1) }}
+            </div>
+            <div class="inputBox userFormAddress2">
+                {{ form_label(addressForm.address2) }}
+                {{ form_widget(addressForm.address2) }}
+            </div>
+            <div class="inputBox userFormCity">
+                {{ form_label(addressForm.city) }}
+                {{ form_widget(addressForm.city) }}
+            </div>
+            <div class="inputBox userFormZipCode">
+                {{ form_label(addressForm.zipCode) }}
+                {{ form_widget(addressForm.zipCode) }}
+            </div>
+            <div class="inputBox userFormCountry">
+                {{ form_label(addressForm.country) }}
+                {{ form_widget(addressForm.country) }}
+            </div>
+            <div class="inputBox userFormDescription">
+                {{ form_label(editProfileForm.description) }}
+                {{ form_widget(editProfileForm.description) }}
+            </div>
+        </div>
+        <div id="submitArea" class="buttonBox">
+            {{ form_row(editProfileForm.submit, { 'label': 'Submit' }) }}
+        </div>
+
+        {{ form_errors(editProfileForm) }}
+
+        {{ form_end(editProfileForm) }}
+    </div>
+
+
+    <script>
+        $("#edit_profile_form_submit").html("<i class=\"fas fa-sync-alt\"></i>");
+    </script>
+
+{% endblock %}

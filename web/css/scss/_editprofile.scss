@@ -1,0 +1,19 @@
+.editSignupForm{
+  .userFormFirstname{
+    width: 100% !important;
+  }
+  .userFormLastname{
+    width: 60% !important;
+  }
+  .userFormGender{
+    width: 40% !important;
+  }
+  #edit_profile_form_gender{
+    height: 2.5rem;
+    width: 100%;
+  }
+
+  #editSignupfirstSection{
+    margin-bottom: -1rem;
+  }
+}
