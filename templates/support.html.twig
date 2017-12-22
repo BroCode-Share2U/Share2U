@@ -20,6 +20,16 @@
             <div class="h3Text">
                 <span>Thank you for getting in touch!<br/><br/>If a response is required<br/>we will get back to you as soon as we can</span>
             </div>
+            <script>
+                $(function () {
+                    var delay = 5000;
+                    setTimeout(
+                        function(){
+                            window.location.href = "{{ url('support') }}";
+                        }, delay
+                    );
+                });
+            </script>
         {% else %}
             <div class="h3Text">
                 <span><br/>Contact us using the form below and we'll get back in touch with you as soon as possible  .</span>

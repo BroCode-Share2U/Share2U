@@ -229,8 +229,11 @@ class UserController extends Controller
             $user->setToken(null);
             $entityManager->persist($user);
             $entityManager->flush();
-            return $app->redirect($app['url_generator']->generate('homepage'));
-        }
+            $sent ="Your password has been reset .";
+
+            return $app['twig']->render('reset_password.html.twig', [
+                'sent' => $sent
+            ]);        }
         return $app['twig']->render('reset_password.html.twig', [
             'form' => $resetForm->createView()
         ]);
