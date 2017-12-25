@@ -172,9 +172,7 @@ class UserController extends Controller
 
         if ($forgetForm->isSubmitted() && $forgetForm->isValid()) {
             $dbUser = $entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
-            $length = 32;
-            $token = base64_encode(random_bytes($length));
-            $token = str_replace('+', '', $token);
+            $token = self::generateToken();
 
             $dbUser->setToken($token);
             $entityManager->flush();
