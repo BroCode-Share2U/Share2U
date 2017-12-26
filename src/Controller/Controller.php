@@ -65,7 +65,6 @@ abstract class Controller
     {
         $length = 32;
         $token = base64_encode(random_bytes($length));
-        $token = str_replace('+', '', $token);
         return $token;
     }
 }

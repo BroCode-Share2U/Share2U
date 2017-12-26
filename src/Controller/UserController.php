@@ -183,7 +183,7 @@ class UserController extends Controller
                 ->setTo($user->getEmail())
                 ->setBody($app['twig']->render('mail/mail.html.twig', [
                     'message' => $messageBody,
-                    'token'=> $token
+                    'token'=> urlencode($token)
                 ]),
                     'text/html'
                 );
@@ -205,7 +205,7 @@ class UserController extends Controller
     {
         $entityManager =self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
-        $token = $request->query->get('token_');
+        $token = $request->query->get('token');
         $user = $entityManager->getRepository(User::class)->findOneByToken($token);
 
         if (!$user) {
