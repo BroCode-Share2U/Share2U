@@ -171,23 +171,23 @@ class UserController extends Controller
         $forgetForm->handleRequest($request);
 
         if ($forgetForm->isSubmitted() && $forgetForm->isValid()) {
+            // store reset token
             $dbUser = $entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
             $token = self::generateToken();
-
             $dbUser->setToken($token);
             $entityManager->flush();
 
-            $messageBody = new \Swift_Message();
-            $messageBody->setSubject('Reset password')
+            $swiftMessage = new \Swift_Message();
+            $swiftMessage->setSubject('Reset password')
                 ->setFrom('share2u.contact@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody($app['twig']->render('mail/mail.html.twig', [
-                    'message' => $messageBody,
+                    'message' => $swiftMessage,
                     'token'=> urlencode($token)
                 ]),
                     'text/html'
                 );
-            $app['mailer']->send($messageBody);
+            $app['mailer']->send($swiftMessage);
             $sent ='Instructions to reset your password sent';
 
             return $app['twig']->render('forgot_password.html.twig', [
@@ -226,7 +226,7 @@ class UserController extends Controller
             $user->setToken(null);
             $entityManager->persist($user);
             $entityManager->flush();
-            $sent ="Your password has been reset .";
+            $sent ="Your password has been reset.";
 
             return $app['twig']->render('reset_password.html.twig', [
                 'sent' => $sent
@@ -276,7 +276,7 @@ class UserController extends Controller
         $viewedUser = $entityManager->getRepository(User::class)->findOneByUsername($username);
         if ($viewedUser === null)
         {
-            throw new NotFoundHttpException('User not Found not found');
+            throw new NotFoundHttpException('User not found.');
         }
         $sent = false;
 
