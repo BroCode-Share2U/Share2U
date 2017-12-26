@@ -56,11 +56,11 @@ $app->get('/signin', 'Controller\UserController::signinAction')
 $app->match('/signup', 'Controller\UserController::signupAction')
     ->bind('signup');
 /* forgot */
-$app->match('/forgot_password', 'Controller\UserController::forgotPasswordAction')
-    ->bind('forgot_password');
+$app->match('/forgotPassword', 'Controller\UserController::forgotPasswordAction')
+    ->bind('forgotPassword');
 /* reset */
-$app->match('/reset_password/', 'Controller\UserController::resetPasswordAction')
-    ->bind('reset_password');
+$app->match('/resetPassword', 'Controller\UserController::resetPasswordAction')
+    ->bind('resetPassword');
 /* admin panel */
 $app->get('/admin/user', 'Controller\UserController::adminPanelAction')
     ->bind('adminPanel');

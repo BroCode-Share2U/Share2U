@@ -62,8 +62,8 @@ $app->register(
             array('^/signup', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/about', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/support', 'IS_AUTHENTICATED_ANONYMOUSLY'),
-            array('^/forgot_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
-            array('^/reset_password', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/forgotPassword', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/resetPassword', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/admin/user/.+', 'ROLE_ADMIN'),
             array('^/.*$', 'ROLE_USER')
