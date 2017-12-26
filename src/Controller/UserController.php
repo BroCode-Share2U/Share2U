@@ -171,26 +171,23 @@ class UserController extends Controller
         $forgetForm->handleRequest($request);
 
         if ($forgetForm->isSubmitted() && $forgetForm->isValid()) {
+            // store reset token
             $dbUser = $entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
-            $sent ='';
-            $length = 32;
-            $token = base64_encode(random_bytes($length));
-            $token = str_replace('+', '', $token);
-
+            $token = self::generateToken();
             $dbUser->setToken($token);
             $entityManager->flush();
 
-            $messageBody = new \Swift_Message();
-            $messageBody->setSubject('Reset password')
+            $swiftMessage = new \Swift_Message();
+            $swiftMessage->setSubject('Reset password')
                 ->setFrom('share2u.contact@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody($app['twig']->render('mail/mail.html.twig', [
-                    'message' => $messageBody,
-                    'token'=> $token
+                    'message' => $swiftMessage,
+                    'token'=> urlencode($token)
                 ]),
                     'text/html'
                 );
-            $app['mailer']->send($messageBody);
+            $app['mailer']->send($swiftMessage);
             $sent ='Instructions to reset your password sent';
 
             return $app['twig']->render('forgot_password.html.twig', [
@@ -208,7 +205,7 @@ class UserController extends Controller
     {
         $entityManager =self::getEntityManager($app);
         $formFactory = self::getFormFactory($app);
-        $token = $request->query->get('token_');
+        $token = $request->query->get('token');
         $user = $entityManager->getRepository(User::class)->findOneByToken($token);
 
         if (!$user) {
@@ -229,7 +226,7 @@ class UserController extends Controller
             $user->setToken(null);
             $entityManager->persist($user);
             $entityManager->flush();
-            $sent ="Your password has been reset .";
+            $sent ="Your password has been reset.";
 
             return $app['twig']->render('reset_password.html.twig', [
                 'sent' => $sent
@@ -279,7 +276,7 @@ class UserController extends Controller
         $viewedUser = $entityManager->getRepository(User::class)->findOneByUsername($username);
         if ($viewedUser === null)
         {
-            throw new NotFoundHttpException('User not Found not found');
+            throw new NotFoundHttpException('User not found.');
         }
         $sent = false;
 
