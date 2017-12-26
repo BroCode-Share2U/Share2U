@@ -181,7 +181,7 @@ class UserController extends Controller
             $swiftMessage->setSubject('Reset password')
                 ->setFrom('share2u.contact@gmail.com')
                 ->setTo($user->getEmail())
-                ->setBody($app['twig']->render('mail/mail.html.twig', [
+                ->setBody($app['twig']->render('mail/resetMail.html.twig', [
                     'message' => $swiftMessage,
                     'token'=> urlencode($token)
                 ]),
@@ -287,7 +287,7 @@ class UserController extends Controller
             $message->setSubject($viewedUser->getUsername(). ' ')
                 ->setFrom($user->getEmail())
                 ->setTo($viewedUser->getEmail())
-                ->setBody($app['twig']->render('mail/contactUser.html.twig',
+                ->setBody($app['twig']->render('mail/contactUserMail.html.twig',
                     [
                         'message' => $messageBody,
                         'email' => $user->getEmail()

@@ -36,7 +36,7 @@ class DefaultController extends Controller
             $messagebody->setSubject('Hello , I need some help please?')
                 ->setFrom(array($request->get('email') =>$name ))
                 ->setTo('share2u.contact@gmail.com')
-                ->setBody($app['twig']->render('mail/mailSupport.html.twig', [
+                ->setBody($app['twig']->render('mail/supportMail.html.twig', [
                     'message' => $messagebody,
                     'message1' => $message1,
                     'email' => $email
