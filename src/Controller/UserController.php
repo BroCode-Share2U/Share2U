@@ -179,7 +179,7 @@ class UserController extends Controller
 
             $swiftMessage = new \Swift_Message();
             $swiftMessage->setSubject('Reset password')
-                ->setFrom('share2u.contact@gmail.com')
+                ->setFrom('share2u@wirion.io')
                 ->setTo($user->getEmail())
                 ->setBody($app['twig']->render('mail/resetMail.html.twig', [
                     'message' => $swiftMessage,
