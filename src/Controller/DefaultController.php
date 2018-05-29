@@ -33,9 +33,10 @@ class DefaultController extends Controller
             $message1 = $request->get('message');
 
             $messagebody = new \Swift_Message();
-            $messagebody->setSubject('Hello , I need some help please?')
-                ->setFrom(array($request->get('email') =>$name ))
-                ->setTo('share2u.contact@gmail.com')
+            $messagebody->setSubject('Help request from ' . $email)
+                ->setFrom(array('share2u@wirion.io'))
+                ->setTo('share2u@wirion.io')
+                ->setReplyTo($email)
                 ->setBody($app['twig']->render('mail/supportMail.html.twig', [
                     'message' => $messagebody,
                     'message1' => $message1,
